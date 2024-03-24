@@ -1,0 +1,1 @@
+<h2 class="text-xl font-semibold text-black dark:text-white text-center">Infirmary Integrated:<br>Electronic Health Record</h2>
