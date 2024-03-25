@@ -1,1 +1,6 @@
-<h2 class="text-xl font-semibold text-black dark:text-white text-center">Infirmary Integrated:<br>Electronic Health Record</h2>
+<img
+    src="{{asset('logo.short_ecg.svg')}}"
+    alt="Infirmary Integrated EHR Banner Logo"
+    height="50"
+    width="100"
+/>
