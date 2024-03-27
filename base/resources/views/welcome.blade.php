@@ -32,9 +32,7 @@
                                 </div>
 
                                 <div class="relative flex flex-col items-center justify-center ">
-
-                                <h2 class="text-xl font-semibold text-black dark:text-white">Infirmary Integrated: Electronic Health Record</h2>
-
+                                    <h2 class="text-xl font-semibold text-black dark:text-white">Infirmary Integrated: Electronic Health Record</h2>
                                 </div>
 
                                 @if (Route::has('login'))
