@@ -5,6 +5,26 @@
 Infirmary Integrated is free and open-source software suite consisting of the Infirmary Integrated Simulator, Scenario Editor, and Development Tools designed to advance healthcare education for medical and nursing professionals and students. Developed as in-depth, accurate, and accessible educational tools, Infirmary Integrated can meet the needs of clinical simulators in emergency, critical care, obstetric, and many other medical and nursing specialties.
 
 Infirmary Integrated's Electronic Health Record (EHR) is a simulated electronic health record for use in medical and nursing education.
+
+**Instructions for Setup**
+
+Installing the project files:
+1. Copy the repository to your web server of choice.
+2. Create the environment file `base/.env`... you may want to use `base/.env.example` as a template.
+3. Place your relevant database information in `base/.env`
+4. Install dependencies: `composer` and `npm`
+5. From the `base` directory, run `php artisan key:generate` to create a unique security key.
+6. From the `base` directory, run `php artisan migrate` to setup your database.
+
+Setting up your web server:
+1. Point your web server's web root to the folder `base/public`
+2. Ensure your web server is serving the site's folder with PHP enabled.
+3. You may use https://laravel.com/docs/11.x/deployment as a brief configuration guide.
+
+Configuring Infirmary Integrated: Electronic Health Record
+1. In a web browser, navigate to the project site's main page. If on the web server: `http://localhost`
+2. Register as a new user. The first user registered to the site automatically receives `administrator` privileges.
+3. Proceed into the Electronic Health Record and customize as you'd like!
 <br>
 ***
 <br>
