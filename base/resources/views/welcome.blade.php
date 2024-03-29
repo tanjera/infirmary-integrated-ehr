@@ -14,32 +14,32 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
-    <body class="font-sans antialiased dark:bg-black dark:text-white/50">
-        <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
+    <body class="font-sans antialiased">
+        <div class="bg-gray-50 text-black/50">
             <img id="background" class="absolute -left-20 top-0 max-w-[877px]" src="" />
 
             <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                 <div class="relative w-full max-w-3xl px-6 lg:max-w-7xl">
                     <main class="mt-6">
-                        <div class="grid gap-6 lg:grid-cols-1 lg:gap-8 flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
+                        <div class="grid gap-6 lg:grid-cols-1 lg:gap-8 flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10">
 
                                 <div class="relative flex w-full flex-1">
                                     <img
                                         src="{{asset('main.banner_ecg.svg')}}"
                                         alt="Infirmary Integrated EHR Banner Logo"
-                                        class="h-full w-full flex-1 rounded-[10px] object-top object-cover drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden"
+                                        class="h-full w-full flex-1 rounded-[10px] object-top object-cover drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)]"
                                     />
                                 </div>
 
                                 <div class="relative flex flex-col items-center justify-center ">
-                                    <h2 class="text-xl font-semibold text-black dark:text-white">Infirmary Integrated: Electronic Health Record</h2>
+                                    <h2 class="text-xl font-semibold text-black">Infirmary Integrated: Electronic Health Record</h2>
                                 </div>
 
                                 @if (Route::has('login'))
                                     @auth {{-- Already authenticated? --}}
                                         <div class="relative flex flex-col items-center selection:bg-[#FF2D20] selection:text-white">
-                                            <div class="relative max-w-sm px-3 items-center justify-center text-center gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
-                                            <a href="{{ url('/dashboard') }}" class="rounded-md py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white" style="font-weight: 700">
+                                            <div class="relative max-w-sm px-3 items-center justify-center text-center gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10">
+                                            <a href="{{ url('/dashboard') }}" class="rounded-md py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]" style="font-weight: 700">
                                                 Already Logged In<br>
                                                 Proceed to the Dashboard
                                             </a>
@@ -47,7 +47,7 @@
                                         </div>
                                     @else
                                         <div class="relative flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
-                                            <div class="relative max-w-sm justify-center gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
+                                            <div class="relative max-w-sm justify-center gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10">
                                                 @include('auth/login-snippet')
                                             </div>
                                         </div>
@@ -74,7 +74,7 @@
                         </div>
                     </main>
 
-                    <footer class="py-16 text-center text-sm text-black dark:text-white/70">
+                    <footer class="py-16 text-center text-sm text-black">
                         (c) 2024, Ibi Keller (tanjera)
                     </footer>
                 </div>

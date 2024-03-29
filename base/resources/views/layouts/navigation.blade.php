@@ -118,6 +118,34 @@
             </x-responsive-nav-link>
         </div>
 
+        @if (Auth::user()->role == 'administrator' || Auth::user()->role == 'clinician')
+            <div class="pt-4 pb-1 border-t border-gray-200">
+                <div class="px-4">
+                    <div class="font-medium text-base text-gray-800">Clinical</div>
+                </div>
+
+                <div class="pt-2 pb-3 px-3 space-y-1">
+                    <x-responsive-nav-link :href="route('patients')" :active="request()->routeIs('patients')">
+                        {{ __('Patients') }}
+                    </x-responsive-nav-link>
+                </div>
+            </div>
+        @endif
+
+        @if (Auth::user()->role == 'administrator')
+            <div class="pt-4 pb-1 border-t border-gray-200">
+                <div class="px-4">
+                    <div class="font-medium text-base text-gray-800">Administrative</div>
+                </div>
+
+                <div class="pt-2 pb-3 px-3 space-y-1">
+                    <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                        {{ __('Users') }}
+                    </x-responsive-nav-link>
+                </div>
+            </div>
+        @endif
+
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
