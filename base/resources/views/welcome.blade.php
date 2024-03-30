@@ -25,7 +25,7 @@
 
                                 <div class="relative flex w-full flex-1">
                                     <img
-                                        src="{{asset('main.banner_ecg.svg')}}"
+                                        src="{{asset('img/main.banner_ecg.svg')}}"
                                         alt="Infirmary Integrated EHR Banner Logo"
                                         class="h-full w-full flex-1 rounded-[10px] object-top object-cover drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)]"
                                     />

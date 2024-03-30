@@ -19,12 +19,15 @@ Installing the project files:
 Setting up your web server:
 1. Point your web server's web root to the folder `base/public`
 2. Ensure your web server is serving the site's folder with PHP enabled.
-3. You may use https://laravel.com/docs/11.x/deployment as a brief configuration guide.
+3. Ensure your web server has proper access to all files (e.g. ownership and write access, especially to base/storage and base/bootstrap/cache)
+4. You may use https://laravel.com/docs/11.x/deployment as a brief configuration guide.
 
 Configuring Infirmary Integrated: Electronic Health Record
 1. In a web browser, navigate to the project site's main page. If on the web server: `http://localhost`
 2. Register as a new user. The first user registered to the site automatically receives `administrator` privileges.
 3. Proceed into the Electronic Health Record and customize as you'd like!
+
+Enjoy!
 <br>
 ***
 <br>
