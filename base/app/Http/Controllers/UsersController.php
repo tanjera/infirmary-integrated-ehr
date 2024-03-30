@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\UsersDataTable;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function index(UsersDataTable $dataTable)
-    {
-        return $dataTable->render('users.index');
+    public function index(Request $req) {
+        $users = User::all();
+        return  view('users.index')->with("users", $users);
+
     }
 }
