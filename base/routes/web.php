@@ -21,6 +21,10 @@ Route::middleware(['auth', 'verified', 'role:clinician,administrator'])->group(f
 
 Route::middleware(['auth', 'verified', 'role:administrator'])->group(function() {
     Route::get('/users', [UsersController::class, 'index'])->name('users.index');
+    Route::get('/users/edit/{id}', [UsersController::class, 'edit']);
+    Route::post('/users/edit/{id}', [UsersController::class, 'update']);
+    Route::get('/users/delete/confirm/{id}', [UsersController::class, 'confirm'])->name('users.confirm');;
+    Route::get('/users/delete/process/{id}', [UsersController::class, 'delete']);
 });
 
 Route::middleware('auth')->group(function () {

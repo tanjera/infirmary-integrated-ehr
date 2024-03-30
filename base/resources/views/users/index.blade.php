@@ -5,25 +5,35 @@
             <div class="card">
                 <div class="card-header">Manage Users</div>
                 <div class="card-body table table-responsive">
-                    <table class="table mt-5">
+
+                    @if(Session::has('message'))
+                        <p class="alert">{!! Session::get('message') !!}</p>
+                        @foreach($errors->all() as $error)
+                            <p>{!! $error !!}</p>
+                        @endforeach
+                    @endif
+
+                    <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col" class="align-content-center text-sm">Name</th>
+                            <th scope="col" class="align-content-center text-sm">Email</th>
+                            <th scope="col" class="align-content-center text-sm">Role</th>
+                            <th scope="col" class="align-content-center text-sm">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         @if (count($users) > 0)
                             @foreach ($users as $user)
                                 <tr>
-                                    <td class="align-content-center">{{ $user->name }}</td>
-                                    <td class="align-content-center">{{ $user->email }}</td>
-                                    <td class="align-content-center">{{ $user->role }}</td>
-                                    <td class="align-content-center">
-                                        <a href="/edit/{{ $user->id }}" class="btn btn-primary px-3 py-1">Edit</a>
-                                        <a href="/delete/{{ $user->id }}" class="btn btn-danger px-3 py-1">Delete</a>
+                                    <td class="align-content-center text-sm">{{ $user->name }}</td>
+                                    <td class="align-content-center text-sm">{{ $user->email }}</td>
+                                    <td class="align-content-center text-sm">{{ ucfirst($user->role) }}</td>
+                                    <td class="align-content-center text-sm">
+                                        <a href="/users/edit/{{ $user->id }}" class="btn btn-outline-primary px-3 py-1 text-sm">Edit</a>
+                                        @if ($user->id != Auth::user()->id)
+                                            <a href="/users/delete/confirm/{{ $user->id }}" class="btn btn-outline-danger px-3 py-1 text-sm">Delete</a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
