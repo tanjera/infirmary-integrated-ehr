@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,7 @@ Route::middleware(['auth', 'verified', 'role:clinician,administrator'])->group(f
 });
 
 Route::middleware(['auth', 'verified', 'role:administrator'])->group(function() {
-    Route::get('/users', function () {
-        return view('users');
-    })->name('users');
+    Route::get('/users', [UsersController::class, 'index'])->name('users.index');
 });
 
 Route::middleware('auth')->group(function () {
