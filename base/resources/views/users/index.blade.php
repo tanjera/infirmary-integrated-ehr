@@ -3,7 +3,12 @@
     @section('content')
         <div class="container p-2">
             <div class="card">
-                <div class="card-header">Manage Users</div>
+                <div class="card-header grid grid-cols-2">
+                    <div class="flex items-center">Manage Users</div>
+                    <div class="flex justify-end">
+                        <a href="/users/create" class="btn btn-outline-success px-3 py-1 text-sm">Add User</a>
+                    </div>
+                </div>
                 <div class="card-body table table-responsive">
 
                     @if(Session::has('message'))

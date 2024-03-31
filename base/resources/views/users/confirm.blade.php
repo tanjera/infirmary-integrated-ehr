@@ -3,7 +3,7 @@
     @section('content')
         <div class="container p-2">
             <div class="card">
-                <div class="card-header">Confirm Deletion</div>
+                <div class="card-header flex items-center">Confirm Deletion</div>
                 <div class="card-body table table-responsive">
                     <p class="text-sm p-2">
                         Are you sure you want to delete this user?

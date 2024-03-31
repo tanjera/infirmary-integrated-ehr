@@ -3,10 +3,10 @@
     @section('content')
         <div class="container p-2">
             <div class="card">
-                <div class="card-header flex items-center">Edit User</div>
+                <div class="card-header flex items-center">Add User</div>
                 <div class="card-body table table-responsive">
 
-                <form method="POST" action="/users/edit/{{$user->id}}">
+                <form method="POST" action="/users/add">
                     @csrf
 
                     <table class="table">
@@ -20,7 +20,7 @@
                                 <x-text-input id="name" class="block mt-1 w-full text-sm"
                                               name="name"
                                               required
-                                value="{{$user->name}}"/>
+                                />
                             </td>
                         </tr>
 
@@ -32,8 +32,7 @@
                             <td class="text-sm">
                                 <x-text-input id="email" class="block mt-1 w-full text-sm"
                                               name="email"
-                                              required
-                                              value="{{$user->email}}"/>
+                                              required/>
                             </td>
                         </tr>
 
@@ -45,8 +44,7 @@
                             <td class="text-sm">
                                 <x-text-input id="password" class="block mt-1 w-full text-sm"
                                               name="password" type="password"
-                                              required autocomplete="current-password"
-                                              value="{{$user->password}}"/>
+                                              required autocomplete="current-password"/>
                             </td>
                         </tr>
 
@@ -57,19 +55,19 @@
 
                             <td class="text-sm">
                                 <select id="role" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="role" required>
-                                        <option value="administrator" {{$user->role == 'administrator' ? "selected" : ""}}>
+                                        <option value="administrator">
                                             Administrator
                                         </option>
 
-                                        <option value="manager" {{$user->role == 'manager' ? "selected" : ""}}>
+                                        <option value="manager">
                                             Manager
                                         </option>
 
-                                        <option value="clinician" {{$user->role == 'clinician' ? "selected" : ""}}>
+                                        <option value="clinician">
                                             Clinician
                                         </option>
 
-                                        <option value="unverified" {{$user->role == 'unverified' ? "selected" : ""}}>
+                                        <option value="unverified" selected>
                                             Unverified
                                         </option>
                                 </select>

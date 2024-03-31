@@ -11,6 +11,18 @@ class UsersController extends Controller
         $users = User::all();
         return view('users.index')->with("users", $users);
     }
+    public function create(Request $req){
+        return view('users.create');
+    }
+    public function add(Request $req){
+        $user = new User;
+        $user->name = $req->name;
+        $user->email = $req->email;
+        $user->password = $req->password;
+        $user->role = $req->role;
+        $user->save();
+        return redirect('/users')->with('message', '"' . $user->name .'" saved successfully!');
+    }
     public function edit(Request $req){
         $user = User::find($req->id);
         return view('users.edit')->with("user", $user);
