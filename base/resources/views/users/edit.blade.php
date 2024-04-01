@@ -56,7 +56,8 @@
                             </td>
 
                             <td class="text-sm">
-                                <select id="role" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="role" required>
+                                <select id="role" {{ $user->id == Auth::user()->id ? 'disabled' : '' }}
+                                        class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="role" required>
                                         <option value="administrator" {{$user->role == 'administrator' ? "selected" : ""}}>
                                             Administrator
                                         </option>
@@ -69,8 +70,8 @@
                                             Clinician
                                         </option>
 
-                                        <option value="unverified" {{$user->role == 'unverified' ? "selected" : ""}}>
-                                            Unverified
+                                        <option value="none" {{$user->role == 'none' ? "selected" : ""}}>
+                                            None
                                         </option>
                                 </select>
                             </td>

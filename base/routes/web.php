@@ -13,7 +13,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth', 'verified', 'role:clinician,administrator'])->group(function() {
+Route::middleware(['auth', 'verified', 'role:manager,administrator'])->group(function() {
     Route::get('/patients', function () {
         return view('patients');
     })->name('patients');

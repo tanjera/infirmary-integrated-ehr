@@ -67,8 +67,8 @@
                                             Clinician
                                         </option>
 
-                                        <option value="unverified" selected>
-                                            Unverified
+                                        <option value="none" selected>
+                                            None
                                         </option>
                                 </select>
                             </td>

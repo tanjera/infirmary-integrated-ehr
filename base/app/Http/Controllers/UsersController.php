@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UsersController extends Controller
 {
@@ -42,8 +43,13 @@ class UsersController extends Controller
         return view('users.confirm')->with("user", $user);
     }
     public function delete(Request $req){
+        // Never delete a user... may break old associations (e.g. in charting)
+        // Replace email (unique) w/ uuid to open email for future registrations
         $user = User::find($req->id);
-        $user->delete();
+        $user->update([
+            'active' => false,
+            'email' => $user->id
+        ]);
 
         return redirect('/users')->with('message', '"' . $user->name .'" deleted successfully!');
     }
