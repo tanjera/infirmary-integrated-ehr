@@ -12,15 +12,14 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Bootstrap -->
-        <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-        <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+        <link href="{{asset('vendor/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
+        <script src="{{asset('vendor/bootstrap/bootstrap.bundle.min.js')}}"></script>
 
-        <!-- jQuery -->
-        <script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
-
-        <!-- bootstrap-datepicker -->
-        <link href="{{asset('css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
-        <script src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
+        <!-- BladewindUI -->
+        <link href="{{ asset('vendor/bladewind/css/animate.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('vendor/bladewind/css/bladewind-ui.min.css') }}" rel="stylesheet" />
+        <script src="{{ asset('vendor/bladewind/js/helpers.js') }}"></script>
+        <script src="//unpkg.com/alpinejs" defer></script>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

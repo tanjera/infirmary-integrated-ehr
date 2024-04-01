@@ -67,7 +67,9 @@
                             </td>
 
                             <td class="text-sm">
-
+                                <x-text-input id="date_of_birth" class="block mt-1 w-full text-sm shadow-sm"
+                                              name="date_of_birth" type="datetime-local" value="1900-01-01T00:00"
+                                              required />
                             </td>
                         </tr>
 
