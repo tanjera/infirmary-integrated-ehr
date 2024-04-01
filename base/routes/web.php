@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Middleware;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,9 +15,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified', 'role:manager,administrator'])->group(function() {
-    Route::get('/patients', function () {
-        return view('patients');
-    })->name('patients');
+    Route::get('/patients', [PatientsController::class, 'index'])->name('patients.index');
+    Route::get('/patients/create', [PatientsController::class, 'create'])->name('patients.create');
+    Route::post('/patients/add', [PatientsController::class, 'add'])->name('patients.add');
+
 });
 
 Route::middleware(['auth', 'verified', 'role:administrator'])->group(function() {

@@ -32,7 +32,7 @@
                             </button>
                         </x-slot>
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('patients')">
+                            <x-dropdown-link :href="route('patients.index')">
                                 {{ __('Patients') }}
                             </x-dropdown-link>
                         </x-slot>
@@ -118,14 +118,14 @@
             </x-responsive-nav-link>
         </div>
 
-        @if (Auth::user()->role == 'administrator' || Auth::user()->role == 'clinician')
+        @if (Auth::user()->role == 'administrator' || Auth::user()->role == 'manager')
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="px-4">
                     <div class="font-medium text-base text-gray-800">Clinical</div>
                 </div>
 
                 <div class="pt-2 pb-3 px-3 space-y-1">
-                    <x-responsive-nav-link :href="route('patients')" :active="request()->routeIs('patients')">
+                    <x-responsive-nav-link :href="route('patients.index')" :active="request()->routeIs('patients')">
                         {{ __('Patients') }}
                     </x-responsive-nav-link>
                 </div>
