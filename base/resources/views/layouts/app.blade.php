@@ -15,6 +15,13 @@
         <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
         <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 
+        <!-- jQuery -->
+        <script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
+
+        <!-- bootstrap-datepicker -->
+        <link href="{{asset('css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
+        <script src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>

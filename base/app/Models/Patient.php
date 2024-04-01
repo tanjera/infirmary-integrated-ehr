@@ -27,4 +27,8 @@ class Patient extends Model
         'address',
         'telephone',
     ];
+
+    protected $casts = [
+        'date_of_birth' => 'datetime'
+    ];
 }

@@ -41,7 +41,19 @@
                                                 . (strlen($patient->name_preferred) == 0 ? '' : ' "' . $patient->name_preferred . '"')
                                             }}
                                         </td>
-                                        <td class="align-content-center text-sm">{{ $patient->date_of_birth }}</td>
+                                        <td class="align-content-center text-sm">
+                                            {{ is_null($patient->date_of_birth) ? '' : $patient->date_of_birth->format('d M o') }}
+                                            @php
+                                                if (!is_null($patient->date_of_birth)) {
+                                                    $diff = $patient->date_of_birth->diff($patient->created_at);
+                                                    if ($diff->y > 0) echo '(' . $diff->y . ' years)';
+                                                    else if ($diff->m > 0) echo '(' . $diff->m . ' months)';
+                                                    else if ($diff->d > 0) echo '(' . $diff->d . ' days)';
+                                                    else if ($diff->h > 0) echo '(' . $diff->h . ' hours)';
+                                                    else if ($diff->i > 0) echo '(' . $diff->i . ' minutes)';
+                                                }
+                                            @endphp
+                                        </td>
                                         <td class="align-content-center text-sm">{{ ucfirst($patient->sex) }} / {{ ucfirst($patient->gender) }}</td>
                                         <td class="align-content-center text-sm">
                                             <a href="/patients/edit/{{ $patient->id }}" class="btn btn-outline-primary px-3 py-1 text-sm">Edit</a>

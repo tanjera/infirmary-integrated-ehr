@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name_middle')->nullable();
             $table->string('name_last')->nullable();
             $table->string('name_preferred')->nullable();
-            $table->date('date_of_birth')->nullable();
+            $table->timestamp('date_of_birth')->nullable();
             $table->string('medical_record_number')->unique();
             $table->enum('sex', ['unknown', 'female', 'male'])->default('unknown');
             $table->enum('gender', ['unknown', 'female', 'male', 'transgender', 'non_binary'])->default('unknown');
