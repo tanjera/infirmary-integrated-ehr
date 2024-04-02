@@ -18,6 +18,8 @@ Route::middleware(['auth', 'verified', 'role:manager,administrator'])->group(fun
     Route::get('/patients', [PatientsController::class, 'index'])->name('patients.index');
     Route::get('/patients/create', [PatientsController::class, 'create'])->name('patients.create');
     Route::post('/patients/add', [PatientsController::class, 'add'])->name('patients.add');
+    Route::get('/patients/delete/confirm/{id}', [PatientsController::class, 'confirm'])->name('patients.confirm');
+    Route::get('/patients/delete/process/{id}', [PatientsController::class, 'delete'])->name('patients.delete');
 
 });
 

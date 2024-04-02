@@ -36,4 +36,19 @@ class PatientsController extends Controller
 
         return redirect('/patients')->with('message', 'Patient #' . $req->medical_record_number . ' saved successfully!');
     }
+    public function confirm(Request $req){
+        $patient = Patient::find($req->id);
+        return view('patients.confirm')->with("patient", $patient);
+    }
+    public function delete(Request $req){
+        // Never delete a patient... may break old associations (e.g. in charting)
+        // Replace MRN (unique) w/ uuid to open MRN for future registrations
+        $patient = Patient::find($req->id);
+        $patient->update([
+            'active' => false,
+            'medical_record_number' => $patient->id
+        ]);
+
+        return redirect('/patients')->with('message', 'Patient #' . $patient->medical_record_number .' deleted successfully!');
+    }
 }

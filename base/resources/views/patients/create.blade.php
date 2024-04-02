@@ -3,7 +3,7 @@
     @section('content')
         <div class="container p-2">
             <div class="card">
-                <div class="card-header flex items-center">Add User</div>
+                <div class="card-header flex items-center">Add Patient</div>
                 <div class="card-body table table-responsive">
 
                 <form method="POST" action="/patients/add">

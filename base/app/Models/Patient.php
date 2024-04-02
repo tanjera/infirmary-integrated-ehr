@@ -11,6 +11,7 @@ class Patient extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
+        'active',
         'name_first',
         'name_middle',
         'name_last',
