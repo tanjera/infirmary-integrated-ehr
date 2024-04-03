@@ -6,7 +6,7 @@ use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class PatientsController extends Controller
+class PatientController extends Controller
 {
     public function index(Request $req) {
         $patients = Patient::all();
@@ -68,8 +68,6 @@ class PatientsController extends Controller
             'pronouns' => 'required',
             'code_status' => 'required',
         ]);
-
-
 
         $patient->update([
             'name_first' => $req->name_first,

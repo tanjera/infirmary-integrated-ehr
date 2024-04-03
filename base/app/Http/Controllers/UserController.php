@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     public function index(Request $req) {
         $users = User::all();
@@ -38,6 +38,10 @@ class UsersController extends Controller
     }
     public function update(Request $req){
         $user = User::find($req->id);
+
+        if (is_null($req->role)) {
+            $req->request->add(['role' => $user->role]);
+        }
 
         $validated = $req->validate([
             'name' => 'required',

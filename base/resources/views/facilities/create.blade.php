@@ -3,7 +3,7 @@
     @section('content')
         <div class="container p-2">
             <div class="card">
-                <div class="card-header flex items-center">Edit User</div>
+                <div class="card-header flex items-center">Add Facility (Unit/Ward)</div>
                 <div class="card-body table table-responsive">
 
                     @if ($errors->any())
@@ -16,7 +16,7 @@
                         </div>
                     @endif
 
-                <form method="POST" action="/users/edit/{{$user->id}}">
+                <form method="POST" action="/facilities/add">
                     @csrf
 
                     <table class="table">
@@ -30,57 +30,55 @@
                                 <x-text-input id="name" class="block mt-1 w-full text-sm"
                                               name="name"
                                               required
-                                value="{{$user->name}}"/>
+                                />
                             </td>
                         </tr>
 
                         <tr>
                             <td class="text-sm align-content-center">
-                                <x-input-label for="email" :value="__('Email')" />
+                                <x-input-label for="acronym" :value="__('Acronym')" />
                             </td>
 
                             <td class="text-sm">
-                                <x-text-input id="email" class="block mt-1 w-full text-sm"
-                                              name="email"
+                                <x-text-input id="acronym" class="block mt-1 w-full text-sm"
+                                              name="acronym"
                                               required
-                                              value="{{$user->email}}"/>
+                                />
                             </td>
                         </tr>
 
                         <tr>
                             <td class="text-sm align-content-center">
-                                <x-input-label for="password" :value="__('Password')" />
+                                <x-input-label for="type" :value="__('Type')" />
                             </td>
 
                             <td class="text-sm">
-                                <x-text-input id="password" class="block mt-1 w-full text-sm"
-                                              name="password" type="password"
-                                              required autocomplete="current-password"
-                                              value="{{$user->password}}"/>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="text-sm align-content-center">
-                                <x-input-label for="role" :value="__('Role')" />
-                            </td>
-
-                            <td class="text-sm">
-                                <select id="role" {{ $user->id == Auth::user()->id ? 'disabled' : '' }}
-                                        class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="role" required>
-                                        <option value="administrator" {{$user->role == 'administrator' ? "selected" : ""}}>Administrator</option>
-                                        <option value="manager" {{$user->role == 'manager' ? "selected" : ""}}>Manager</option>
-                                        <option value="clinician" {{$user->role == 'clinician' ? "selected" : ""}}>Clinician</option>
-                                        <option value="none" {{$user->role == 'none' ? "selected" : ""}}>None</option>
+                                <select id="type" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="type" required>
+                                        <option value="inpatient"> Inpatient </option>
+                                        <option value="outpatient"> Outpatient </option>
                                 </select>
                             </td>
                         </tr>
+
+                        <tr>
+                            <td class="text-sm align-content-center">
+                                <x-input-label for="rooms" :value="__('Number of Rooms')" />
+                            </td>
+
+                            <td class="text-sm">
+                                <x-text-input id="rooms" class="block mt-1 w-full text-sm"
+                                              name="rooms" type="number"
+                                              required
+                                />
+                            </td>
+                        </tr>
+
                         </tbody>
                     </table>
 
                     <div class="relative grid grid-cols-2 flex w-auto gap-6 p-2 items-center">
                         <div class="flex justify-center">
-                            <a href="/users" class="btn btn-outline-primary px-3 py-1 text-sm">Cancel</a>
+                            <a href="/facilities" class="btn btn-outline-primary px-3 py-1 text-sm">Cancel</a>
                         </div>
                         <div class="flex justify-center">
                             <button type="submit" class="btn btn-outline-danger px-3 py-1 text-sm">Save</button>

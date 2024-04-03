@@ -35,6 +35,10 @@
                             <x-dropdown-link :href="route('patients.index')">
                                 {{ __('Patients') }}
                             </x-dropdown-link>
+
+                            <x-dropdown-link :href="route('facilities.index')">
+                                {{ __('Facilities') }}
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>
@@ -127,6 +131,10 @@
                 <div class="pt-2 pb-3 px-3 space-y-1">
                     <x-responsive-nav-link :href="route('patients.index')" :active="request()->routeIs('patients')">
                         {{ __('Patients') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-nav-link :href="route('facilities.index')" :active="request()->routeIs('facilities')">
+                        {{ __('Facilities') }}
                     </x-responsive-nav-link>
                 </div>
             </div>
