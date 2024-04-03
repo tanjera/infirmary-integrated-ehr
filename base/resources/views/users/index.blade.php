@@ -11,6 +11,16 @@
                 </div>
                 <div class="card-body table table-responsive">
 
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     @if(Session::has('message'))
                         <p class="alert">{!! Session::get('message') !!}</p>
                         @foreach($errors->all() as $error)

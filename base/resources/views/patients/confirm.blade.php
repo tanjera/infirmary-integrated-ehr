@@ -4,7 +4,18 @@
         <div class="container p-2">
             <div class="card">
                 <div class="card-header flex items-center">Confirm Deletion</div>
-                <div class="card-body table table-responsive">
+                <div class="card-body table table-responsive">,
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <p class="text-sm p-2">
                         Are you sure you want to delete this patient?
                     </p>

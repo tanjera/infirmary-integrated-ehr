@@ -6,6 +6,16 @@
                 <div class="card-header flex items-center">Add User</div>
                 <div class="card-body table table-responsive">
 
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                 <form method="POST" action="/users/add">
                     @csrf
 

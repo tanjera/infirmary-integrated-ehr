@@ -6,6 +6,16 @@
                 <div class="card-header flex items-center">Edit User</div>
                 <div class="card-body table table-responsive">
 
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                 <form method="POST" action="/users/edit/{{$user->id}}">
                     @csrf
 
@@ -62,17 +72,9 @@
                                             Administrator
                                         </option>
 
-                                        <option value="manager" {{$user->role == 'manager' ? "selected" : ""}}>
-                                            Manager
-                                        </option>
-
-                                        <option value="clinician" {{$user->role == 'clinician' ? "selected" : ""}}>
-                                            Clinician
-                                        </option>
-
-                                        <option value="none" {{$user->role == 'none' ? "selected" : ""}}>
-                                            None
-                                        </option>
+                                        <option value="manager" {{$user->role == 'manager' ? "selected" : ""}}>Manager</option>
+                                        <option value="clinician" {{$user->role == 'clinician' ? "selected" : ""}}>Clinician</option>
+                                        <option value="none" {{$user->role == 'none' ? "selected" : ""}}>None</option>
                                 </select>
                             </td>
                         </tr>
