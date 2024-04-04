@@ -47,7 +47,7 @@ class PatientController extends Controller
             'telephone' => $req->telephone
         ]);
 
-        return redirect('/patients')->with('message', 'Patient #' . $req->medical_record_number . ' saved successfully!');
+        return redirect('/patients')->with('message', "Patient #$req->medical_record_number saved successfully!");
     }
     public function edit(Request $req){
         $patient = Patient::find($req->id);
@@ -87,7 +87,7 @@ class PatientController extends Controller
             'telephone' => $req->telephone
         ]);
 
-        return redirect('/patients')->with('message', 'Patient #' . $patient->medical_record_number . ' saved successfully!');
+        return redirect('/patients')->with('message', "Patient #$patient->medical_record_number saved successfully!");
     }
     public function confirm(Request $req){
         $patient = Patient::find($req->id);
@@ -102,6 +102,6 @@ class PatientController extends Controller
             'medical_record_number' => $patient->id
         ]);
 
-        return redirect('/patients')->with('message', 'Patient #' . $patient->medical_record_number .' deleted successfully!');
+        return redirect('/patients')->with('message', "Patient #$patient->medical_record_number deleted successfully!");
     }
 }

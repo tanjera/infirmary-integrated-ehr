@@ -14,7 +14,7 @@ class RoomController extends Controller
             if ($existing->where('number', $i)->count() == 0) {
                 Room::create([
                     'facility' => $facility,
-                    'number' => $i,
+                    'number' => $i + 1,
                 ]);
             }
         }

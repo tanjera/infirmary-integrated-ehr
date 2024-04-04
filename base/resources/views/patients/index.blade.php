@@ -46,9 +46,9 @@
                                         <td class="align-content-center text-sm">{{ $patient->medical_record_number }}</td>
                                         <td class="align-content-center text-sm">
                                             {{
-                                                $patient->name_last . ', ' . $patient->name_first
-                                                . (strlen($patient->name_middle) == 0 ? '' : ' ' . $patient->name_middle)
-                                                . (strlen($patient->name_preferred) == 0 ? '' : ' "' . $patient->name_preferred . '"')
+                                                "$patient->name_last, $patient->name_first"
+                                                . (strlen($patient->name_middle) == 0 ? "" : " $patient->name_middle")
+                                                . (strlen($patient->name_preferred) == 0 ? "" : " '$patient->name_preferred'")
                                             }}
                                         </td>
                                         <td class="align-content-center text-sm">

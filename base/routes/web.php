@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Middleware;
+use App\Http\Controllers\CensusController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
@@ -12,9 +14,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::get('/census/facility', [CensusController::class, 'facility_index'])->name('census.facility');
+    Route::get('/census/unit/{id}', [CensusController::class, 'unit_index'])->name('census.unit');
+
+    Route::get('/chart/dashboard/{id}', [ChartController::class, 'dashboard'])->name('chart.dashboard');
+});
+
 
 Route::middleware(['auth', 'verified', 'role:manager,administrator'])->group(function() {
     Route::get('/patients', [PatientController::class, 'index'])->name('patients.index');

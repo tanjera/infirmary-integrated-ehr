@@ -39,7 +39,7 @@
                                     @auth {{-- Already authenticated? --}}
                                         <div class="relative flex flex-col items-center selection:bg-[#FF2D20] selection:text-white">
                                             <div class="relative max-w-sm px-3 items-center justify-center text-center gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10">
-                                            <a href="{{ url('/dashboard') }}" class="rounded-md py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]" style="font-weight: 700">
+                                            <a href="{{ url('/census/facility') }}" class="rounded-md py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]" style="font-weight: 700">
                                                 Already Logged In<br>
                                                 Proceed to the Dashboard
                                             </a>

@@ -30,7 +30,7 @@ class UserController extends Controller
             'role' => $req->role
         ]);
 
-        return redirect('/users')->with('message', '"' . $req->email .'" saved successfully!');
+        return redirect('/users')->with('message', "'$req->email' saved successfully!");
     }
     public function edit(Request $req){
         $user = User::find($req->id);
@@ -56,7 +56,7 @@ class UserController extends Controller
             'password' => $req->password,
             'role' => $req->role,
         ]);
-        return redirect('/users')->with('message', '"' . $user->name .'" saved successfully!');
+        return redirect('/users')->with('message', "'$user->name' saved successfully!");
     }
     public function confirm(Request $req){
         $user = User::find($req->id);
@@ -71,6 +71,6 @@ class UserController extends Controller
             'email' => $user->id
         ]);
 
-        return redirect('/users')->with('message', '"' . $user->name .'" deleted successfully!');
+        return redirect('/users')->with('message', "'$user->name' deleted successfully!");
     }
 }

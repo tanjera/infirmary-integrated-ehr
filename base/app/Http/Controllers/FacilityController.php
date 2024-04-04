@@ -33,7 +33,7 @@ class FacilityController extends Controller
 
         RoomController::populate($facility->id, $req->rooms);
 
-        return redirect('/facilities')->with('message', 'Facility "' . $req->name . '" saved successfully!');
+        return redirect('/facilities')->with('message', "'$req->name' saved successfully!");
     }
     public function edit(Request $req){
         $facility = Facility::find($req->id);
@@ -60,7 +60,7 @@ class FacilityController extends Controller
 
         RoomController::populate($facility->id, $req->rooms);
 
-        return redirect('/facilities')->with('message', 'Facility "' . $req->name . '" saved successfully!');
+        return redirect('/facilities')->with('message', "'$req->name' saved successfully!");
     }
     public function confirm(Request $req){
         $facility = Facility::find($req->id);
@@ -70,6 +70,6 @@ class FacilityController extends Controller
         $facility = Facility::find($req->id);
         $facility->delete();
 
-        return redirect('/facilities')->with('message', 'Facility "' . $facility->name .'" deleted successfully!');
+        return redirect('/facilities')->with('message', "'$facility->name' deleted successfully!");
     }
 }
