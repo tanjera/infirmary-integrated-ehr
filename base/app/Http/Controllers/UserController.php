@@ -20,14 +20,16 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
-            'role' => 'required'
+            'role' => 'required',
+            'license' => 'required'
         ]);
 
         User::create([
             'name' => $req->name,
             'email' => $req->email,
             'password' => $req->password,
-            'role' => $req->role
+            'role' => $req->role,
+            'license' => $req->license
         ]);
 
         return redirect('/users')->with('message', "'$req->email' saved successfully!");
@@ -47,7 +49,8 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
-            'role' => 'required'
+            'role' => 'required',
+            'license' => 'required'
         ]);
 
         $user->update([
@@ -55,7 +58,9 @@ class UserController extends Controller
             'email' => $req->email,
             'password' => $req->password,
             'role' => $req->role,
+            'license' => $req->license
         ]);
+
         return redirect('/users')->with('message', "'$user->name' saved successfully!");
     }
     public function confirm(Request $req){

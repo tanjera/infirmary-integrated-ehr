@@ -23,7 +23,6 @@ class CensusController extends Controller
         $patient_ids = $rooms->pluck('patient');
         $patients = Patient::whereIn('id', $patient_ids)->get();
 
-
         return view('census.unit')->with("facility", $facility)->with("patients", $patients)->with("rooms", $rooms);
     }
 }

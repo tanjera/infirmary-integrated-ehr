@@ -67,14 +67,35 @@
 
                             <td class="text-sm">
                                 <select id="role" {{ $user->id == Auth::user()->id ? 'disabled' : '' }}
-                                        class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="role" required>
-                                        <option value="administrator" {{$user->role == 'administrator' ? "selected" : ""}}>Administrator</option>
-                                        <option value="manager" {{$user->role == 'manager' ? "selected" : ""}}>Manager</option>
-                                        <option value="clinician" {{$user->role == 'clinician' ? "selected" : ""}}>Clinician</option>
-                                        <option value="none" {{$user->role == 'none' ? "selected" : ""}}>None</option>
+                                        class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        name="role" required>
+                                    @foreach(\App\Models\User::$roles_index as $role)
+                                        <option value="{{ $role }}" {{ $role == $user->role ? "selected" : ""}}>
+                                            {{ ucfirst($role) }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </td>
                         </tr>
+
+                        <tr>
+                            <td class="text-sm align-content-center">
+                                <x-input-label for="license" :value="__('License')" />
+                            </td>
+
+                            <td class="text-sm">
+                                <select id="license"
+                                class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        name="license" required>
+                                    @foreach(\App\Models\User::$licenses_index as $license)
+                                        <option value="{{ $license }}" {{ $license == $user->license ? "selected" : ""}}>
+                                            {{ \App\Models\User::$licenses_text[array_search($license, \App\Models\User::$licenses_index)] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
+
                         </tbody>
                     </table>
 

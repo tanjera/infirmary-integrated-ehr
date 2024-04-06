@@ -34,7 +34,7 @@
                             <th scope="col" class="align-content-center text-sm">Medical Record #</th>
                             <th scope="col" class="align-content-center text-sm">Name</th>
                             <th scope="col" class="align-content-center text-sm">Date of Birth</th>
-                            <th scope="col" class="align-content-center text-sm">Sex / Gender</th>
+                            <th scope="col" class="align-content-center text-sm">Room</th>
                             <th scope="col" class="align-content-center text-sm">Actions</th>
                         </tr>
                         </thead>
@@ -42,6 +42,9 @@
                         @if (count($patients) > 0)
                             @foreach ($patients as $patient)
                                 @if ($patient->active == true)
+                                    @php
+                                        $hasAssignment = array_key_exists($patient->id, $assignments);
+                                    @endphp
                                     <tr>
                                         <td class="align-content-center text-sm">{{ $patient->medical_record_number }}</td>
                                         <td class="align-content-center text-sm">
@@ -64,10 +67,17 @@
                                                 }
                                             @endphp
                                         </td>
-                                        <td class="align-content-center text-sm">{{ ucfirst($patient->sex) }} / {{ ucfirst($patient->gender) }}</td>
+                                        <td class="align-content-center text-sm">
+                                            {{ !$hasAssignment ? "" : $assignments[$patient->id] }}
+                                        </td>
                                         <td class="align-content-center text-sm">
                                             <a href="/patients/edit/{{ $patient->id }}" class="btn btn-outline-primary px-3 py-1 text-sm">Edit</a>
                                             <a href="/patients/delete/confirm/{{ $patient->id }}" class="btn btn-outline-danger px-3 py-1 text-sm">Delete</a>
+                                            @if($hasAssignment)
+                                                <a href="/rooms/unassign/{{ $patient->id }}" class="btn btn-outline-secondary px-3 py-1 text-sm">Unassign</a>
+                                            @else
+                                                <a href="/rooms/assign/{{ $patient->id }}" class="btn btn-outline-secondary px-3 py-1 text-sm">Assign</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endif

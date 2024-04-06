@@ -1,5 +1,7 @@
 <?php
 
+use \App\Models\User;
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,11 +17,11 @@ return new class extends Migration
             $table->uuid('id')->index();
             $table->boolean('active')->default(true);
             $table->string('name');
-            $table->string('credentials')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['none', 'clinician', 'manager', 'administrator'])->default('none');
+            $table->enum('role', User::roles_index)->default('clinician');
+            $table->enum('license', User::licenses_index)->default('none');
             $table->rememberToken();
             $table->timestamps();
         });

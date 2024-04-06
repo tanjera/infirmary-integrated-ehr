@@ -34,6 +34,7 @@
                             <th scope="col" class="align-content-center text-sm">Name</th>
                             <th scope="col" class="align-content-center text-sm">Email</th>
                             <th scope="col" class="align-content-center text-sm">Role</th>
+                            <th scope="col" class="align-content-center text-sm">License</th>
                             <th scope="col" class="align-content-center text-sm">Actions</th>
                         </tr>
                         </thead>
@@ -45,6 +46,7 @@
                                         <td class="align-content-center text-sm">{{ $user->name }}</td>
                                         <td class="align-content-center text-sm">{{ $user->email }}</td>
                                         <td class="align-content-center text-sm">{{ ucfirst($user->role) }}</td>
+                                        <td class="align-content-center text-sm">{{ $user->textLicense() }}</td>
                                         <td class="align-content-center text-sm">
                                             <a href="/users/edit/{{ $user->id }}" class="btn btn-outline-primary px-3 py-1 text-sm">Edit</a>
                                             @if ($user->id != Auth::user()->id)

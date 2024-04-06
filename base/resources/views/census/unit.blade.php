@@ -88,7 +88,11 @@
 
                                         <td class="align-content-center text-sm">
                                             <a href="/chart/dashboard/{{$patient->id}}">
-                                                {{ (ucfirst($patient->sex) ." / " . ucfirst($patient->gender)) }}
+                                                @if($patient->sex == $patient->gender)
+                                                    {{ ucfirst($patient->sex) }}
+                                                @else
+                                                    {{ ucfirst($patient->sex) ." / " . ucfirst($patient->gender) }}
+                                                @endif
                                             </a>
                                         </td>
                                     @endif

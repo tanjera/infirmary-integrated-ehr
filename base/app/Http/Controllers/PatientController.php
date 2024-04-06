@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patient;
+use App\Models\Facility;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -10,7 +12,20 @@ class PatientController extends Controller
 {
     public function index(Request $req) {
         $patients = Patient::all();
-        return view('patients.index')->with("patients", $patients);
+
+        $facilities = Facility::all();
+        $rooms = Room::all();
+
+        $assignments = [];
+        foreach ($rooms as $room) {
+            if (!is_null($room->patient)) {
+                $facility = $facilities->where('id', $room->facility)->first();
+                $assignments += ["$room->patient" => "$facility->acronym-$room->number"];
+            }
+        }
+
+        return view('patients.index')->with("patients", $patients)
+            ->with("assignments", $assignments);
     }
     public function create(Request $req){
         return view('patients.create');

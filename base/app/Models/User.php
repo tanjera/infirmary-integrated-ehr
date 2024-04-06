@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'license'
     ];
 
     /**
@@ -46,5 +47,37 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public static array $roles_index = ['clinician', 'manager', 'administrator'];
+    public static array $licenses_index = ['none', 'ma', 'cna', 'lpn', 'rn', 'np', 'pa', 'md', 'do'];
+    public static array $licenses_text = [
+        'None',
+        'Medical Assistant',
+        'Certified Nursing Assistant',
+        'Licensed Practical Nurse',
+        'Registered Nurse',
+        'Nurse Practitioner',
+        "Physician's Assistant",
+        'Medical Doctor',
+        'Doctor of Osteopathy'];
+    public function textLicense() : string
+    {
+        $key = array_search($this->license, self::$licenses_index);
+        if ($key === false)
+            return 'None';
+        else
+            return self::$licenses_text[$key];
+    }
+    public function canChart(): boolean
+    {
+        return in_array($this->license, ['ma', 'cna', 'lpn', 'rn', 'np', 'pa', 'md', 'do']);
+    }
+    public function canAssess(): boolean
+    {
+        return in_array($this->license, ['lpn', 'rn', 'np', 'pa', 'md', 'do']);
+    }
+    public function canOrder(): boolean
+    {
+        return in_array($this->license, ['np', 'pa', 'md', 'do']);
     }
 }

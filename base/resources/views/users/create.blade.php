@@ -64,22 +64,30 @@
                             </td>
 
                             <td class="text-sm">
-                                <select id="role" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="role" required>
-                                        <option value="administrator">
-                                            Administrator
+                                <select id="role" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        name="role" required>
+                                    @foreach(\App\Models\User::$roles_index as $role)
+                                        <option value="{{ $role }}" {{ $role == "clinician" ? "selected" : ""}}>
+                                            {{ ucfirst($role) }}
                                         </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
 
-                                        <option value="manager">
-                                            Manager
-                                        </option>
+                        <tr>
+                            <td class="text-sm align-content-center">
+                                <x-input-label for="license" :value="__('License')" />
+                            </td>
 
-                                        <option value="clinician">
-                                            Clinician
+                            <td class="text-sm">
+                                <select id="license" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        name="license" required>
+                                    @foreach(\App\Models\User::$licenses_index as $license)
+                                        <option value="{{ $license }}" {{ $license == "none" ? "selected" : ""}}>
+                                            {{ \App\Models\User::$licenses_text[array_search($license, \App\Models\User::$licenses_index)] }}
                                         </option>
-
-                                        <option value="none" selected>
-                                            None
-                                        </option>
+                                    @endforeach
                                 </select>
                             </td>
                         </tr>

@@ -31,6 +31,10 @@ Route::middleware(['auth', 'verified', 'role:manager,administrator'])->group(fun
     Route::get('/patients/delete/confirm/{id}', [PatientController::class, 'confirm'])->name('patients.confirm');
     Route::get('/patients/delete/process/{id}', [PatientController::class, 'delete'])->name('patients.delete');
 
+    Route::get('/rooms/assign/{id}', [RoomController::class, 'select'])->name('rooms.select');
+    Route::post('/rooms/assign/{id}', [RoomController::class, 'assign'])->name('rooms.assign');
+    Route::get('/rooms/unassign/{id}', [RoomController::class, 'unassign'])->name('rooms.unassign');
+
     Route::get('/facilities', [FacilityController::class, 'index'])->name('facilities.index');
     Route::get('/facilities/create', [FacilityController::class, 'create'])->name('facilities.create');
     Route::post('/facilities/add', [FacilityController::class, 'add'])->name('facilities.add');
