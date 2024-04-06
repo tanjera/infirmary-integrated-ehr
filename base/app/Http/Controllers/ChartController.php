@@ -10,11 +10,9 @@ use Illuminate\Support\Str;
 
 class ChartController extends Controller
 {
-    public function dashboard(Request $req) {
+    public function entry(Request $req) {
         $patient = Patient::find($req->id);
-        $room = Room::where('patient', $patient->id)->first();
-        $facility = Facility::where('id', $room->facility)->first();
 
-        return view('chart.dashboard')->with("patient", $patient)->with("room", $room)->with("facility", $facility);
+        return view('chart')->with("patient", $patient);
     }
 }

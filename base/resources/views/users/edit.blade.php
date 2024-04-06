@@ -66,7 +66,7 @@
                             </td>
 
                             <td class="text-sm">
-                                <select id="role" {{ $user->id == Auth::user()->id ? 'disabled' : '' }}
+                                <select id="role" @disabled($user->id == Auth::user()->id)
                                         class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                         name="role" required>
                                     @foreach(\App\Models\User::$roles_index as $role)

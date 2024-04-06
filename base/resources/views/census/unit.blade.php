@@ -55,13 +55,13 @@
 
                                     @elseif (!is_null($patient))
                                         <td class="align-content-center text-sm">
-                                            <a href="/chart/dashboard/{{$patient->id}}">
+                                            <a href="{{ route('chart', ['id' => $patient->id]) }}">
                                                 {{ is_null($facility->acronym) ? "$room->number" : "$facility->acronym-$room->number" }}
                                             </a>
                                         </td>
 
                                         <td class="align-content-center text-sm">
-                                            <a href="/chart/dashboard/{{$patient->id}}">
+                                            <a href="{{ route('chart', ['id' => $patient->id]) }}">
                                                 {{
                                                     "$patient->name_last, $patient->name_first"
                                                     . (strlen($patient->name_middle) == 0 ? "" : " $patient->name_middle")
@@ -71,7 +71,7 @@
                                         </td>
 
                                         <td class="align-content-center text-sm">
-                                            <a href="/chart/dashboard/{{$patient->id}}">
+                                            <a href="{{ route('chart', ['id' => $patient->id]) }}">
                                                 {{ is_null($patient->date_of_birth) ? '' : $patient->date_of_birth->format('d M o') }}
                                                 @php
                                                     if (!is_null($patient->date_of_birth)) {
@@ -87,7 +87,7 @@
                                         </td>
 
                                         <td class="align-content-center text-sm">
-                                            <a href="/chart/dashboard/{{$patient->id}}">
+                                            <a href="{{ route('chart', ['id' => $patient->id]) }}">
                                                 @if($patient->sex == $patient->gender)
                                                     {{ ucfirst($patient->sex) }}
                                                 @else

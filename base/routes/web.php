@@ -18,7 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/census/facility', [CensusController::class, 'facility_index'])->name('census.facility');
     Route::get('/census/unit/{id}', [CensusController::class, 'unit_index'])->name('census.unit');
 
-    Route::get('/chart/dashboard/{id}', [ChartController::class, 'dashboard'])->name('chart.dashboard');
+    Route::get('/chart/{id}', [ChartController::class, 'entry'])->name('chart');
 });
 
 
