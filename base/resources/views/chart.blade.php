@@ -9,20 +9,19 @@
                 </div>
             </div>
             <div class="row min-h-screen justify-content-center">
-                <div class="col-2 p-0  text-sm">
+                <div class="col-md-auto p-0 bg-white border-r border-gray-900 text-sm">
                     <x-chart.navbar/>
                 </div>
-                <div class="col">
-                    <div class="card my-3 text-sm">
 
-                        <div class="card-header">
-                            <div class="flex items-center">Content Area</div>
-                        </div>
-                        <div class="card-body">
-                            Include switch for navigated content here (e.g. dashboard, orders, MAR, etc.)
-                        </div>
+                <div class="col card m-3 text-sm">
+                    <div class="card-header">
+                        <div class="flex items-center">Content Area</div>
+                    </div>
+                    <div class="card-body">
+                        Include switch for navigated content here (e.g. dashboard, orders, MAR, etc.)
                     </div>
                 </div>
+
             </div>
         </div>
 
