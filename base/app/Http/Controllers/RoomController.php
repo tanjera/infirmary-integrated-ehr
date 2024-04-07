@@ -21,6 +21,15 @@ class RoomController extends Controller
             }
         }
     }
+
+    public function clear() {
+        $rooms = Room::all();
+
+        foreach ($rooms as $room)
+            $room->update([ 'patient' => null]);
+
+        return redirect('/patients')->with('message', "All room assignments cleared!");
+    }
     public function select(Request $req){
         $facilities = Facility::all();
         $rooms = Room::where('patient', null)->get();
@@ -43,11 +52,11 @@ class RoomController extends Controller
         return redirect('/patients')->with('message', "Patient #$patient->medical_record_number assigned to $facility->acronym-$room->number");
     }
     public function unassign(Request $req){
-        $rooms = Room::where('patient', $req->id)->get();
+        $room = Room::where('patient', $req->id)->first();
+        $facility = Facility::where('id', $room->facility)->first();
 
-        foreach($rooms as $room)
-            $room->update([ 'patient' => null ]);
+        $room->update([ 'patient' => null ]);
 
-        return redirect('/patients');
+        return redirect('/patients')->with('message', "Room $facility->acronym-$room->number unassigned!");
     }
 }

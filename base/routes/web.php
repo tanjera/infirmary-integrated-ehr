@@ -18,7 +18,14 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/census/facility', [CensusController::class, 'facility_index'])->name('census.facility');
     Route::get('/census/unit/{id}', [CensusController::class, 'unit_index'])->name('census.unit');
 
-    Route::get('/chart/{id}', [ChartController::class, 'entry'])->name('chart');
+    Route::get('/chart/{id}', [ChartController::class, 'index'])->name('chart');
+    Route::get('/chart/demographics/{id}', [ChartController::class, 'demographics'])->name('chart.demographics');
+    Route::get('/chart/allergies/{id}', [ChartController::class, 'allergies'])->name('chart.allergies');
+    Route::get('/chart/notes/{id}', [ChartController::class, 'notes'])->name('chart.notes');
+    Route::get('/chart/results/{id}', [ChartController::class, 'results'])->name('chart.results');
+    Route::get('/chart/orders/{id}', [ChartController::class, 'orders'])->name('chart.orders');
+    Route::get('/chart/flowsheet/{id}', [ChartController::class, 'flowsheet'])->name('chart.flowsheet');
+    Route::get('/chart/mar/{id}', [ChartController::class, 'mar'])->name('chart.mar');
 });
 
 
@@ -31,6 +38,8 @@ Route::middleware(['auth', 'verified', 'role:manager,administrator'])->group(fun
     Route::get('/patients/delete/confirm/{id}', [PatientController::class, 'confirm'])->name('patients.confirm');
     Route::get('/patients/delete/process/{id}', [PatientController::class, 'delete'])->name('patients.delete');
 
+    Route::get('/rooms/confirm', function() { return view('rooms.confirm'); })->name('rooms.confirm');
+    Route::get('/rooms/clear', [RoomController::class, 'clear'])->name('rooms.clear');
     Route::get('/rooms/assign/{id}', [RoomController::class, 'select'])->name('rooms.select');
     Route::post('/rooms/assign/{id}', [RoomController::class, 'assign'])->name('rooms.assign');
     Route::get('/rooms/unassign/{id}', [RoomController::class, 'unassign'])->name('rooms.unassign');

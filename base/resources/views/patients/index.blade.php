@@ -6,7 +6,8 @@
                 <div class="card-header grid grid-cols-2">
                     <div class="flex items-center">Manage Patients</div>
                     <div class="flex justify-end">
-                        <a href="/patients/create" class="btn btn-outline-success px-3 py-1 text-sm">Add Patient</a>
+                        <a href="/rooms/confirm" class="btn btn-outline-danger px-3 py-1 mx-2 text-sm">Clear All Rooms</a>
+                        <a href="/patients/create" class="btn btn-outline-success px-3 py-1 ms-2 text-sm">Add Patient</a>
                     </div>
                 </div>
                 <div class="card-body table table-responsive">

@@ -26,6 +26,12 @@ return new class extends Migration
             $table->enum('code_status', ['full', 'dnr', 'dnr_dni', 'palliative'])->default('full');
             $table->string('address')->nullable();
             $table->string('telephone')->nullable();
+            $table->string('insurance_provider')->nullable();
+            $table->string('insurance_account_number')->nullable();
+            $table->string('next_of_kin_name')->nullable();
+            $table->string('next_of_kin_relationship')->nullable();
+            $table->string('next_of_kin_address')->nullable();
+            $table->string('next_of_kin_telephone')->nullable();
             $table->timestamps();
         });
     }

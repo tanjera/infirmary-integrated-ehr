@@ -21,6 +21,13 @@
 
                     <table class="table">
                         <tbody>
+
+                        <tr>
+                            <th class="text-md align-content-start" colspan="2">
+                                Patient Information
+                            </th>
+                        </tr>
+
                         <tr>
                             <td class="text-sm align-content-center">
                                 <x-input-label for="name_first" :value="__('First Name')" />
@@ -160,6 +167,12 @@
                         </tr>
 
                         <tr>
+                            <th class="text-md align-content-start" colspan="2">
+                                Demographic Information
+                            </th>
+                        </tr>
+
+                        <tr>
                             <td class="text-sm align-content-center">
                                 <x-input-label for="address" :value="__('Address')" />
                             </td>
@@ -178,6 +191,84 @@
                             <td class="text-sm">
                                 <x-text-input id="telephone" class="block mt-1 w-full text-sm"
                                               name="telephone"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th class="text-md align-content-start" colspan="2">
+                                Insurance Information
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <td class="text-sm align-content-center">
+                                <x-input-label for="insurance_provider" :value="__('Provider / Company')" />
+                            </td>
+
+                            <td class="text-sm">
+                                <x-text-input id="insurance_provider" class="block mt-1 w-full text-sm"
+                                              name="insurance_provider"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-sm align-content-center">
+                                <x-input-label for="insurance_account_number" :value="__('Account #')" />
+                            </td>
+
+                            <td class="text-sm">
+                                <x-text-input id="insurance_account_number" class="block mt-1 w-full text-sm"
+                                              name="insurance_account_number"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th class="text-md align-content-start" colspan="2">
+                                Next of Kin
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <td class="text-sm align-content-center">
+                                <x-input-label for="next_of_kin_name" :value="__('Name')" />
+                            </td>
+
+                            <td class="text-sm">
+                                <x-text-input id="next_of_kin_name" class="block mt-1 w-full text-sm"
+                                              name="next_of_kin_name"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-sm align-content-center">
+                                <x-input-label for="next_of_kin_relationship" :value="__('Relationship')" />
+                            </td>
+
+                            <td class="text-sm">
+                                <x-text-input id="next_of_kin_relationship" class="block mt-1 w-full text-sm"
+                                              name="next_of_kin_relationship"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-sm align-content-center">
+                                <x-input-label for="next_of_kin_address" :value="__('Address')" />
+                            </td>
+
+                            <td class="text-sm">
+                                <x-text-input id="next_of_kin_address" class="block mt-1 w-full text-sm"
+                                              name="next_of_kin_address"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-sm align-content-center">
+                                <x-input-label for="next_of_kin_telephone" :value="__('Telephone #')" />
+                            </td>
+
+                            <td class="text-sm">
+                                <x-text-input id="next_of_kin_telephone" class="block mt-1 w-full text-sm"
+                                              name="next_of_kin_telephone"/>
                             </td>
                         </tr>
                         </tbody>

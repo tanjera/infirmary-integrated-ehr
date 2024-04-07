@@ -27,6 +27,14 @@ class Patient extends Model
         'code_status',
         'address',
         'telephone',
+
+        'insurance_provider',
+        'insurance_account_number',
+
+        'next_of_kin_name',
+        'next_of_kin_relationship',
+        'next_of_kin_address',
+        'next_of_kin_telephone',
     ];
 
     protected $casts = [

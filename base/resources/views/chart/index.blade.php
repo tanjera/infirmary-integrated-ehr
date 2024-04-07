@@ -1,0 +1,11 @@
+<x-chart.chart :patient="$patient">
+
+    @section("chart_title")
+        Patient Chart
+    @endsection
+
+    @section("chart_content")
+        Please navigate through the patient's chart using the navigation links on the left side of the screen.
+    @endsection
+
+</x-chart.chart>

@@ -59,7 +59,15 @@ class PatientController extends Controller
 
             'code_status' => $req->code_status,
             'address' => $req->address,
-            'telephone' => $req->telephone
+            'telephone' => $req->telephone,
+
+            'insurance_provider' => $req->insurance_provider,
+            'insurance_account_number' => $req->insurance_account_number,
+
+            'next_of_kin_name' => $req->next_of_kin_name,
+            'next_of_kin_relationship' => $req->next_of_kin_relationship,
+            'next_of_kin_address' => $req->next_of_kin_address,
+            'next_of_kin_telephone' => $req->next_of_kin_telephone,
         ]);
 
         return redirect('/patients')->with('message', "Patient #$req->medical_record_number saved successfully!");
@@ -99,7 +107,15 @@ class PatientController extends Controller
 
             'code_status' => $req->code_status,
             'address' => $req->address,
-            'telephone' => $req->telephone
+            'telephone' => $req->telephone,
+
+            'insurance_provider' => $req->insurance_provider,
+            'insurance_account_number' => $req->insurance_account_number,
+
+            'next_of_kin_name' => $req->next_of_kin_name,
+            'next_of_kin_relationship' => $req->next_of_kin_relationship,
+            'next_of_kin_address' => $req->next_of_kin_address,
+            'next_of_kin_telephone' => $req->next_of_kin_telephone,
         ]);
 
         return redirect('/patients')->with('message', "Patient #$patient->medical_record_number saved successfully!");
