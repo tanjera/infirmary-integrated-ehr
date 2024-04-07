@@ -9,13 +9,13 @@
                 </div>
             </div>
             <div class="row min-h-screen justify-content-center">
-                <div class="col-1 p-0  text-sm">
+                <div class="col-2 p-0  text-sm">
                     <x-chart.navbar/>
                 </div>
                 <div class="col">
                     <div class="card my-3 text-sm">
 
-                        <div class="card-header grid grid-cols-2">
+                        <div class="card-header">
                             <div class="flex items-center">Content Area</div>
                         </div>
                         <div class="card-body">
