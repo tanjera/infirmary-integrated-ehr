@@ -21,6 +21,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/chart/{id}', [ChartController::class, 'index'])->name('chart');
     Route::get('/chart/demographics/{id}', [ChartController::class, 'demographics'])->name('chart.demographics');
     Route::get('/chart/allergies/{id}', [ChartController::class, 'allergies'])->name('chart.allergies');
+    Route::get('/chart/allergies/create/{id}', [ChartController::class, 'createAllergy'])->name('chart.allergies.create');
+    Route::post('/chart/allergies/add/{id}', [ChartController::class, 'addAllergy'])->name('chart.allergies.add');
+    Route::get('/chart/allergies/delete/{id}', [ChartController::class, 'deleteAllergy'])->name('chart.allergies.delete');
     Route::get('/chart/notes/{id}', [ChartController::class, 'notes'])->name('chart.notes');
     Route::get('/chart/results/{id}', [ChartController::class, 'results'])->name('chart.results');
     Route::get('/chart/orders/{id}', [ChartController::class, 'orders'])->name('chart.orders');

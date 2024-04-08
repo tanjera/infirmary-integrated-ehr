@@ -1,7 +1,7 @@
 <x-chart.chart :patient="$patient">
 
     @section("chart_title")
-        Medication Administration Record (MAR)
+        <div class="flex items-center">Medication Administration Record (MAR)</div>
     @endsection
 
     @section("chart_content")

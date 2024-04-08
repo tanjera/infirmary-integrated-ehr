@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Allergy;
 use App\Models\Patient;
 use App\Models\Facility;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use mysql_xdevapi\Collection;
 
 class PatientController extends Controller
 {

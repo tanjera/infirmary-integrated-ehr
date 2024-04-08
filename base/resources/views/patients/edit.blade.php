@@ -148,10 +148,11 @@
                             <td class="text-sm">
                                 <select id="pronouns" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                         name="pronouns" required>
-                                    <option value="unknown" {{$patient->pronouns == 'unknown' ? "selected" : ""}}>Unknown</option>
-                                    <option value="she_her" {{$patient->pronouns == 'she_her' ? "selected" : ""}}>She/Her</option>
-                                    <option value="he_him" {{$patient->pronouns == 'he_him' ? "selected" : ""}}>He/Him</option>
-                                    <option value="they_them" {{$patient->pronouns == 'they_them' ? "selected" : ""}}>They/Them</option>
+                                    @foreach(\App\Models\Patient::$pronouns_index as $pronoun)
+                                        <option value="{{ $pronoun }}" {{ $pronoun == $patient->pronouns ? "selected" : ""}}>
+                                            {{ \App\Models\Patient::$pronouns_text[array_search($pronoun, \App\Models\Patient::$pronouns_index)] }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </td>
                         </tr>
@@ -164,17 +165,18 @@
                             <td class="text-sm">
                                 <select id="code_status" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                         name="code_status" required>
-                                    <option value="full" {{$patient->code_status == 'full' ? "selected" : ""}}>Full Code</option>
-                                    <option value="dnr" {{$patient->code_status == 'dnr' ? "selected" : ""}}>DNR (No CPR)</option>
-                                    <option value="dnr_dni" {{$patient->code_status == 'dnr_dni' ? "selected" : ""}}>DNR & DNI (Medical Only)</option>
-                                    <option value="palliative" {{$patient->code_status == 'palliative' ? "selected" : ""}}>Palliative (Natural Death)</option>
+                                    @foreach(\App\Models\Patient::$code_status_index as $code_status)
+                                        <option value="{{ $code_status }}" {{ $code_status == $patient->code_status ? "selected" : ""}}>
+                                            {{ \App\Models\Patient::$code_status_text[array_search($code_status, \App\Models\Patient::$code_status_index)] }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </td>
                         </tr>
 
                         <tr>
                             <th class="text-md align-content-start" colspan="2">
-                                Demographic Information
+                                Contact Information
                             </th>
                         </tr>
 

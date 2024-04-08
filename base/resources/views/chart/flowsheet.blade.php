@@ -1,7 +1,7 @@
 <x-chart.chart :patient="$patient">
 
     @section("chart_title")
-        Flowsheet
+        <div class="flex items-center">Flowsheet</div>
     @endsection
 
     @section("chart_content")

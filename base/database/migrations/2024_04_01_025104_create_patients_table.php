@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Patient;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,9 +22,9 @@ return new class extends Migration
             $table->datetime('date_of_birth')->nullable();
             $table->string('medical_record_number')->unique();
             $table->enum('sex', ['unknown', 'female', 'male'])->default('unknown');
-            $table->enum('gender', ['unknown', 'female', 'male', 'transgender', 'non_binary'])->default('unknown');
-            $table->enum('pronouns', ['unknown', 'she_her', 'he_him', 'they_them'])->default('unknown');
-            $table->enum('code_status', ['full', 'dnr', 'dnr_dni', 'palliative'])->default('full');
+            $table->enum('gender', Patient::$gender_index)->default('unknown');
+            $table->enum('pronouns', Patient::$pronouns_index)->default('unknown');
+            $table->enum('code_status', Patient::$code_status_index)->default('full');
             $table->string('address')->nullable();
             $table->string('telephone')->nullable();
             $table->string('insurance_provider')->nullable();

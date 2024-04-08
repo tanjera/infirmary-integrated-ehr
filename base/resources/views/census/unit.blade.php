@@ -101,7 +101,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <th>No Data</th>
+                                <td>No Data</td>
                             </tr>
                         @endif
                         </tbody>

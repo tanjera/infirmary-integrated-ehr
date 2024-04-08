@@ -14,15 +14,16 @@
 
             <p>
                 {{-- Sex/Gender --}}
-                <font class="text-gray-400">Sex / Gender: </font>
+                <span class="text-gray-400">Sex / Gender: </span>
                 @if($patient->sex == $patient->gender)
-                    {{ ucfirst($patient->sex) . ", " }}
+                    {{ ucfirst($patient->sex) }}
                 @else
-                    {{ ucfirst($patient->sex) . " / " . ucfirst($patient->gender) . ", " }}
+                    {{ ucfirst($patient->sex) . " / " . ucfirst($patient->gender) }}
                 @endif
             </p>
+
             <p>
-                <font class="text-gray-400">Date of Birth: </font>
+                <span class="text-gray-400">Date of Birth: </span>
                 {{-- Date of Birth --}}
                 {{ is_null($patient->date_of_birth) ? '' : $patient->date_of_birth->format('d M o') }}
 
@@ -38,18 +39,35 @@
                     }
                 @endphp
             </p>
+
+            <p>
+                <span class="text-gray-400">Allergies:</span>
+                {{-- Allergies --}}
+                @if(count($patient->getAllergies()) > 0)
+                    <span style="color: red">Present</span>
+                @else
+                    <span style="color: green">None</span>
+                @endif
+            </p>
         </div>
         <div class="col-3">
             <p>
-                <font class="text-gray-400">Location: </font>
+                <span class="text-gray-400">Location:</span>
                 {{-- Room # --}}
                 {{ is_null($facility->acronym) ? "$room->number" : "$facility->acronym-$room->number" }}
             </p>
 
             <p>
-                <font class="text-gray-400">Medical Record #: </font>
+                <span class="text-gray-400">Medical Record #:</span>
                 {{-- MRN --}}
                 {{ $patient->medical_record_number }}
+            </p>
+            <p>
+                <span class="text-gray-400">Code Status:</span>
+                {{-- Code Status --}}
+                <span style="color: {{ $patient->code_status == "full" ? "green" : "red" }}">
+                    {{ $patient->textCodeStatus() }}
+                </span>
             </p>
         </div>
     </div>

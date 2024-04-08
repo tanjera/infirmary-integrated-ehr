@@ -15,11 +15,27 @@
                 <div class="col p-0 text-sm">
                     <div class="card">
                         <div class="card-header">
-                            <div class="flex items-center">
-                                @yield('chart_title')
-                            </div>
+                            @yield('chart_title')
                         </div>
                         <div class="card-body">
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            @if(Session::has('message'))
+                                <p class="alert">{!! Session::get('message') !!}</p>
+                                @foreach($errors->all() as $error)
+                                    <p>{!! $error !!}</p>
+                                @endforeach
+                            @endif
+
                             @yield('chart_content')
                         </div>
                     </div>

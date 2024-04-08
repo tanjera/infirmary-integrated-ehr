@@ -1,7 +1,7 @@
 <x-chart.chart :patient="$patient">
 
     @section("chart_title")
-        Patient Chart
+        <div class="flex items-center">Patient Chart</div>
     @endsection
 
     @section("chart_content")

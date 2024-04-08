@@ -125,11 +125,11 @@
                             <td class="text-sm">
                                 <select id="gender" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                         name="gender" required>
-                                    <option value="unknown" selected>Unknown</option>
-                                    <option value="female">Female</option>
-                                    <option value="male">Male</option>
-                                    <option value="transgender">Transgender</option>
-                                    <option value="non_binary">Non-Binary</option>
+                                    @foreach(\App\Models\Patient::$gender_index as $gender)
+                                        <option value="{{ $gender }}" {{ $gender == "unknown" ? "selected" : ""}}>
+                                            {{ \App\Models\Patient::$gender_text[array_search($gender, \App\Models\Patient::$gender_index)] }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </td>
                         </tr>
@@ -142,10 +142,11 @@
                             <td class="text-sm">
                                 <select id="pronouns" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                         name="pronouns" required>
-                                    <option value="unknown" selected>Unknown</option>
-                                    <option value="she_her">She/Her</option>
-                                    <option value="he_him">He/Him</option>
-                                    <option value="they_them">They/Them</option>
+                                    @foreach(\App\Models\Patient::$pronouns_index as $pronoun)
+                                        <option value="{{ $pronoun }}" {{ $pronoun == "unknown" ? "selected" : ""}}>
+                                            {{ \App\Models\Patient::$pronouns_text[array_search($pronoun, \App\Models\Patient::$pronouns_index)] }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </td>
                         </tr>
@@ -158,17 +159,18 @@
                             <td class="text-sm">
                                 <select id="code_status" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                         name="code_status" required>
-                                    <option value="full" selected>Full Code</option>
-                                    <option value="dnr">DNR (No CPR)</option>
-                                    <option value="dnr_dni">DNR & DNI (Medical Only)</option>
-                                    <option value="palliative">Palliative (Natural Death)</option>
+                                    @foreach(\App\Models\Patient::$code_status_index as $code_status)
+                                        <option value="{{ $code_status }}" {{ $code_status == "full" ? "selected" : ""}}>
+                                            {{ \App\Models\Patient::$code_status_text[array_search($code_status, \App\Models\Patient::$code_status_index)] }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </td>
                         </tr>
 
                         <tr>
                             <th class="text-md align-content-start" colspan="2">
-                                Demographic Information
+                                Contact Information
                             </th>
                         </tr>
 
