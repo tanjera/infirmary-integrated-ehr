@@ -9,6 +9,7 @@ use App\Models\Patient;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller
@@ -51,6 +52,22 @@ class NoteController extends Controller
             'category' => $req->category,
             'body' => $req->body,
         ]);
+
+        for ($i = 0; $i < 10; $i++) {
+            $j = "attachment" . $i;
+
+            if ($req->hasFile($j)) {
+                $filepath = $req->file($j)->store('note_attachments');
+                $origname = $req->file($j)->getClientOriginalName();
+
+                NoteAttachment::create([
+                    'note' => $note->id,
+                    'name' => $origname,
+                    'filepath' => $filepath,
+                    ]);
+
+            }
+        }
 
         $category = Note::$category_text[array_search($req->category, Note::$category_index)];
 
@@ -101,5 +118,12 @@ class NoteController extends Controller
             $attachment->delete();
 
         return redirect("/chart/notes/$patient")->with('message', "$category deleted successfully!");
+    }
+    public function get_attachment(Request $req)
+    {
+        if(is_null($req->filename))
+            abort(404);
+
+        return Storage::download("$req->filename");
     }
 }

@@ -60,6 +60,21 @@
             </div>
         </a>
 
+        <a href="{{route('chart.diagnostics', $patient->id)}}">
+            <div class="d-flex px-4 py-2 border-b border-gray-900
+                    justify-content-start align-items-center text-start">
+                <img
+                    src="{{asset('vendor\third_party\icon_diagnostics.svg')}}"
+                    alt="Diagnostic Reports"
+                    height="48"
+                    width="48" />
+
+                <span class="px-4 pt-2 h6">
+                    Diagnostic<br>Reports
+                </span>
+            </div>
+        </a>
+
         <a href="{{route('chart.orders', $patient->id)}}">
             <div class="d-flex px-4 py-2 border-b border-gray-900
                     justify-content-start align-items-center text-start">

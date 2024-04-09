@@ -13,6 +13,7 @@ class NoteAttachment extends Model
     protected $fillable = [
         'id',
         'note',
-        'file',
+        'name',
+        'filepath',
     ];
 }

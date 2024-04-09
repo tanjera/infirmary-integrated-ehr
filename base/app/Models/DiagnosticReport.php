@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
-class Note extends Model
+class DiagnosticReport extends Model
 {
     use HasFactory, HasUuids;
 
@@ -17,21 +17,22 @@ class Note extends Model
         'category',
         'body',
     ];
-    public static array $category_index = ['progress', 'nursing', 'history_physical', 'assessment', 'consultation', 'procedure', 'plan_of_care'];
+
+    public static array $category_index = ['ecg', 'x_ray', 'ct', 'mri', 'ultrasound', 'echocardiogram', 'other'];
     public static array $category_text = [
-        'Progress Note',
-        'Nursing Note',
-        'History & Physical',
-        'Assessment',
-        'Consultation',
-        'Procedure',
-        'Plan of Care',
+        'Electrocardiogram (ECG)',
+        'X-Ray',
+        'Computed Tomography (CT)',
+        'Magnetic Resonance (MRI)',
+        'Ultrasound',
+        'Echocardiogram',
+        'Other'
     ];
     public function textCategory() : string
     {
         $key = array_search($this->category, self::$category_index);
         if ($key === false)
-            return 'Progress Note';
+            return 'Other';
         else
             return self::$category_text[$key];
     }

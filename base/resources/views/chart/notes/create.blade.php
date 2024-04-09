@@ -7,7 +7,7 @@
     @endsection
 
     @section("chart_content")
-            <form method="POST" action="/chart/notes/create/{{$patient->id}}">
+            <form method="POST" action="/chart/notes/create/{{$patient->id}}" enctype="multipart/form-data">
                 @csrf
 
                 <table class="table">
@@ -36,9 +36,75 @@
 
                         <td class="text-sm">
                             <textarea id="body" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                          name="body"></textarea>
+                                      rows="16"
+                                      name="body"></textarea>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-sm align-content-center">
+                            <label for="body" class="block font-medium text-sm text-gray-700">Attachments</label>
                         </td>
 
+                        <td class="text-sm">
+                            <table class="table">
+                                <tr style="border-style: hidden">
+                                    <td style="width: 20%">
+                                        <x-bladewind.filepicker name="attachment1" id="attachment1"
+                                                                placeholder="Select"
+                                                                max_file_size="16"/>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <x-bladewind.filepicker name="attachment2" id="attachment2"
+                                                                placeholder="Select"
+                                                                max_file_size="16"/>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <x-bladewind.filepicker name="attachment3" id="attachment3"
+                                                                placeholder="Select"
+                                                                max_file_size="16"/>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <x-bladewind.filepicker name="attachment4" id="attachment4"
+                                                                placeholder="Select"
+                                                                max_file_size="16"/>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <x-bladewind.filepicker name="attachment5" id="attachment5"
+                                                                placeholder="Select"
+                                                                max_file_size="16"/>
+                                    </td>
+                                </tr>
+                                <tr style="border-style: hidden">
+                                    <td style="width: 20%">
+                                        <x-bladewind.filepicker name="attachment6" id="attachment6"
+                                                                placeholder="Select"
+                                                                max_file_size="16"/>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <x-bladewind.filepicker name="attachment7" id="attachment7"
+                                                                placeholder="Select"
+                                                                max_file_size="16"/>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <x-bladewind.filepicker name="attachment8" id="attachment8"
+                                                                placeholder="Select"
+                                                                max_file_size="16"/>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <x-bladewind.filepicker name="attachment9" id="attachment9"
+                                                                placeholder="Select"
+                                                                max_file_size="16"/>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <x-bladewind.filepicker name="attachment10" id="attachment10"
+                                                                placeholder="Select"
+                                                                max_file_size="16"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
                     </tr>
 
                     </tbody>

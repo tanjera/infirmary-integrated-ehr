@@ -17,6 +17,7 @@
 
                     <td class="text-sm">
                         <textarea id="body" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                  rows="16"
                                   name="body"></textarea>
                     </td>
                 </tr>

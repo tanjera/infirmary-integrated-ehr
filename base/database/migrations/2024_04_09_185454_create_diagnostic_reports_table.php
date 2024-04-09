@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\DiagnosticReport;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('note_attachments', function (Blueprint $table) {
+        Schema::create('diagnostic_reports', function (Blueprint $table) {
             $table->uuid('id')->index();
-            $table->uuid('note');
-            $table->string('name');
-            $table->string('filepath');
+            $table->uuid('patient');
+            $table->string('author');
+            $table->enum('category', DiagnosticReport::$category_index);
+            $table->text('body');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('note_attachments');
+        Schema::dropIfExists('diagnostic_reports');
     }
 };

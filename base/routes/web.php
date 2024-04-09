@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\CensusController;
 use App\Http\Controllers\Chart\ChartController;
 use App\Http\Controllers\Chart\AllergyController;
@@ -34,8 +35,10 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/chart/notes/create/{id}', [NoteController::class, 'add'])->name('chart.notes.add');
     Route::get('/chart/notes/append/{id}', [NoteController::class, 'append'])->name('chart.notes.append');
     Route::post('/chart/notes/affix/{id}', [NoteController::class, 'affix'])->name('chart.notes.affix');
+    Route::get('/note_attachments/{filename}', [NoteController::class, 'get_attachment'])->name('note_attachments.get');
 
     Route::get('/chart/results/{id}', [ChartController::class, 'results'])->name('chart.results');
+    Route::get('/chart/diagnostics/{id}', [ChartController::class, 'diagnostics'])->name('chart.diagnostics');
     Route::get('/chart/orders/{id}', [ChartController::class, 'orders'])->name('chart.orders');
     Route::get('/chart/flowsheet/{id}', [ChartController::class, 'flowsheet'])->name('chart.flowsheet');
     Route::get('/chart/mar/{id}', [ChartController::class, 'mar'])->name('chart.mar');

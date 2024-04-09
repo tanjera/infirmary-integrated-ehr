@@ -20,6 +20,12 @@ class ChartController extends Controller
         return view('chart.demographics')->with("patient", $patient);
     }
 
+    public function diagnostics(Request $req) {
+        $patient = Patient::find($req->id);
+
+        return view('chart.diagnostics')->with("patient", $patient);
+    }
+
     public function results(Request $req) {
         $patient = Patient::find($req->id);
 
