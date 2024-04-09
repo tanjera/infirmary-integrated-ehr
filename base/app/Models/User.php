@@ -48,6 +48,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function isAdministrator(): bool
+    {
+        return in_array($this->role, ['administrator']);
+    }
+    public function isManager(): bool
+    {
+        return in_array($this->role, ['manager', 'administrator']);
+    }
     public static array $roles_index = ['clinician', 'manager', 'administrator'];
     public static array $licenses_index = ['none', 'ma', 'cna', 'lpn', 'rn', 'np', 'pa', 'md', 'do'];
     public static array $licenses_text = [
@@ -68,15 +76,15 @@ class User extends Authenticatable
         else
             return self::$licenses_text[$key];
     }
-    public function canChart(): boolean
+    public function canChart(): bool
     {
         return in_array($this->license, ['ma', 'cna', 'lpn', 'rn', 'np', 'pa', 'md', 'do']);
     }
-    public function canAssess(): boolean
+    public function canAssess(): bool
     {
         return in_array($this->license, ['lpn', 'rn', 'np', 'pa', 'md', 'do']);
     }
-    public function canOrder(): boolean
+    public function canOrder(): bool
     {
         return in_array($this->license, ['np', 'pa', 'md', 'do']);
     }

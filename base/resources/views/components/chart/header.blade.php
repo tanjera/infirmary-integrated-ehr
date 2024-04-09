@@ -44,7 +44,9 @@
                 <span class="text-gray-400">Allergies:</span>
                 {{-- Allergies --}}
                 @if(count($patient->getAllergies()) > 0)
-                    <span style="color: red">Present</span>
+                    <a href="{{ route('chart.allergies', $patient->id) }}">
+                        <span style="color: red">Present</span>
+                    </a>
                 @else
                     <span style="color: green">None</span>
                 @endif

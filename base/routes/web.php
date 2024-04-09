@@ -2,7 +2,9 @@
 
 use App\Http\Middleware;
 use App\Http\Controllers\CensusController;
-use App\Http\Controllers\ChartController;
+use App\Http\Controllers\Chart\ChartController;
+use App\Http\Controllers\Chart\AllergyController;
+use App\Http\Controllers\Chart\NoteController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
@@ -20,11 +22,19 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/chart/{id}', [ChartController::class, 'index'])->name('chart');
     Route::get('/chart/demographics/{id}', [ChartController::class, 'demographics'])->name('chart.demographics');
-    Route::get('/chart/allergies/{id}', [ChartController::class, 'allergies'])->name('chart.allergies');
-    Route::get('/chart/allergies/create/{id}', [ChartController::class, 'createAllergy'])->name('chart.allergies.create');
-    Route::post('/chart/allergies/add/{id}', [ChartController::class, 'addAllergy'])->name('chart.allergies.add');
-    Route::get('/chart/allergies/delete/{id}', [ChartController::class, 'deleteAllergy'])->name('chart.allergies.delete');
-    Route::get('/chart/notes/{id}', [ChartController::class, 'notes'])->name('chart.notes');
+
+    Route::get('/chart/allergies/{id}', [AllergyController::class, 'index'])->name('chart.allergies');
+    Route::get('/chart/allergies/create/{id}', [AllergyController::class, 'create'])->name('chart.allergies.create');
+    Route::post('/chart/allergies/add/{id}', [AllergyController::class, 'add'])->name('chart.allergies.add');
+    Route::get('/chart/allergies/delete/{id}', [AllergyController::class, 'delete'])->name('chart.allergies.delete');
+
+    Route::get('/chart/notes/{id}', [NoteController::class, 'index'])->name('chart.notes');
+    Route::get('/chart/notes/view/{id}', [NoteController::class, 'view'])->name('chart.notes.view');
+    Route::get('/chart/notes/create/{id}', [NoteController::class, 'create'])->name('chart.notes.create');
+    Route::post('/chart/notes/create/{id}', [NoteController::class, 'add'])->name('chart.notes.add');
+    Route::get('/chart/notes/append/{id}', [NoteController::class, 'append'])->name('chart.notes.append');
+    Route::post('/chart/notes/affix/{id}', [NoteController::class, 'affix'])->name('chart.notes.affix');
+
     Route::get('/chart/results/{id}', [ChartController::class, 'results'])->name('chart.results');
     Route::get('/chart/orders/{id}', [ChartController::class, 'orders'])->name('chart.orders');
     Route::get('/chart/flowsheet/{id}', [ChartController::class, 'flowsheet'])->name('chart.flowsheet');
@@ -33,6 +43,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
 
 Route::middleware(['auth', 'verified', 'role:manager,administrator'])->group(function() {
+    Route::get('/chart/notes/delete/{id}', [NoteController::class, 'delete'])->name('chart.notes.delete');
+
     Route::get('/patients', [PatientController::class, 'index'])->name('patients.index');
     Route::get('/patients/create', [PatientController::class, 'create'])->name('patients.create');
     Route::post('/patients/add', [PatientController::class, 'add'])->name('patients.add');

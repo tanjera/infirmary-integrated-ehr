@@ -4,7 +4,9 @@
         <div class="grid grid-cols-2">
             <div class="flex items-center">Allergies</div>
             <div class="flex justify-end">
-                <a href="/chart/allergies/create/{{$patient->id}}" class="btn btn-outline-success px-3 py-1 ms-2 text-sm">Add Allergy</a>
+                @if(Auth::user()->canChart())
+                    <a href="/chart/allergies/create/{{$patient->id}}" class="btn btn-outline-success px-3 py-1 ms-2 text-sm">Add Allergy</a>
+                @endif
             </div>
         </div>
     @endsection
@@ -18,7 +20,9 @@
                     <th scope="col" class="align-content-center text-sm">Reaction</th>
                     <th scope="col" class="align-content-center text-sm">Severity</th>
                     <th scope="col" class="align-content-center text-sm">Notes</th>
-                    <th scope="col" class="align-content-center text-sm">Actions</th>
+                    @if(Auth::user()->canChart())
+                        <th scope="col" class="align-content-center text-sm">Actions</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -30,9 +34,12 @@
                             <td class="align-content-center text-sm">{{ $allergy->reaction }}</td>
                             <td class="align-content-center text-sm">{{ ucfirst($allergy->severity) }}</td>
                             <td class="align-content-center text-sm">{{ $allergy->notes }}</td>
-                            <td class="align-content-center text-sm">
-                                <a href="/chart/allergies/delete/{{$allergy->id}}" class="btn btn-outline-danger px-3 py-1 ms-2 text-sm">Delete</a>
-                            </td>
+
+                            @if(Auth::user()->canChart())
+                                <td class="align-content-center text-sm">
+                                    <a href="/chart/allergies/delete/{{$allergy->id}}" class="btn btn-outline-danger px-3 py-1 text-sm">Delete</a>
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 @else

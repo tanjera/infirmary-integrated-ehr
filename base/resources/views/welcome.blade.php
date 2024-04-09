@@ -18,7 +18,7 @@
         <div class="bg-gray-50 text-black/50">
             <img id="background" class="absolute -left-20 top-0 max-w-[877px]" src="" />
 
-            <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
+            <div class="relative min-h-screen flex flex-col items-center justify-center">
                 <div class="relative w-full max-w-3xl px-6 lg:max-w-7xl">
                     <main class="mt-6">
                         <div class="grid gap-6 lg:grid-cols-1 lg:gap-8 flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10">
@@ -37,7 +37,7 @@
 
                                 @if (Route::has('login'))
                                     @auth {{-- Already authenticated? --}}
-                                        <div class="relative flex flex-col items-center selection:bg-[#FF2D20] selection:text-white">
+                                        <div class="relative flex flex-col items-center">
                                             <div class="relative max-w-sm px-3 items-center justify-center text-center gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10">
                                             <a href="{{ url('/census/facility') }}" class="rounded-md py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]" style="font-weight: 700">
                                                 Already Logged In<br>
@@ -46,7 +46,7 @@
                                         </div>
                                         </div>
                                     @else
-                                        <div class="relative flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
+                                        <div class="relative flex flex-col items-center justify-center">
                                             <div class="relative max-w-sm justify-center gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10">
                                                 @include('auth/login-snippet')
                                             </div>
