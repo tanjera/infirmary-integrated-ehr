@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Middleware;
-use App\Http\Controllers\FileController;
 use App\Http\Controllers\CensusController;
 use App\Http\Controllers\Chart\ChartController;
 use App\Http\Controllers\Chart\AllergyController;
+use App\Http\Controllers\Chart\DiagnosticsController;
 use App\Http\Controllers\Chart\NoteController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\PatientController;
@@ -35,10 +35,17 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/chart/notes/create/{id}', [NoteController::class, 'add'])->name('chart.notes.add');
     Route::get('/chart/notes/append/{id}', [NoteController::class, 'append'])->name('chart.notes.append');
     Route::post('/chart/notes/affix/{id}', [NoteController::class, 'affix'])->name('chart.notes.affix');
-    Route::get('/note_attachments/{filename}', [NoteController::class, 'get_attachment'])->name('note_attachments.get');
+    Route::get('/storage/note_attachments/{filename}', [NoteController::class, 'view_attachment'])->name('note_attachments.view');
+
+    Route::get('/chart/diagnostics/{id}', [DiagnosticsController::class, 'index'])->name('chart.diagnostics');
+    Route::get('/chart/diagnostics/view/{id}', [DiagnosticsController::class, 'view'])->name('chart.diagnostics.view');
+    Route::get('/chart/diagnostics/create/{id}', [DiagnosticsController::class, 'create'])->name('chart.diagnostics.create');
+    Route::post('/chart/diagnostics/create/{id}', [DiagnosticsController::class, 'add'])->name('chart.diagnostics.add');
+    Route::get('/chart/diagnostics/append/{id}', [DiagnosticsController::class, 'append'])->name('chart.diagnostics.append');
+    Route::post('/chart/diagnostics/affix/{id}', [DiagnosticsController::class, 'affix'])->name('chart.diagnostics.affix');
+    Route::get('/storage/diagnostic_attachments/{filename}', [DiagnosticsController::class, 'view_attachment'])->name('diagnostics_attachments.view');
 
     Route::get('/chart/results/{id}', [ChartController::class, 'results'])->name('chart.results');
-    Route::get('/chart/diagnostics/{id}', [ChartController::class, 'diagnostics'])->name('chart.diagnostics');
     Route::get('/chart/orders/{id}', [ChartController::class, 'orders'])->name('chart.orders');
     Route::get('/chart/flowsheet/{id}', [ChartController::class, 'flowsheet'])->name('chart.flowsheet');
     Route::get('/chart/mar/{id}', [ChartController::class, 'mar'])->name('chart.mar');

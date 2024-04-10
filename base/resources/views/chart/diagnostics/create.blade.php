@@ -7,7 +7,7 @@
     @endsection
 
     @section("chart_content")
-            <form method="POST" action="/chart/notes/create/{{$patient->id}}" enctype="multipart/form-data">
+            <form method="POST" action="/chart/diagnostics/create/{{$patient->id}}" enctype="multipart/form-data">
                 @csrf
 
                 <table class="table">
@@ -20,9 +20,9 @@
                         <td class="text-sm">
                             <select id="category" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                     name="category" required>
-                                @foreach(\App\Models\Note::$category_index as $category)
-                                    <option value="{{ $category }}" {{ $category == "progress" ? "selected" : ""}}>
-                                        {{ \App\Models\Note::$category_text[array_search($category, \App\Models\Note::$category_index)] }}
+                                @foreach(\App\Models\DiagnosticReport::$category_index as $category)
+                                    <option value="{{ $category }}" {{ $category == "other" ? "selected" : ""}}>
+                                        {{ \App\Models\DiagnosticReport::$category_text[array_search($category, \App\Models\DiagnosticReport::$category_index)] }}
                                     </option>
                                 @endforeach
                             </select>
@@ -31,7 +31,7 @@
 
                     <tr>
                         <td class="text-sm align-content-center">
-                            <x-input-label for="body" :value="__('Note')" />
+                            <x-input-label for="body" :value="__('Report')" />
                         </td>
 
                         <td class="text-sm">
@@ -56,7 +56,7 @@
 
                 <div class="relative grid grid-cols-2 flex w-auto gap-6 p-2 items-center">
                     <div class="flex justify-center">
-                        <a href="/chart/notes/{{$patient->id}}" class="btn btn-outline-primary px-3 py-1 text-sm">Cancel</a>
+                        <a href="/chart/diagnostics/{{$patient->id}}" class="btn btn-outline-primary px-3 py-1 text-sm">Cancel</a>
                     </div>
                     <div class="flex justify-center">
                         <button type="submit" class="btn btn-outline-danger px-3 py-1 text-sm">Save</button>

@@ -5,7 +5,7 @@
             <div class="flex items-center">Notes</div>
             <div class="flex justify-end">
                 @if(Auth::user()->canChart())
-                    <a href="/chart/notes/create/{{$patient->id}}" class="btn btn-outline-success px-3 py-1 ms-2 text-sm">Create a Note</a>
+                    <a href="/chart/diagnostics/create/{{$patient->id}}" class="btn btn-outline-success px-3 py-1 ms-2 text-sm">Create a Report</a>
                 @endif
             </div>
         </div>
@@ -25,24 +25,24 @@
             </tr>
             </thead>
             <tbody>
-            @if (count($notes) > 0)
-                @foreach ($notes as $note)
+            @if (count($reports) > 0)
+                @foreach ($reports as $report)
                     @php
-                        $hasAttachments = (count($attachments->whereIn('note', $note->id)) > 0);
+                        $hasAttachments = (count($attachments->whereIn('report', $report->id)) > 0);
                     @endphp
 
                     <tr>
                         <td class="align-content-center text-sm">
-                            <a href="{{ route('chart.notes.view', ['id' => $note->id]) }}">
-                                {{ date("d M o H:i", strtotime($note->created_at)) }}
+                            <a href="{{ route('chart.diagnostics.view', ['id' => $report->id]) }}">
+                                {{ date("d M o H:i", strtotime($report->created_at)) }}
                             </a>
                         </td>
                         <td class="align-content-center text-sm">
                             <table>
                                 <tr>
                                     <td>
-                                        <a href="{{ route('chart.notes.view', ['id' => $note->id]) }}">
-                                            {{ $note->textCategory() }}
+                                        <a href="{{ route('chart.diagnostics.view', ['id' => $report->id]) }}">
+                                            {{ $report->textCategory() }}
                                         </a>
                                     </td>
                                     <td class="ps-2">
@@ -58,14 +58,14 @@
                             </table>
                         </td>
                         <td class="align-content-center text-sm">
-                            <a href="{{ route('chart.notes.view', ['id' => $note->id]) }}">
-                                {{ $note->author }}
+                            <a href="{{ route('chart.diagnostics.view', ['id' => $report->id]) }}">
+                                {{ $report->author }}
                             </a>
                         </td>
 
                         @if(Auth::user()->isManager())
                             <td class="align-content-center text-sm">
-                                <a href="/chart/notes/delete/{{ $note->id }}" class="btn btn-outline-danger px-3 py-1 text-sm">Delete</a>
+                                <a href="/chart/diagnostics/delete/{{ $report->id }}" class="btn btn-outline-danger px-3 py-1 text-sm">Delete</a>
                             </td>
                         @endif
                     </tr>

@@ -2,10 +2,10 @@
 
     @section("chart_title")
         <div class="grid grid-cols-2">
-            <div class="flex items-center">Notes</div>
+            <div class="flex items-center">Diagnostic Reports</div>
             <div class="flex justify-end">
                 @if(Auth::user()->canChart())
-                    <a href="/chart/notes/append/{{ $note->id }}" class="btn btn-outline-primary px-3 py-1 ms-2 text-sm">Append an Addition</a>
+                    <a href="/chart/diagnostics/append/{{ $report->id }}" class="btn btn-outline-primary px-3 py-1 ms-2 text-sm">Append an Addition</a>
                 @endif
             </div>
         </div>
@@ -16,22 +16,22 @@
             <tbody>
                 <tr>
                     <th class="text-md align-content-start" colspan="2">
-                        {{ $note->textCategory() }}
+                        {{ $report->textCategory() }}
                     </th>
                 </tr>
 
                 <tr>
                     <td class="text-sm align-content-start w-25">Author:</td>
-                    <td class="text-sm align-content-start w-75">{{ $note->author }}</td>
+                    <td class="text-sm align-content-start w-75">{{ $report->author }}</td>
                 </tr>
                 <tr>
                     <td class="text-sm align-content-start w-25">Timestamp:</td>
-                    <td class="text-sm align-content-start w-75">{{ date("d M o H:i", strtotime($note->created_at)) }}</td>
+                    <td class="text-sm align-content-start w-75">{{ date("d M o H:i", strtotime($report->created_at)) }}</td>
                 </tr>
                 <tr>
                     <td class="text-sm align-content-start w-25">Note:</td>
                     <td class="text-sm align-content-start w-75">
-                        <p style="white-space: pre-line">{{ $note->body }}</p>
+                        <p style="white-space: pre-line">{{ $report->body }}</p>
                     </td>
                 </tr>
 

@@ -22,7 +22,7 @@ Setting up your web server:
 2. Ensure your web server is serving the site's folder with PHP enabled.
 3. Ensure your web server has proper access to all files (e.g. ownership and write access, especially to base/storage and base/bootstrap/cache)
 4. You may use https://laravel.com/docs/11.x/deployment as a brief configuration guide.
-5. Consider increasing your web server's file upload sizes to allow for note attachments and diagnostic imaging uploads (e.g. images, videos; up to 160 Mb allowed per form submission). This may need to be set for *both* your web server and the PHP interpreter. Instructions for nginx [can be found here.](https://www.cyberciti.biz/faq/linux-unix-bsd-nginx-413-request-entity-too-large/)
+5. Consider increasing your web server's file upload sizes to allow for note attachments and diagnostic imaging uploads (e.g. images, videos; up to 100 Mb allowed per form submission). This may need to be set for *both* your web server and the PHP interpreter. Instructions for nginx [can be found here.](https://www.cyberciti.biz/faq/linux-unix-bsd-nginx-413-request-entity-too-large/)
 
 Configuring Infirmary Integrated: Electronic Health Record
 1. In a web browser, navigate to the project site's main page. If on the web server: `http://localhost`
