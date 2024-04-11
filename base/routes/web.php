@@ -54,6 +54,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
 Route::middleware(['auth', 'verified', 'role:manager,administrator'])->group(function() {
     Route::get('/chart/notes/delete/{id}', [NoteController::class, 'delete'])->name('chart.notes.delete');
+    Route::get('/chart/diagnostics/delete/{id}', [DiagnosticsController::class, 'delete'])->name('chart.diagnostics.delete');
 
     Route::get('/patients', [PatientController::class, 'index'])->name('patients.index');
     Route::get('/patients/create', [PatientController::class, 'create'])->name('patients.create');

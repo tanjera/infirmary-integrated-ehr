@@ -2,7 +2,7 @@
 
     @section("chart_title")
         <div class="grid grid-cols-2">
-            <div class="flex items-center">Create a Note</div>
+            <div class="flex items-center">Create a Report</div>
         </div>
     @endsection
 
@@ -48,6 +48,10 @@
 
                         <td class="text-sm">
                             <input type="file" multiple name="attachments[]">
+
+                            <p style="color: darkgoldenrod" class="py-2">
+                                Note: Large file sizes (> 10 mb) may not be supported and/or may return an error.
+                            </p>
                         </td>
                     </tr>
 

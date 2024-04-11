@@ -51,7 +51,7 @@ class DiagnosticsController extends Controller
 
         $validated = $req->validate([
             'category' => 'required',
-            'body' => 'required',
+            'attachments.*' => 'max:49152',
         ]);
 
         $report = DiagnosticReport::create([
@@ -69,10 +69,12 @@ class DiagnosticsController extends Controller
 
                 $filepath = "$filename";
                 $origname = $file->getClientOriginalName();
+                $mimetype = $file->getClientMimeType();
 
                 DiagnosticAttachment::create([
                     'report' => $report->id,
                     'name' => $origname,
+                    'mimetype' => $mimetype,
                     'filepath' => $filepath,
                 ]);
             }
@@ -98,10 +100,6 @@ class DiagnosticsController extends Controller
         $report = DiagnosticReport::find($req->id);
         $patient = Patient::find($report->patient);
 
-        $validated = $req->validate([
-            'body' => 'required',
-        ]);
-
         DiagnosticAddition::create([
             'report' => $req->id,
             'author' => Auth::user()->name,
@@ -123,8 +121,12 @@ class DiagnosticsController extends Controller
         foreach ($additions as $addition)
             $addition->delete();
 
-        foreach ($attachments as $attachment)
+        foreach ($attachments as $attachment) {
+            $path = storage_path('app/private/' . $attachment->filepath);
+            $file = File::delete($path);
+
             $attachment->delete();
+        }
 
         return redirect("/chart/diagnostics/$patient")->with('message', "$category deleted successfully!");
     }

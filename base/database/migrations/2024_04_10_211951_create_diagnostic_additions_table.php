@@ -15,7 +15,7 @@ return new class extends Migration
                 $table->uuid('id')->index();
                 $table->uuid('report');
                 $table->string('author');
-                $table->text('body');
+                $table->text('body')->nullable();
             $table->timestamps();
         });
     }

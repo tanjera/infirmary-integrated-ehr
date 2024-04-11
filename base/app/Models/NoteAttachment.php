@@ -14,6 +14,7 @@ class NoteAttachment extends Model
         'id',
         'note',
         'name',
+        'mimetype',
         'filepath',
     ];
 }

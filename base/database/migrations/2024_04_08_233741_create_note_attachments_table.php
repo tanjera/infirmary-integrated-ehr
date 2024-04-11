@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->index();
             $table->uuid('note');
             $table->string('name');
+            $table->string('mimetype');
             $table->string('filepath');
             $table->timestamps();
         });

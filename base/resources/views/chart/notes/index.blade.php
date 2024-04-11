@@ -19,9 +19,6 @@
                 <th scope="col" class="align-content-center w-25 text-sm">Timestamp</th>
                 <th scope="col" class="align-content-center w-25 text-sm">Category</th>
                 <th scope="col" class="align-content-center w-25 text-sm">Author</th>
-                @if(Auth::user()->isManager())
-                    <th scope="col" class="align-content-center w-25 text-sm">Actions</th>
-                @endif
             </tr>
             </thead>
             <tbody>
@@ -62,12 +59,6 @@
                                 {{ $note->author }}
                             </a>
                         </td>
-
-                        @if(Auth::user()->isManager())
-                            <td class="align-content-center text-sm">
-                                <a href="/chart/notes/delete/{{ $note->id }}" class="btn btn-outline-danger px-3 py-1 text-sm">Delete</a>
-                            </td>
-                        @endif
                     </tr>
                 @endforeach
             @else

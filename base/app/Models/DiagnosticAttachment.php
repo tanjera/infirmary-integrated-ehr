@@ -14,6 +14,7 @@ class DiagnosticAttachment extends Model
         'id',
         'report',
         'name',
+        'mimetype',
         'filepath',
     ];
 }

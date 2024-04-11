@@ -51,7 +51,7 @@ class NoteController extends Controller
 
         $validated = $req->validate([
             'category' => 'required',
-            'body' => 'required',
+            'attachments.*' => 'max:49152',
         ]);
 
         $note = Note::create([
@@ -69,10 +69,12 @@ class NoteController extends Controller
 
                 $filepath = "$filename";
                 $origname = $file->getClientOriginalName();
+                $mimetype = $file->getClientMimeType();
 
                 NoteAttachment::create([
                     'note' => $note->id,
                     'name' => $origname,
+                    'mimetype' => $mimetype,
                     'filepath' => $filepath,
                 ]);
             }
@@ -98,10 +100,6 @@ class NoteController extends Controller
         $note = Note::find($req->id);
         $patient = Patient::find($note->patient);
 
-        $validated = $req->validate([
-            'body' => 'required',
-        ]);
-
         NoteAddition::create([
             'note' => $req->id,
             'author' => Auth::user()->name,
@@ -123,8 +121,12 @@ class NoteController extends Controller
         foreach ($additions as $addition)
             $addition->delete();
 
-        foreach ($attachments as $attachment)
+        foreach ($attachments as $attachment) {
+            $path = storage_path('app/private/' . $attachment->filepath);
+            $file = File::delete($path);
+
             $attachment->delete();
+        }
 
         return redirect("/chart/notes/$patient")->with('message', "$category deleted successfully!");
     }

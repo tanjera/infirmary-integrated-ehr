@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('patient');
             $table->string('author');
             $table->enum('category', DiagnosticReport::$category_index);
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->timestamps();
         });
     }

@@ -4,6 +4,12 @@
         <div class="grid grid-cols-2">
             <div class="flex items-center">Notes</div>
             <div class="flex justify-end">
+                @if(Auth::user()->isManager())
+                    <td class="align-content-center text-sm">
+                        <a href="/chart/notes/delete/{{ $note->id }}" class="btn btn-outline-danger px-3 py-1 text-sm">Delete Note</a>
+                    </td>
+                @endif
+
                 @if(Auth::user()->canChart())
                     <a href="/chart/notes/append/{{ $note->id }}" class="btn btn-outline-primary px-3 py-1 ms-2 text-sm">Append an Addition</a>
                 @endif
@@ -54,13 +60,23 @@
                                                 <tr>
                                             @endif
 
-                                            <td>
-                                                <a href="{{asset("/storage/$attachment->filepath")}}">
-                                                    <img
-                                                        src="{{asset("/storage/$attachment->filepath")}}"
-                                                        alt="Attachment"
-                                                    />
-                                                </a>
+                                            <td style="width: {{100 / ($loop->count < 5 ? $loop->count : 5)}}%">
+                                                <div class="border-1 border-gray rounded p-2">
+                                                    <a href="{{asset("/storage/$attachment->filepath")}}">
+                                                        <p class="pb-2 text-center">
+                                                            {{$attachment->name}}
+                                                        </p>
+                                                        <img class="mx-auto py-1"
+                                                             @if(str_starts_with($attachment->mimetype, "image/"))
+                                                                 src="{{asset("/storage/$attachment->filepath")}}"
+                                                             @else
+                                                                 src="{{asset('vendor\third_party\icon_attachment.svg')}}"
+                                                             height="64" width="64"
+                                                             @endif
+                                                             alt="{{$attachment->name}}"
+                                                        />
+                                                    </a>
+                                                </div>
                                             </td>
                                         @endforeach
                                     </tr>
