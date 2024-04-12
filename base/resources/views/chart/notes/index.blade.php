@@ -31,7 +31,7 @@
                     <tr>
                         <td class="align-content-center text-sm">
                             <a href="{{ route('chart.notes.view', ['id' => $note->id]) }}">
-                                {{ date("d M o H:i", strtotime($note->created_at)) }}
+                                {{ Auth::user()->adjustDateTime($note->created_at)->format("d M o H:i") }}
                             </a>
                         </td>
                         <td class="align-content-center text-sm">

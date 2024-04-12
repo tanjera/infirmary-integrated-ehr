@@ -20,6 +20,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
+            'timezone' => 'required',
             'role' => 'required',
             'license' => 'required'
         ]);
@@ -28,6 +29,7 @@ class UserController extends Controller
             'name' => $req->name,
             'email' => $req->email,
             'password' => $req->password,
+            'timezone' => is_null($req->timezone) ? 'UTC' : $req->timezone,
             'role' => $req->role,
             'license' => $req->license
         ]);
@@ -49,6 +51,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
+            'timezone' => 'required',
             'role' => 'required',
             'license' => 'required'
         ]);
@@ -57,6 +60,7 @@ class UserController extends Controller
             'name' => $req->name,
             'email' => $req->email,
             'password' => $req->password,
+            'timezone' => is_null($req->timezone) ? 'UTC' : $req->timezone,
             'role' => $req->role,
             'license' => $req->license
         ]);

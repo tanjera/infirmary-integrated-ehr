@@ -62,6 +62,24 @@
 
                         <tr>
                             <td class="text-sm align-content-center">
+                                <x-input-label for="timezone" :value="__('Timezone')" />
+                            </td>
+
+                            <td class="text-sm">
+                                <select id="timezone"
+                                class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        name="timezone">
+                                    @foreach(timezone_identifiers_list(DateTimeZone::ALL, null) as $timezone)
+                                        <option value="{{ $timezone }}" {{ $timezone == $user->timezone ? "selected" : ""}}>
+                                            {{ str_replace("_", " ", $timezone) }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-sm align-content-center">
                                 <x-input-label for="role" :value="__('Role')" />
                             </td>
 
@@ -101,10 +119,10 @@
 
                     <div class="relative grid grid-cols-2 flex w-auto gap-6 p-2 items-center">
                         <div class="flex justify-center">
-                            <a href="/users" class="btn btn-outline-primary px-3 py-1 text-sm">Cancel</a>
+                            <a href="/users" class="btn btn-outline-danger px-3 py-1 text-sm">Cancel</a>
                         </div>
                         <div class="flex justify-center">
-                            <button type="submit" class="btn btn-outline-danger px-3 py-1 text-sm">Save</button>
+                            <button type="submit" class="btn btn-outline-success px-3 py-1 text-sm">Save</button>
                         </div>
                     </div>
                 </form>

@@ -25,13 +25,15 @@
                             <th scope="col" class="align-content-center text-sm">Name</th>
                             <th scope="col" class="align-content-center text-sm">Email</th>
                             <th scope="col" class="align-content-center text-sm">Role</th>
+                            <th scope="col" class="align-content-center text-sm">License</th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="align-content-center text-sm">{{ $user->name }}</td>
                                 <td class="align-content-center text-sm">{{ $user->email }}</td>
-                                <td class="align-content-center text-sm">{{ $user->role }}</td>
+                                <td class="align-content-center text-sm">{{ ucfirst($user->role) }}</td>
+                                <td class="align-content-center text-sm">{{ ucfirst($user->textLicense()) }}</td>
                                 </td>
                             </tr>
                         </tbody>

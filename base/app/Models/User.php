@@ -3,11 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Faker\Core\DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-
 
 class User extends Authenticatable
 {
@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'timezone',
         'role',
         'license'
     ];
@@ -47,6 +48,12 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function adjustDateTime($timestamp): \DateTime
+    {
+        $date = new \DateTime($timestamp);
+        $date->setTimezone(new \DateTimeZone($this->timezone));
+        return $date;
     }
     public function isAdministrator(): bool
     {

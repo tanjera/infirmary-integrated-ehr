@@ -78,10 +78,10 @@
 
                     <div class="relative grid grid-cols-2 flex w-auto gap-6 p-2 items-center">
                         <div class="flex justify-center">
-                            <a href="/facilities" class="btn btn-outline-primary px-3 py-1 text-sm">Cancel</a>
+                            <a href="/facilities" class="btn btn-outline-danger px-3 py-1 text-sm">Cancel</a>
                         </div>
                         <div class="flex justify-center">
-                            <button type="submit" class="btn btn-outline-danger px-3 py-1 text-sm">Save</button>
+                            <button type="submit" class="btn btn-outline-success px-3 py-1 text-sm">Save</button>
                         </div>
                     </div>
                 </form>

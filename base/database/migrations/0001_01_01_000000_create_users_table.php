@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('timezone')->default('UTC');
             $table->enum('role', User::$roles_index)->default('clinician');
             $table->enum('license', User::$licenses_index)->default('none');
             $table->rememberToken();

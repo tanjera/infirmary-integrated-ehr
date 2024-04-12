@@ -11,7 +11,7 @@
                 @endif
 
                 @if(Auth::user()->canChart())
-                    <a href="/chart/notes/append/{{ $note->id }}" class="btn btn-outline-primary px-3 py-1 ms-2 text-sm">Append an Addition</a>
+                    <a href="/chart/notes/append/{{ $note->id }}" class="btn btn-outline-success px-3 py-1 ms-2 text-sm">Append an Addition</a>
                 @endif
             </div>
         </div>
@@ -32,7 +32,7 @@
                 </tr>
                 <tr>
                     <td class="text-sm align-content-start w-25">Timestamp:</td>
-                    <td class="text-sm align-content-start w-75">{{ date("d M o H:i", strtotime($note->created_at)) }}</td>
+                    <td class="text-sm align-content-start w-75">{{ Auth::user()->adjustDateTime($note->created_at)->format("d M o H:i") }}</td>
                 </tr>
                 <tr>
                     <td class="text-sm align-content-start w-25">Note:</td>

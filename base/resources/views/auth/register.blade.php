@@ -39,6 +39,21 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
+
+        <div class="mt-4">
+            <x-input-label for="timezone" :value="__('Timezone')" />
+
+            <select id="timezone"
+                    class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                    name="timezone">
+                @foreach(timezone_identifiers_list(DateTimeZone::ALL, null) as $timezone)
+                    <option value="{{ $timezone }}" {{ $timezone == "UTC" ? "selected" : ""}}>
+                        {{ str_replace("_", " ", $timezone) }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
