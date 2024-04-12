@@ -13,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('allergies', function (Blueprint $table) {
-            $table->uuid('id')->index();
-            $table->uuid('patient');
+            $table->uuid('id')->primary();
+            $table->uuid('patient')->index();
             $table->string('allergen');
             $table->string('reaction');
             $table->enum('severity', Allergy::$severity_index);

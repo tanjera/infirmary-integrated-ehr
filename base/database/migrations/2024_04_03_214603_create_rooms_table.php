@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rooms', function (Blueprint $table) {
-            $table->uuid('id')->index();
+            $table->uuid('id')->primary();
             $table->uuid('facility')->index();
             $table->integer('number')->nullable();
-            $table->uuid('patient')->nullable();
+            $table->uuid('patient')->index();
             $table->timestamps();
         });
     }

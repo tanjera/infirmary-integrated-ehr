@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('patients', function (Blueprint $table) {
-            $table->uuid('id')->index();
+            $table->uuid('id')->primary();
             $table->boolean('active')->default(true);
             $table->string('name_first')->nullable();
             $table->string('name_middle')->nullable();

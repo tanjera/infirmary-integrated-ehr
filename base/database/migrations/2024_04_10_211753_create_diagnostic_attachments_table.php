@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('diagnostic_attachments', function (Blueprint $table) {
-            $table->uuid('id')->index();
-            $table->uuid('report');
+            $table->uuid('id')->primary();
+            $table->uuid('report')->index();
             $table->string('name');
             $table->string('mimetype');
             $table->string('filepath');

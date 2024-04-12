@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('note_attachments', function (Blueprint $table) {
-            $table->uuid('id')->index();
-            $table->uuid('note');
+            $table->uuid('id')->primary();
+            $table->uuid('note')->index();
             $table->string('name');
             $table->string('mimetype');
             $table->string('filepath');

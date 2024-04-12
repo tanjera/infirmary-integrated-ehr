@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('note_additions', function (Blueprint $table) {
-            $table->uuid('id')->index();
-            $table->uuid('note');
+            $table->uuid('id')->primary();
+            $table->uuid('note')->index();
             $table->string('author');
             $table->text('body')->nullable();
             $table->timestamps();

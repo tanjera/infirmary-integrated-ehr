@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('facilities', function (Blueprint $table) {
-            $table->uuid('id')->index();
+            $table->uuid('id')->primary();
             $table->string('name')->nullable();
             $table->string('acronym')->nullable();
             $table->enum('type', ['inpatient', 'outpatient'])->default('inpatient');
