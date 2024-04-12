@@ -56,7 +56,7 @@
                         </td>
                         <td class="align-content-center text-sm">
                             <a href="{{ route('chart.notes.view', ['id' => $note->id]) }}">
-                                {{ $note->author }}
+                                {{ $authors->where('id', $note->author)->first()->name }}
                             </a>
                         </td>
                     </tr>

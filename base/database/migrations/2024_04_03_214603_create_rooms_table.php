@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('facility')->index();
             $table->integer('number')->nullable();
-            $table->uuid('patient')->index();
+            $table->uuid('patient')->index()->nullable();
             $table->timestamps();
         });
     }

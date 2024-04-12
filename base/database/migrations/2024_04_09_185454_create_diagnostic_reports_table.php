@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('diagnostic_reports', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('patient')->index();
-            $table->string('author');
+            $table->uuid('author')->index();
             $table->enum('category', DiagnosticReport::$category_index);
             $table->text('body')->nullable();
             $table->timestamps();

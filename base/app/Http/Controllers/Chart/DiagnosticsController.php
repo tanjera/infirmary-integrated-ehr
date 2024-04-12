@@ -6,6 +6,7 @@ use App\Models\DiagnosticReport;
 use App\Models\DiagnosticAttachment;
 use App\Models\DiagnosticAddition;
 use App\Models\Patient;
+use App\Models\User;
 
 use App\Http\Controllers\Controller;
 
@@ -22,20 +23,25 @@ class DiagnosticsController extends Controller
         $patient = Patient::find($req->id);
         $reports = DiagnosticReport::where('patient', $req->id)->get();
 
+        $author_ids = $reports->pluck('author');
+        $authors = User::select('id', 'name')->whereIn('id', $author_ids)->get();
+
         $report_ids = $reports->pluck('id');
         $attachments = DiagnosticAttachment::whereIn('report', $report_ids)->get();
 
         return view('chart.diagnostics.index')->with("patient", $patient)->with("reports", $reports)
-            ->with("attachments", $attachments);
+            ->with("authors", $authors)->with("attachments", $attachments);
     }
     public function view(Request $req) {
         $report = DiagnosticReport::find($req->id);
+        $author = User::select('id', 'name')->where('id', $report->author)->first();
         $additions = DiagnosticAddition::where('report', $report->id)->get();
         $attachments = DiagnosticAttachment::where('report', $report->id)->get();
         $patient = Patient::find($report->patient);
 
         return view('chart.diagnostics.view')->with("patient", $patient)->with("report", $report)
-            ->with("additions", $additions)->with("attachments", $attachments);
+            ->with("author", $author)->with("additions", $additions)
+            ->with("attachments", $attachments);
     }
     public function create(Request $req){
         if (!Auth::user()->canChart())
@@ -56,7 +62,7 @@ class DiagnosticsController extends Controller
 
         $report = DiagnosticReport::create([
             'patient' => $req->id,
-            'author' => Auth::user()->name,
+            'author' => Auth::user()->id,
             'category' => $req->category,
             'body' => $req->body,
         ]);
@@ -102,7 +108,7 @@ class DiagnosticsController extends Controller
 
         DiagnosticAddition::create([
             'report' => $req->id,
-            'author' => Auth::user()->name,
+            'author' => Auth::user()->id,
             'body' => $req->body,
         ]);
 

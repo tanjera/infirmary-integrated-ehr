@@ -56,7 +56,7 @@
                         </td>
                         <td class="align-content-center text-sm">
                             <a href="{{ route('chart.diagnostics.view', ['id' => $report->id]) }}">
-                                {{ $report->author }}
+                                {{ $authors->where('id', $report->author)->first()->name }}
                             </a>
                         </td>
                     </tr>

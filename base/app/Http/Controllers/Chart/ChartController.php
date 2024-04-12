@@ -12,6 +12,7 @@ class ChartController extends Controller
     public function index(Request $req) {
         $patient = Patient::find($req->id);
 
+
         return view('chart.index')->with("patient", $patient);
     }
     public function demographics(Request $req) {

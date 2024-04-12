@@ -6,6 +6,7 @@ use App\Models\Note;
 use App\Models\NoteAddition;
 use App\Models\NoteAttachment;
 use App\Models\Patient;
+use App\Models\User;
 
 use App\Http\Controllers\Controller;
 
@@ -22,20 +23,25 @@ class NoteController extends Controller
         $patient = Patient::find($req->id);
         $notes = Note::where('patient', $req->id)->get();
 
+        $author_ids = $notes->pluck('author');
+        $authors = User::select('id', 'name')->whereIn('id', $author_ids)->get();
+
         $note_ids = $notes->pluck('id');
         $attachments = NoteAttachment::whereIn('note', $note_ids)->get();
 
         return view('chart.notes.index')->with("patient", $patient)->with("notes", $notes)
-            ->with("attachments", $attachments);
+            ->with("authors", $authors)->with("attachments", $attachments);
     }
     public function view(Request $req) {
         $note = Note::find($req->id);
+        $author = User::select('id', 'name')->where('id', $note->author)->first();
         $additions = NoteAddition::where('note', $note->id)->get();
         $attachments = NoteAttachment::where('note', $note->id)->get();
         $patient = Patient::find($note->patient);
 
         return view('chart.notes.view')->with("patient", $patient)->with("note", $note)
-            ->with("additions", $additions)->with("attachments", $attachments);
+            ->with("author", $author)->with("additions", $additions)
+            ->with("attachments", $attachments);
     }
     public function create(Request $req){
         if (!Auth::user()->canChart())
@@ -56,7 +62,7 @@ class NoteController extends Controller
 
         $note = Note::create([
             'patient' => $req->id,
-            'author' => Auth::user()->name,
+            'author' => Auth::user()->id,
             'category' => $req->category,
             'body' => $req->body,
         ]);
@@ -102,7 +108,7 @@ class NoteController extends Controller
 
         NoteAddition::create([
             'note' => $req->id,
-            'author' => Auth::user()->name,
+            'author' => Auth::user()->id,
             'body' => $req->body,
         ]);
 

@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('diagnostic_additions', function (Blueprint $table) {
-                $table->uuid('id')->primary();
-                $table->uuid('report')->index();
-                $table->string('author');
-                $table->text('body')->nullable();
+            $table->uuid('id')->primary();
+            $table->uuid('report')->index();
+            $table->uuid('author')->index();
+            $table->text('body')->nullable();
             $table->timestamps();
         });
     }

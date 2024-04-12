@@ -68,6 +68,11 @@ class FacilityController extends Controller
     }
     public function delete(Request $req){
         $facility = Facility::find($req->id);
+        $rooms = Room::where('facility', $req->id)->get();
+
+        foreach ($rooms as $room)
+            $room->delete();
+
         $facility->delete();
 
         return redirect('/facilities')->with('message', "'$facility->name' deleted successfully!");

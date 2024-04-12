@@ -28,7 +28,7 @@
 
                 <tr>
                     <td class="text-sm align-content-start w-25">Author:</td>
-                    <td class="text-sm align-content-start w-75">{{ $note->author }}</td>
+                    <td class="text-sm align-content-start w-75">{{ $author->name }}</td>
                 </tr>
                 <tr>
                     <td class="text-sm align-content-start w-25">Timestamp:</td>
