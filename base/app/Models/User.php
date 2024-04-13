@@ -55,6 +55,9 @@ class User extends Authenticatable
         $date->setTimezone(new \DateTimeZone($this->timezone));
         return $date;
     }
+    public function getTimeZone(): \DateTimeZone {
+        return new \DateTimeZone($this->timezone);
+    }
     public function isAdministrator(): bool
     {
         return in_array($this->role, ['administrator']);
@@ -83,16 +86,19 @@ class User extends Authenticatable
         else
             return self::$licenses_text[$key];
     }
+    public static array $licenses_canChart = ['ma', 'cna', 'lpn', 'rn', 'np', 'pa', 'md', 'do'];
+    public static array $licenses_canAssess = ['lpn', 'rn', 'np', 'pa', 'md', 'do'];
+    public static array $licenses_canOrder = ['np', 'pa', 'md', 'do'];
     public function canChart(): bool
     {
-        return in_array($this->license, ['ma', 'cna', 'lpn', 'rn', 'np', 'pa', 'md', 'do']);
+        return in_array($this->license, User::$licenses_canChart);
     }
     public function canAssess(): bool
     {
-        return in_array($this->license, ['lpn', 'rn', 'np', 'pa', 'md', 'do']);
+        return in_array($this->license, User::$licenses_canAssess);
     }
     public function canOrder(): bool
     {
-        return in_array($this->license, ['np', 'pa', 'md', 'do']);
+        return in_array($this->license, User::$licenses_canOrder);
     }
 }

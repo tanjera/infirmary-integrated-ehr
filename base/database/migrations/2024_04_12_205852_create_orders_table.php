@@ -30,10 +30,10 @@ return new class extends Migration
             $table->string('drug')->nullable();
             $table->double('dose_amount')->nullable();
             $table->enum('dose_unit', Order::$doseunits_index)->nullable();
-            $table->enum('route', Order::$route_index)->nullable();
-            $table->enum('period_type', Order::$periodtype_index)->nullable();
+            $table->enum('route', Order::$routes_index)->nullable();
+            $table->enum('period_type', Order::$periodtypes_index)->nullable();
             $table->integer('period_amount')->nullable();
-            $table->enum('period_unit', Order::$periodunit_index)->nullable();
+            $table->enum('period_unit', Order::$periodunits_index)->nullable();
             $table->integer('total_doses')->nullable();
             $table->string('indication')->nullable();
 

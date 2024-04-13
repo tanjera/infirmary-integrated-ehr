@@ -29,6 +29,7 @@ class Order extends Model
         'dose_amount',
         'dose_unit',
         'route',
+        'period_type',
         'period_amount',
         'period_unit',
         'total_doses',
@@ -45,9 +46,50 @@ class Order extends Model
         'meq', 'iu',
         'puff', 'gtt',
         'ml_hr', 'mcg_hr',
-        'ml_kg_hr', 'mcg_kg_hr'
+        'ml_kg_hr', 'mcg_kg_hr', 'mcg_kg_min'
     ];
-    public static array $route_index = [ 'po', 'iv', 'im', 'subcut', 'inhaled'];
-    public static array $periodtype_index = ['repeats', 'once', 'prn'];
-    public static array $periodunit_index = ['minute', 'hour', 'day', 'week'];
+    public static array $doseunits_text = [
+        'L', 'mL',
+        'gm', 'mg', 'mcg',
+        'mEq', 'IU',
+        'Puff', 'gtt',
+        'mL/hr', 'mcg/hr',
+        'mL/kg/hr', 'mcg/kg/hr', 'mcg/kg/min'
+        ];
+    public function textDoseunit() : string
+    {
+        $key = array_search($this->dose_unit, self::$doseunits_index);
+        if ($key === false)
+            return 'L';
+        else
+            return self::$doseunits_text[$key];
+    }
+    public static array $routes_index = [ 'po', 'iv', 'im', 'subcut', 'inhaled'];
+    public static array $routes_text = [
+        'PO', 'IV', 'IM', 'Subcutaneous', 'Inhaled'
+    ];
+    public function textRoute() : string
+    {
+        $key = array_search($this->route, self::$routes_index);
+        if ($key === false)
+            return 'PO';
+        else
+            return self::$routes_text[$key];
+    }
+    public static array $periodtypes_index = ['repeats', 'once', 'prn'];
+    public static array $periodtypes_text = [
+        'Repeats', 'Once', 'PRN'
+    ];
+    public function textPeriodtype() : string
+    {
+        $key = array_search($this->route, self::$periodtypes_index);
+        if ($key === false)
+            return 'Repeats';
+        else
+            return self::$periodtypes_text[$key];
+    }
+    public static array $periodunits_index = ['minute', 'hour', 'day', 'week'];
+    public static array $periodunits_text = [
+        'Minutes', 'Hours', 'Days', 'Weeks'
+    ];
 }

@@ -176,7 +176,7 @@
 
                         <tr>
                             <th class="text-md align-content-start" colspan="2">
-                                Contact Information
+                                <p class="pt-3">Contact Information</p>
                             </th>
                         </tr>
 
@@ -206,7 +206,7 @@
 
                         <tr>
                             <th class="text-md align-content-start" colspan="2">
-                                Insurance Information
+                                <p class="pt-3">Insurance Information</p>
                             </th>
                         </tr>
 
@@ -236,7 +236,7 @@
 
                         <tr>
                             <th class="text-md align-content-start" colspan="2">
-                                Next of Kin
+                                <p class="pt-3">Next of Kin</p>
                             </th>
                         </tr>
 

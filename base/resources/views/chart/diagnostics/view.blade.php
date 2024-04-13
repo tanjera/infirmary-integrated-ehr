@@ -44,7 +44,7 @@
                 @if(!is_null($attachments) && count($attachments) > 0)
                     <tr>
                         <th class="text-md align-content-start" colspan="2">
-                            Attachments
+                            <p class="pt-3">Attachments</p>
                         </th>
                     </tr>
 
@@ -88,7 +88,9 @@
 
                 @foreach($additions as $addition)
                     <tr>
-                        <th class="text-md align-content-start" colspan="2">Addition</th>
+                        <th class="text-md align-content-start" colspan="2">
+                            <p class="pt-3">Addition</p>
+                        </th>
                     </tr>
 
                     <tr>

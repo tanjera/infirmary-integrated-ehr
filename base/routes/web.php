@@ -6,6 +6,7 @@ use App\Http\Controllers\Chart\ChartController;
 use App\Http\Controllers\Chart\AllergyController;
 use App\Http\Controllers\Chart\DiagnosticsController;
 use App\Http\Controllers\Chart\NoteController;
+use App\Http\Controllers\Chart\OrderController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
@@ -45,8 +46,12 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/chart/diagnostics/affix/{id}', [DiagnosticsController::class, 'affix'])->name('chart.diagnostics.affix');
     Route::get('/storage/diagnostic_attachments/{filename}', [DiagnosticsController::class, 'view_attachment'])->name('diagnostics_attachments.view');
 
+    Route::get('/chart/orders/{id}', [OrderController::class, 'index'])->name('chart.orders');
+    Route::get('/chart/orders/view/{id}', [OrderController::class, 'view'])->name('chart.orders.view');
+    Route::get('/chart/orders/create/{id}', [OrderController::class, 'create'])->name('chart.orders.create');
+    Route::post('/chart/orders/create/{id}', [OrderController::class, 'add'])->name('chart.orders.add');
+
     Route::get('/chart/results/{id}', [ChartController::class, 'results'])->name('chart.results');
-    Route::get('/chart/orders/{id}', [ChartController::class, 'orders'])->name('chart.orders');
     Route::get('/chart/flowsheet/{id}', [ChartController::class, 'flowsheet'])->name('chart.flowsheet');
     Route::get('/chart/mar/{id}', [ChartController::class, 'mar'])->name('chart.mar');
 });
@@ -55,6 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 Route::middleware(['auth', 'verified', 'role:manager,administrator'])->group(function() {
     Route::get('/chart/notes/delete/{id}', [NoteController::class, 'delete'])->name('chart.notes.delete');
     Route::get('/chart/diagnostics/delete/{id}', [DiagnosticsController::class, 'delete'])->name('chart.diagnostics.delete');
+    Route::get('/chart/orders/delete/{id}', [OrderController::class, 'delete'])->name('chart.orders.delete');
 
     Route::get('/patients', [PatientController::class, 'index'])->name('patients.index');
     Route::get('/patients/create', [PatientController::class, 'create'])->name('patients.create');
