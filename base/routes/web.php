@@ -50,6 +50,10 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/chart/orders/view/{id}', [OrderController::class, 'view'])->name('chart.orders.view');
     Route::get('/chart/orders/create/{id}', [OrderController::class, 'create'])->name('chart.orders.create');
     Route::post('/chart/orders/create/{id}', [OrderController::class, 'add'])->name('chart.orders.add');
+    Route::get('/chart/orders/cosign/{id}', [OrderController::class, 'cosign'])->name('chart.orders.cosign');
+    Route::get('/chart/orders/activate/{id}', [OrderController::class, 'activate'])->name('chart.orders.activate');
+    Route::get('/chart/orders/complete/{id}', [OrderController::class, 'complete'])->name('chart.orders.complete');
+    Route::get('/chart/orders/discontinue/{id}', [OrderController::class, 'discontinue'])->name('chart.orders.discontinue');
 
     Route::get('/chart/results/{id}', [ChartController::class, 'results'])->name('chart.results');
     Route::get('/chart/flowsheet/{id}', [ChartController::class, 'flowsheet'])->name('chart.flowsheet');

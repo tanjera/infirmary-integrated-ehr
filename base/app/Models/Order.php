@@ -17,6 +17,7 @@ class Order extends Model
         'cosigned_by',
         'cosign_complete',
         'status',
+        'status_by',
         'category',
         'method',
         'priority',

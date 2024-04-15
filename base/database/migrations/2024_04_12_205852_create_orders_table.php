@@ -19,6 +19,7 @@ return new class extends Migration
             $table->uuid('cosigned_by')->nullable();
             $table->boolean('cosign_complete')->default(false);
             $table->enum('status', Order::$status_index)->default('active');
+            $table->uuid('status_by')->nullable();
             $table->enum('category', Order::$category_index)->default('general');
             $table->enum('method', Order::$method_index)->default('written');
             $table->enum('priority', Order::$priority_index)->default('routine');

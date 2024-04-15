@@ -14,7 +14,16 @@ class OrderController extends Controller
 {
     public function index(Request $req) {
         $patient = Patient::find($req->id);
-        $orders = Order::where('patient', $req->id)->get();
+        $orders = Order::where('patient', $req->id)->get()
+            ->sortBy(function (Order $item) {
+            switch($item->status) {
+                default: return 0;
+                case "active": return 1;
+                case "pending": return 2;
+                case "completed": return 3;
+                case "discontinued": return 4;
+            }
+        });
 
         $author_ids = $orders->pluck('ordered_by')->merge($orders->pluck('cosigned_by'));
         $authors = User::select('id', 'name')->whereIn('id', $author_ids)->get();
@@ -23,7 +32,77 @@ class OrderController extends Controller
             ->with("authors", $authors);
     }
     public function view(Request $req) {
+        $order = Order::find($req->id);
+        $patient = Patient::find($order->patient);
+        $authors = User::select('id', 'name')->whereIn('id', [$order->ordered_by, $order->cosigned_by])->get();
+
+        return view('chart.orders.view')->with("patient", $patient)->with("order", $order)
+            ->with("authors", $authors);
     }
+    public function cosign(Request $req) {
+        $order = Order::find($req->id);
+
+        if (Auth::user()->id != $order->cosigned_by) {
+            return redirect("/chart/orders/view/$req->id")->with('message', "Incorrect cosigner- cosign attempt refused.");
+        } else if ($order->cosign_complete) {
+            return redirect("/chart/orders/view/$req->id")->with('message', "Order already cosigned.");
+        } else {
+            $order->update([
+                'cosign_complete' => true
+            ]);
+
+            return redirect("/chart/orders/view/$req->id")->with('message', "Cosign completed successfully.");
+        }
+    }
+    public function activate(Request $req) {
+        $order = Order::find($req->id);
+        $user = Auth::user();
+
+        if ($user->canChart() && $order->status == "pending") {
+            $order->update([
+                'status' => "active",
+                'status_by' => $user->id
+            ]);
+
+            return redirect("/chart/orders/view/$req->id")->with('message', "Order activated successfully.");
+        } else {
+
+            return redirect("/chart/orders/view/$req->id")->with('message', "Error occurred. Unable to activate order.");
+        }
+    }
+    public function complete(Request $req) {
+        $order = Order::find($req->id);
+        $user = Auth::user();
+
+        if ($user->canChart() && $order->status == "active") {
+            $order->update([
+                'status' => "completed",
+                'status_by' => $user->id
+            ]);
+
+            return redirect("/chart/orders/view/$req->id")->with('message', "Order completed successfully.");
+        } else {
+
+            return redirect("/chart/orders/view/$req->id")->with('message', "Error occurred. Unable to complete order.");
+        }
+    }
+    public function discontinue(Request $req) {
+        $order = Order::find($req->id);
+        $user = Auth::user();
+
+        if ($user->canOrder() && ($order->status == "active" || $order->status == "pending")) {
+            $order->update([
+                'status' => "discontinued",
+                'status_by' => $user->id
+            ]);
+
+            return redirect("/chart/orders/view/$req->id")->with('message', "Order discontinued successfully.");
+        } else {
+
+            return redirect("/chart/orders/view/$req->id")->with('message', "Error occurred. Unable to discontinue order.");
+        }
+    }
+
     public function create(Request $req){
         if (!Auth::user()->canChart())
             abort(403);
@@ -55,6 +134,7 @@ class OrderController extends Controller
 
             $order = Order::create([
                 'patient' => $req->id,
+                'status' => ($req->pend_order != "on" ? "active" : "pending"),
                 'ordered_by' => Auth::user()->id,
                 'cosigned_by' => $req->cosign_by,
                 'category' => $req->category,
@@ -86,6 +166,7 @@ class OrderController extends Controller
 
             $order = Order::create([
                 'patient' => $req->id,
+                'status' => ($req->pend_order != "on" ? "active" : "pending"),
                 'ordered_by' => Auth::user()->id,
                 'cosigned_by' => $req->cosign_by,
                 'category' => $req->category,

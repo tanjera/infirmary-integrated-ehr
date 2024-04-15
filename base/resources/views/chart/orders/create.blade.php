@@ -124,6 +124,17 @@
                                       name="end_time" type="datetime-local" />
                     </td>
                 </tr>
+
+                <tr>
+                    <td class="text-sm align-content-center">
+                        <x-input-label for="pend_order" :value="__('Pend Order')" />
+                    </td>
+
+                    <td class="text-sm">
+                        <x-text-input id="pend_order" class="block my-2 p-2 text-sm shadow-sm"
+                                      name="pend_order" type="checkbox" />
+                    </td>
+                </tr>
                 </tbody>
             </table>
 
@@ -204,7 +215,7 @@
 
                                     <p class="prescription-period col-1 ms-2 text-center align-content-center">for</p>
                                     <x-text-input id="total_doses" class="col ms-2 block mt-1 w-full text-sm"
-                                                  name="total_doses" placeholder="# of Doses"/>
+                                                  name="total_doses" placeholder="# of Doses" value="100"/>
                                     <p class="prescription-period col-1 ms-2 text-center align-content-center">doses</p>
 
                                 </div>

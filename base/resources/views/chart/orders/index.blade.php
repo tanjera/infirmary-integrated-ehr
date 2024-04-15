@@ -23,64 +23,87 @@
                 @foreach ($orders->where('category', 'general') as $order)
                     <tr>
                         <td class="align-content-center text-sm">
-                            <div class="container-fluid">
+
+                            @if($order->status != "active" || $order->priority == 'routine')
+                                <div class="container-fluid">
+                            @elseif($order->status == "active" && $order->priority == 'now')
+                                <div class="container-fluid border-1 border-warning rounded-2 p-2">
+                            @elseif($order->status == "active" && $order->priority == 'stat')
+                                <div class="container-fluid border-1 border-danger rounded-2 p-2">
+                            @endif
+
                                 <div class="row">
                                     <div class="col-3">
-                                        <span class="text-gray-400">Start: </span>
-                                        {{ Auth::user()->adjustDateTime($order->start_time)->format("d M o H:i") }}
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            <span class="text-gray-400">Start: </span>
+                                            {{ Auth::user()->adjustDateTime($order->start_time)->format("d M o H:i") }}
+                                        </a>
                                     </div>
                                     <div class="col-9">
-                                        @if($order->status == 'discontinued' || $order->status == 'completed')
-                                            <span style="text-decoration: line-through">{{ $order->note }}</span>
-                                        @elseif($order->status == 'pending')
-                                            <span style="font-style: italic">{{ $order->note }}</span>
-                                        @else
-                                            {{ $order->note }}
-                                        @endif
-
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            @if($order->status == 'discontinued' || $order->status == 'completed')
+                                                <span style="text-decoration: line-through">{{ $order->note }}</span>
+                                            @elseif($order->status == 'pending')
+                                                <span style="font-style: italic">{{ $order->note }}</span>
+                                            @else
+                                                    {{ $order->note }}
+                                            @endif
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        @if(!is_null($order->end_time))
-                                            <span class="text-gray-400">End: </span>
-                                            {{ Auth::user()->adjustDateTime($order->end_time)->format("d M o H:i") }}
-                                        @else
-                                            <span class="text-gray-400">No End Date</span>
-                                        @endif
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            @if(!is_null($order->end_time))
+                                                <span class="text-gray-400">End: </span>
+                                                {{ Auth::user()->adjustDateTime($order->end_time)->format("d M o H:i") }}
+                                            @else
+                                                <span class="text-gray-400">No End Date</span>
+                                            @endif
+                                        </a>
                                     </div>
                                     <div class="col-3">
-                                        <span class="text-gray-400">Priority: </span>
-                                        @if($order->priority == 'stat')
-                                            <span class="text-danger">{{ ucfirst($order->priority) }}</span>
-                                        @elseif($order->priority == 'now')
-                                            <span class="text-warning">{{ ucfirst($order->priority) }}</span>
-                                        @else
-                                            <span class="text-gray-400">{{ ucfirst($order->priority) }}</span>
-                                        @endif
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            <span class="text-gray-400">Priority: </span>
+                                            @if($order->priority == 'stat')
+                                                <span class="text-danger">{{ ucfirst($order->priority) }}</span>
+                                            @elseif($order->priority == 'now')
+                                                <span class="text-warning">{{ ucfirst($order->priority) }}</span>
+                                            @else
+                                                <span class="text-gray-400">{{ ucfirst($order->priority) }}</span>
+                                            @endif
+                                        </a>
                                     </div>
                                     <div class="col-3">
-                                        <span class="text-gray-400">Status: {{ ucfirst($order->status) }}</span>
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            <span class="text-gray-400">Status: {{ ucfirst($order->status) }}</span>
+                                        </a>
                                     </div>
                                     <div class="col-3">
-                                        <span class="text-gray-400">Method: {{ ucfirst($order->method) }}</span>
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            <span class="text-gray-400">Method: {{ ucfirst($order->method) }}</span>
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        <span class="text-gray-400">Ordered by: </span>
-                                        {{ $authors->find($order->ordered_by)->name }}
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            <span class="text-gray-400">Ordered by: </span>
+                                            {{ $authors->find($order->ordered_by)->name }}
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        @if(!is_null($order->cosigned_by) && $order->cosign_complete == false)
-                                            <span class="text-warning">Awaiting Cosign: </span>
-                                            {{ $authors->find($order->cosigned_by)->name }}
-                                        @elseif(!is_null($order->cosigned_by) && $order->cosign_complete == true)
-                                            <span class="text-gray-400">Cosigned By: </span>
-                                            {{ $authors->find($order->cosigned_by)->name }}
-                                        @endif
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            @if(!is_null($order->cosigned_by) && $order->cosign_complete == false)
+                                                <span class="text-warning">Awaiting Cosign: </span>
+                                                {{ $authors->find($order->cosigned_by)->name }}
+                                            @elseif(!is_null($order->cosigned_by) && $order->cosign_complete == true)
+                                                <span class="text-gray-400">Cosigned By: </span>
+                                                {{ $authors->find($order->cosigned_by)->name }}
+                                            @endif
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -103,11 +126,21 @@
                 @foreach ($orders->where('category', 'medication') as $order)
                     <tr>
                         <td class="align-content-center text-sm">
-                            <div class="container-fluid">
+
+                            @if($order->priority == 'routine')
+                                <div class="container-fluid">
+                            @elseif($order->priority == 'now')
+                                <div class="container-fluid border-1 border-warning rounded-2 p-2">
+                            @elseif($order->priority == 'stat')
+                                <div class="container-fluid border-1 border-danger rounded-2 p-2">
+                            @endif
+
                                 <div class="row">
                                     <div class="col-3">
-                                        <span class="text-gray-400">Start: </span>
-                                        {{ Auth::user()->adjustDateTime($order->start_time)->format("d M o H:i") }}
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            <span class="text-gray-400">Start: </span>
+                                            {{ Auth::user()->adjustDateTime($order->start_time)->format("d M o H:i") }}
+                                        </a>
                                     </div>
                                     <div class="col-9">
                                         @php
@@ -138,57 +171,70 @@
                                             }
                                         @endphp
 
-                                        @if($order->status == 'discontinued' || $order->status == 'completed')
-                                            <span style="text-decoration: line-through">{{ $formatted }}</span>
-                                        @elseif($order->status == 'pending')
-                                            <span style="font-style: italic">{{ $formatted }}</span>
-                                        @else
-                                            {{ $formatted }}
-                                        @endif
-
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            @if($order->status == 'discontinued' || $order->status == 'completed')
+                                                <span style="text-decoration: line-through">{{ $formatted }}</span>
+                                            @elseif($order->status == 'pending')
+                                                <span style="font-style: italic">{{ $formatted }}</span>
+                                            @else
+                                                {{ $formatted }}
+                                            @endif
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        @if(!is_null($order->end_time))
-                                            <span class="text-gray-400">End: </span>
-                                            {{ Auth::user()->adjustDateTime($order->end_time)->format("d M o H:i") }}
-                                        @else
-                                            <span class="text-gray-400">No End Date</span>
-                                        @endif
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            @if(!is_null($order->end_time))
+                                                <span class="text-gray-400">End: </span>
+                                                {{ Auth::user()->adjustDateTime($order->end_time)->format("d M o H:i") }}
+                                            @else
+                                                <span class="text-gray-400">No End Date</span>
+                                            @endif
+                                        </a>
                                     </div>
                                     <div class="col-3">
-                                        <span class="text-gray-400">Priority: </span>
-                                        @if($order->priority == 'stat')
-                                            <span class="text-danger">{{ ucfirst($order->priority) }}</span>
-                                        @elseif($order->priority == 'now')
-                                            <span class="text-warning">{{ ucfirst($order->priority) }}</span>
-                                        @else
-                                            <span class="text-gray-400">{{ ucfirst($order->priority) }}</span>
-                                        @endif
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            <span class="text-gray-400">Priority: </span>
+                                            @if($order->priority == 'stat')
+                                                <span class="text-danger">{{ ucfirst($order->priority) }}</span>
+                                            @elseif($order->priority == 'now')
+                                                <span class="text-warning">{{ ucfirst($order->priority) }}</span>
+                                            @else
+                                                <span class="text-gray-400">{{ ucfirst($order->priority) }}</span>
+                                            @endif
+                                        </a>
                                     </div>
                                     <div class="col-3">
-                                        <span class="text-gray-400">Status: {{ ucfirst($order->status) }}</span>
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            <span class="text-gray-400">Status: {{ ucfirst($order->status) }}</span>
+                                        </a>
                                     </div>
                                     <div class="col-3">
-                                        <span class="text-gray-400">Method: {{ ucfirst($order->method) }}</span>
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            <span class="text-gray-400">Method: {{ ucfirst($order->method) }}</span>
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        <span class="text-gray-400">Ordered by: </span>
-                                        {{ $authors->find($order->ordered_by)->name }}
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            <span class="text-gray-400">Ordered by: </span>
+                                            {{ $authors->find($order->ordered_by)->name }}
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        @if(!is_null($order->cosigned_by) && $order->cosign_complete == false)
-                                            <span class="text-warning">Awaiting Cosign: </span>
-                                            {{ $authors->find($order->cosigned_by)->name }}
-                                        @elseif(!is_null($order->cosigned_by) && $order->cosign_complete == true)
-                                            <span class="text-gray-400">Cosigned By: </span>
-                                            {{ $authors->find($order->cosigned_by)->name }}
-                                        @endif
+                                        <a href="/chart/orders/view/{{ $order->id }}">
+                                            @if(!is_null($order->cosigned_by) && $order->cosign_complete == false)
+                                                <span class="text-warning">Awaiting Cosign: </span>
+                                                {{ $authors->find($order->cosigned_by)->name }}
+                                            @elseif(!is_null($order->cosigned_by) && $order->cosign_complete == true)
+                                                <span class="text-gray-400">Cosigned By: </span>
+                                                {{ $authors->find($order->cosigned_by)->name }}
+                                            @endif
+                                        </a>
                                     </div>
                                 </div>
                             </div>
