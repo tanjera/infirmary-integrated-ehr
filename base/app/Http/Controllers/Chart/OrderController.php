@@ -47,9 +47,9 @@ class OrderController extends Controller
                 'dose_unit' => 'required',
                 'route' => 'required',
                 'period_type' => 'required',
-                'period_amount' => 'required',
+                'period_amount' => 'required|integer',
                 'period_unit' => 'required',
-                'total_doses' => 'required',
+                'total_doses' => 'required|integer',
                 'indication' => 'required',
             ]);
 

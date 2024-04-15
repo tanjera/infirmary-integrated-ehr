@@ -208,6 +208,12 @@
                                     <p class="prescription-period col-1 ms-2 text-center align-content-center">doses</p>
 
                                 </div>
+
+                                <div class="row">
+                                    <p style="color: darkgoldenrod" class="prescription-period col-12 text-center align-content-center mt-1 py-2">
+                                        Note: Maximum 1,000 doses propagate to medication administration record per order.
+                                    </p>
+                                </div>
                             </div>
                         </td>
                     </tr>
