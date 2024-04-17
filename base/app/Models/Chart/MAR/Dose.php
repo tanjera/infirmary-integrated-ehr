@@ -14,6 +14,7 @@ class Dose extends Model
         'id',
         'patient',
         'order',
+        'due_at',
         'status',
         'status_by',
         'note'

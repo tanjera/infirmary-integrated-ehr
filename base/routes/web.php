@@ -63,11 +63,12 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/chart/mar/{id}', [MARController::class, 'index'])->name('chart.mar');
 });
 
-
 Route::middleware(['auth', 'verified', 'role:manager,administrator'])->group(function() {
     Route::get('/chart/notes/delete/{id}', [NoteController::class, 'delete'])->name('chart.notes.delete');
     Route::get('/chart/diagnostics/delete/{id}', [DiagnosticsController::class, 'delete'])->name('chart.diagnostics.delete');
-    Route::get('/chart/orders/delete/{id}', [OrderController::class, 'delete'])->name('chart.orders.delete');
+    Route::get('/chart/orders/delete/{id}', [OrderController::class, 'confirm'])->name('chart.orders.delete');
+    Route::get('/chart/orders/delete/confirm/{id}', [OrderController::class, 'confirm_rx'])->name('chart.orders.delete.confirm');
+    Route::get('/chart/orders/delete/process/{id}', [OrderController::class, 'delete'])->name('chart.orders.delete.process');
 
     Route::get('/patients', [PatientController::class, 'index'])->name('patients.index');
     Route::get('/patients/create', [PatientController::class, 'create'])->name('patients.create');

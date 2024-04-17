@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Chart;
 
 use App\Models\Chart\Order;
+use App\Models\Chart\MAR\Dose;
 use App\Models\Patient;
 use App\Models\User;
 
@@ -194,11 +195,31 @@ class OrderController extends Controller
 
         return redirect("chart/orders/$req->id")->with('message', "Order created successfully.");
     }
+    public function confirm(Request $req){
+        $order = Order::find($req->id);
+
+        if ($order->category == 'medication')
+            return redirect("chart/orders/delete/confirm/$order->id");
+        else
+            return redirect("chart/orders/delete/process/$order->id");
+    }
+    public function confirm_rx(Request $req){
+        $order = Order::find($req->id);
+        $patient = Patient::find($order->patient);
+        $authors = User::select('id', 'name')->whereIn('id', [$order->ordered_by, $order->cosigned_by])->get();
+
+        return view('chart.orders.confirm')->with("patient", $patient)->with("order", $order)
+            ->with("authors", $authors);
+    }
     public function delete(Request $req){
         $order = Order::find($req->id);
         $patient = Patient::find($order->patient);
+        $doses = Dose::where('order', $order->id);
 
         $order->delete();
+
+        foreach ($doses as $dose)
+            $dose->delete();
 
         return redirect("chart/orders/$patient->id")->with('message', "Order deleted successfully.");
     }

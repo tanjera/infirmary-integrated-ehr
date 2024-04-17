@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('patient')->index();
             $table->uuid('order')->index();
+            $table->datetime('due_at')->index();
             $table->enum('status', Dose::$status_index)->default('due');
             $table->uuid('status_by')->nullable();
             $table->string('note')->nullable();
