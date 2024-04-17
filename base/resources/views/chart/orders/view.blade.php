@@ -9,15 +9,19 @@
                 @endif
 
                 @if(Auth::user()->canChart() && $order->status == "active")
-                    <a href="/chart/orders/complete/{{$order->id}}" class="btn btn-outline-danger px-3 py-1 ms-2 text-sm">Complete Order</a>
+                    <a href="/chart/orders/complete/{{$order->id}}" class="btn btn-outline-secondary px-3 py-1 ms-2 text-sm">Complete Order</a>
                 @endif
 
                 @if(Auth::user()->canOrder() && ($order->status == "active" || $order->status == "pending"))
-                    <a href="/chart/orders/discontinue/{{$order->id}}" class="btn btn-outline-danger px-3 py-1 ms-2 text-sm">Discontinue Order</a>
+                    <a href="/chart/orders/discontinue/{{$order->id}}" class="btn btn-outline-secondary px-3 py-1 ms-2 text-sm">Discontinue Order</a>
                 @endif
 
                 @if($order->cosign_complete == false && Auth::user()->id == $order->cosigned_by)
                     <a href="/chart/orders/cosign/{{$order->id}}" class="btn btn-outline-success px-3 py-1 ms-2 text-sm">Cosign Order</a>
+                @endif
+
+                @if(Auth::user()->isManager() || Auth::user() ->isAdministrator())
+                    <a href="/chart/orders/delete/{{$order->id}}" class="btn btn-outline-danger px-3 py-1 ms-2 text-sm">Delete Order</a>
                 @endif
             </div>
         </div>

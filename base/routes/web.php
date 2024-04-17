@@ -47,6 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/storage/diagnostic_attachments/{filename}', [DiagnosticsController::class, 'view_attachment'])->name('diagnostics_attachments.view');
 
     Route::get('/chart/orders/{id}', [OrderController::class, 'index'])->name('chart.orders');
+    Route::get('/chart/orders/active/{id}', [OrderController::class, 'index'])->name('chart.active.orders');
     Route::get('/chart/orders/view/{id}', [OrderController::class, 'view'])->name('chart.orders.view');
     Route::get('/chart/orders/create/{id}', [OrderController::class, 'create'])->name('chart.orders.create');
     Route::post('/chart/orders/create/{id}', [OrderController::class, 'add'])->name('chart.orders.add');

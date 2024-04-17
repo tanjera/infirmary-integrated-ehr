@@ -14,22 +14,36 @@ class OrderController extends Controller
 {
     public function index(Request $req) {
         $patient = Patient::find($req->id);
-        $orders = Order::where('patient', $req->id)->get()
-            ->sortBy(function (Order $item) {
-            switch($item->status) {
-                default: return 0;
-                case "active": return 1;
-                case "pending": return 2;
-                case "completed": return 3;
-                case "discontinued": return 4;
-            }
-        });
+
+        $filter = $req->route()->named('chart.active.orders') ? "active" : "all";
+
+        if ($filter == 'active')
+            $orders = Order::where('patient', $req->id)
+                ->where('status', 'active')->get();
+        else {
+            $orders = Order::where('patient', $req->id)->get()
+                ->sortBy(function (Order $item) {
+
+                    switch ($item->status) {
+                        default:
+                            return 0;
+                        case "active":
+                            return 1;
+                        case "pending":
+                            return 2;
+                        case "completed":
+                            return 3;
+                        case "discontinued":
+                            return 4;
+                    }
+                });
+        }
 
         $author_ids = $orders->pluck('ordered_by')->merge($orders->pluck('cosigned_by'));
         $authors = User::select('id', 'name')->whereIn('id', $author_ids)->get();
 
         return view('chart.orders.index')->with("patient", $patient)->with("orders", $orders)
-            ->with("authors", $authors);
+            ->with("authors", $authors)->with("filter", $filter);
     }
     public function view(Request $req) {
         $order = Order::find($req->id);
@@ -181,5 +195,11 @@ class OrderController extends Controller
         return redirect("chart/orders/$req->id")->with('message', "Order created successfully.");
     }
     public function delete(Request $req){
+        $order = Order::find($req->id);
+        $patient = Patient::find($order->patient);
+
+        $order->delete();
+
+        return redirect("chart/orders/$patient->id")->with('message', "Order deleted successfully.");
     }
 }

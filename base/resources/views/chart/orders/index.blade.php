@@ -4,6 +4,12 @@
         <div class="grid grid-cols-2">
             <div class="flex items-center">Orders</div>
             <div class="flex justify-end">
+                @if($filter == "active")
+                    <a href="/chart/orders/{{$patient->id}}" class="btn btn-outline-secondary px-3 py-1 ms-2 text-sm">View All Orders</a>
+                @elseif($filter == "all")
+                    <a href="/chart/orders/active/{{$patient->id}}" class="btn btn-outline-secondary px-3 py-1 ms-2 text-sm">View Active Orders Only</a>
+                @endif
+
                 @if(Auth::user()->canChart())
                     <a href="/chart/orders/create/{{$patient->id}}" class="btn btn-outline-success px-3 py-1 ms-2 text-sm">Write an Order</a>
                 @endif
