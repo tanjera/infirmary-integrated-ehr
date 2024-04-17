@@ -20,9 +20,9 @@
                         <td class="text-sm">
                             <select id="category" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                     name="category" required>
-                                @foreach(\App\Models\Note::$category_index as $category)
+                                @foreach(\App\Models\Chart\Note::$category_index as $category)
                                     <option value="{{ $category }}" {{ $category == "progress" ? "selected" : ""}}>
-                                        {{ \App\Models\Note::$category_text[array_search($category, \App\Models\Note::$category_index)] }}
+                                        {{ \App\Models\Chart\Note::$category_text[array_search($category, \App\Models\Chart\Note::$category_index)] }}
                                     </option>
                                 @endforeach
                             </select>

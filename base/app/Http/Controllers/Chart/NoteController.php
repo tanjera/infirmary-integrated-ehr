@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Chart;
 
-use App\Models\Note;
-use App\Models\NoteAddition;
-use App\Models\NoteAttachment;
+use App\Models\Chart\Note;
+use App\Models\Chart\NoteAddition;
+use App\Models\Chart\NoteAttachment;
 use App\Models\Patient;
 use App\Models\User;
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Chart;
 
-use App\Models\Allergy;
+use App\Models\Chart\Allergy;
 use App\Models\Patient;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;

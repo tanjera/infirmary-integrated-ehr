@@ -46,7 +46,7 @@
                         <td class="text-sm">
                             <select id="severity" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                     name="severity" required>
-                                @foreach(\App\Models\Allergy::$severity_index as $severity)
+                                @foreach(\App\Models\Chart\Allergy::$severity_index as $severity)
                                     <option value="{{ $severity }}" {{ $severity == "mild" ? "selected" : ""}}>
                                         {{ ucfirst($severity) }}
                                     </option>

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Chart;
 
-use App\Models\DiagnosticReport;
-use App\Models\DiagnosticAttachment;
-use App\Models\DiagnosticAddition;
+use App\Models\Chart\DiagnosticReport;
+use App\Models\Chart\DiagnosticAttachment;
+use App\Models\Chart\DiagnosticAddition;
 use App\Models\Patient;
 use App\Models\User;
 

@@ -20,9 +20,9 @@
                         <td class="text-sm">
                             <select id="category" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                     name="category" required>
-                                @foreach(\App\Models\DiagnosticReport::$category_index as $category)
+                                @foreach(\App\Models\Chart\DiagnosticReport::$category_index as $category)
                                     <option value="{{ $category }}" {{ $category == "other" ? "selected" : ""}}>
-                                        {{ \App\Models\DiagnosticReport::$category_text[array_search($category, \App\Models\DiagnosticReport::$category_index)] }}
+                                        {{ \App\Models\Chart\DiagnosticReport::$category_text[array_search($category, \App\Models\Chart\DiagnosticReport::$category_index)] }}
                                     </option>
                                 @endforeach
                             </select>

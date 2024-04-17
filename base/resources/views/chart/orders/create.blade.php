@@ -53,7 +53,7 @@
                         <select id="category" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                 name="category" required
                                 onchange="displayPrescription(this.value)">
-                            @foreach(\App\Models\Order::$category_index as $category)
+                            @foreach(\App\Models\Chart\Order::$category_index as $category)
                                 <option value="{{ $category }}" {{ $category == "general" ? "selected" : ""}}>
                                     {{ ucfirst($category) }}
                                 </option>
@@ -70,7 +70,7 @@
                     <td class="text-sm align-items-center">
                         <select id="method" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                 name="method" required>
-                            @foreach(\App\Models\Order::$method_index as $method)
+                            @foreach(\App\Models\Chart\Order::$method_index as $method)
                                 <option value="{{ $method }}" {{ $method == "written" ? "selected" : ""}}>
                                     {{ ucfirst($method) }}
                                 </option>
@@ -87,7 +87,7 @@
                     <td class="text-sm align-items-center">
                         <select id="priority" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                 name="priority" required>
-                            @foreach(\App\Models\Order::$priority_index as $priority)
+                            @foreach(\App\Models\Chart\Order::$priority_index as $priority)
                                 <option value="{{ $priority }}" {{ $priority == "routine" ? "selected" : ""}}>
                                     {{ ucfirst($priority) }}
                                 </option>
@@ -162,18 +162,18 @@
 
                                     <select id="dose_unit" class="col ms-2 block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                             name="dose_unit">
-                                        @foreach(\App\Models\Order::$doseunits_index as $doseunit)
+                                        @foreach(\App\Models\Chart\Order::$doseunits_index as $doseunit)
                                             <option value="{{ $doseunit }}">
-                                                {{ \App\Models\Order::$doseunits_text[array_search($doseunit, \App\Models\Order::$doseunits_index)] }}
+                                                {{ \App\Models\Chart\Order::$doseunits_text[array_search($doseunit, \App\Models\Chart\Order::$doseunits_index)] }}
                                             </option>
                                         @endforeach
                                     </select>
 
                                     <select id="route" class="col ms-2 block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                             name="route">
-                                        @foreach(\App\Models\Order::$routes_index as $route)
+                                        @foreach(\App\Models\Chart\Order::$routes_index as $route)
                                             <option value="{{ $route }}">
-                                                {{ \App\Models\Order::$routes_text[array_search($route, \App\Models\Order::$routes_index)] }}
+                                                {{ \App\Models\Chart\Order::$routes_text[array_search($route, \App\Models\Chart\Order::$routes_index)] }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -192,9 +192,9 @@
                                     <select id="period_type" class="col ms-0 block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                             name="period_type"
                                             onchange="displayPeriodDetails(this.value)">
-                                        @foreach(\App\Models\Order::$periodtypes_index as $periodtype)
+                                        @foreach(\App\Models\Chart\Order::$periodtypes_index as $periodtype)
                                             <option value="{{ $periodtype }}" @selected($periodtype == "repeats")>
-                                                {{ \App\Models\Order::$periodtypes_text[array_search($periodtype, \App\Models\Order::$periodtypes_index)] }}
+                                                {{ \App\Models\Chart\Order::$periodtypes_text[array_search($periodtype, \App\Models\Chart\Order::$periodtypes_index)] }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -206,9 +206,9 @@
 
                                     <select id="period_unit" class="prescription-period col ms-2 block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                             name="period_unit">
-                                        @foreach(\App\Models\Order::$periodunits_index as $periodunit)
+                                        @foreach(\App\Models\Chart\Order::$periodunits_index as $periodunit)
                                             <option value="{{ $periodunit }}" @selected($periodunit == "hour")>
-                                                {{ \App\Models\Order::$periodunits_text[array_search($periodunit, \App\Models\Order::$periodunits_index)] }}
+                                                {{ \App\Models\Chart\Order::$periodunits_text[array_search($periodunit, \App\Models\Chart\Order::$periodunits_index)] }}
                                             </option>
                                         @endforeach
                                     </select>

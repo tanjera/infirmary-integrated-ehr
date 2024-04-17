@@ -7,6 +7,7 @@ use App\Http\Controllers\Chart\AllergyController;
 use App\Http\Controllers\Chart\DiagnosticsController;
 use App\Http\Controllers\Chart\NoteController;
 use App\Http\Controllers\Chart\OrderController;
+use App\Http\Controllers\Chart\MARController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
@@ -58,7 +59,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/chart/results/{id}', [ChartController::class, 'results'])->name('chart.results');
     Route::get('/chart/flowsheet/{id}', [ChartController::class, 'flowsheet'])->name('chart.flowsheet');
-    Route::get('/chart/mar/{id}', [ChartController::class, 'mar'])->name('chart.mar');
+
+    Route::get('/chart/mar/{id}', [MARController::class, 'index'])->name('chart.mar');
 });
 
 

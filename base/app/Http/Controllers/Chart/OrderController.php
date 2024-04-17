@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Chart;
 
-use App\Models\Order;
+use App\Models\Chart\Order;
 use App\Models\Patient;
 use App\Models\User;
 

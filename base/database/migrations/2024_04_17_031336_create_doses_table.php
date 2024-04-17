@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Chart\DiagnosticReport;
+use App\Models\Chart\MAR\Dose;
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +13,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diagnostic_reports', function (Blueprint $table) {
+        Schema::create('doses', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('patient')->index();
-            $table->uuid('author')->index();
-            $table->enum('category', DiagnosticReport::$category_index);
-            $table->text('body')->nullable();
+            $table->uuid('order')->index();
+            $table->enum('status', Dose::$status_index)->default('due');
+            $table->uuid('status_by')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('diagnostic_reports');
+        Schema::dropIfExists('doses');
     }
 };
