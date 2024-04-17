@@ -7,7 +7,9 @@ use App\Models\Chart\MAR\Dose;
 use App\Models\Chart\Order;
 use App\Models\Patient;
 use App\Models\User;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MARController extends Controller
 {
@@ -16,11 +18,12 @@ class MARController extends Controller
 
         return view('chart.mar.index')->with("patient", $patient);
     }
-    private function populateDoses(Patient $patient, Order $order) {
+    public static function populateDoses(Order $order) {
         $doses = Dose::where('order', $order->id)->get();
+        $patient = Patient::find($order->patient);
 
         // Clear all doses that have not been modified (still marked as due)
-        foreach($doses->where('status', 'due')->get() as $dose)
+        foreach($doses->where('status', 'due') as $dose)
             $dose->delete();
 
         if ($order->period_type == 'once') {
@@ -59,5 +62,18 @@ class MARController extends Controller
                 ]);
             }
         }
+    }
+    public static function deleteDoses(Order $order) {
+        $doses = Dose::where('order', $order->id)->get();
+
+        foreach ($doses as $dose)
+            $dose->delete();
+    }
+    public static function discontinueDoses(Order $order) {
+        $doses = Dose::where('order', $order->id)
+            ->where('due_at', '>=', new \DateTime("now", Auth::user()->getTimeZone()))->get();
+
+        foreach ($doses as $dose)
+            $dose->delete();
     }
 }

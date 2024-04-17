@@ -8,6 +8,8 @@ use App\Models\Patient;
 use App\Models\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Chart\MARController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -79,9 +81,11 @@ class OrderController extends Controller
                 'status_by' => $user->id
             ]);
 
+            if ($order->category == 'medication')
+                MARController::populateDoses($order);
+
             return redirect("/chart/orders/view/$req->id")->with('message', "Order activated successfully.");
         } else {
-
             return redirect("/chart/orders/view/$req->id")->with('message', "Error occurred. Unable to activate order.");
         }
     }
@@ -95,9 +99,11 @@ class OrderController extends Controller
                 'status_by' => $user->id
             ]);
 
+            if ($order->category == 'medication')
+                MARController::discontinueDoses($order);
+
             return redirect("/chart/orders/view/$req->id")->with('message', "Order completed successfully.");
         } else {
-
             return redirect("/chart/orders/view/$req->id")->with('message', "Error occurred. Unable to complete order.");
         }
     }
@@ -111,9 +117,11 @@ class OrderController extends Controller
                 'status_by' => $user->id
             ]);
 
+            if ($order->category == 'medication')
+                MARController::discontinueDoses($order);
+
             return redirect("/chart/orders/view/$req->id")->with('message', "Order discontinued successfully.");
         } else {
-
             return redirect("/chart/orders/view/$req->id")->with('message', "Error occurred. Unable to discontinue order.");
         }
     }
@@ -169,6 +177,9 @@ class OrderController extends Controller
                 'total_doses' => $req->total_doses,
                 'indication' => $req->indication,
             ]);
+
+            if ($order->status == 'active')
+                MARController::populateDoses($order);
         }
         else if ($req->category == 'general') {
             $validated = $req->validate([
@@ -214,12 +225,10 @@ class OrderController extends Controller
     public function delete(Request $req){
         $order = Order::find($req->id);
         $patient = Patient::find($order->patient);
-        $doses = Dose::where('order', $order->id);
 
         $order->delete();
 
-        foreach ($doses as $dose)
-            $dose->delete();
+        MARController::deleteDoses($order);
 
         return redirect("chart/orders/$patient->id")->with('message', "Order deleted successfully.");
     }

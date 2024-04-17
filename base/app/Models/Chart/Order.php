@@ -37,6 +37,11 @@ class Order extends Model
         'indication'
     ];
 
+    protected $casts = [
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
+    ];
+
     public static array $status_index = ['active', 'pending', 'discontinued', 'completed'];
     public static array $category_index = ['general', 'medication'];
     public static array $method_index = ['written', 'verbal', 'telephone', 'protocol'];

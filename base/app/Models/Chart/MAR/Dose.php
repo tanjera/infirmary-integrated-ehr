@@ -20,5 +20,9 @@ class Dose extends Model
         'note'
         ];
 
+    protected $casts = [
+        'due_at' => 'datetime'
+    ];
+
     public static array $status_index = ['due', 'not_given', 'given'];
 }
