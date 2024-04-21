@@ -140,43 +140,78 @@ class OrderController extends Controller
             abort(403);
 
         if ($req->category == 'medication') {
-            $validated = $req->validate([
-                'method' => 'required',
-                'priority' => 'required',
-                'start_time' => 'required',
-                'drug' => 'required',
-                'dose_amount' => 'required',
-                'dose_unit' => 'required',
-                'route' => 'required',
-                'period_type' => 'required',
-                'period_amount' => 'required|integer',
-                'period_unit' => 'required',
-                'total_doses' => 'required|integer',
-                'indication' => 'required',
-            ]);
+            if ($req->period_type == 'once') {
+                $validated = $req->validate([
+                    'method' => 'required',
+                    'priority' => 'required',
+                    'start_time' => 'required',
+                    'drug' => 'required',
+                    'dose_amount' => 'required',
+                    'dose_unit' => 'required',
+                    'route' => 'required',
+                    'period_type' => 'required',
+                    'indication' => 'required',
+                ]);
 
-            $order = Order::create([
-                'patient' => $req->id,
-                'status' => ($req->pend_order != "on" ? "active" : "pending"),
-                'ordered_by' => Auth::user()->id,
-                'cosigned_by' => $req->cosign_by,
-                'category' => $req->category,
-                'method' => $req->method,
-                'priority' => $req->priority,
-                'start_time' => $req->start_time,
-                'end_time' => $req->end_time,
-                'note' => $req->note,
+                $order = Order::create([
+                    'patient' => $req->id,
+                    'status' => ($req->pend_order != "on" ? "active" : "pending"),
+                    'ordered_by' => Auth::user()->id,
+                    'cosigned_by' => $req->cosign_by,
+                    'category' => $req->category,
+                    'method' => $req->method,
+                    'priority' => $req->priority,
+                    'start_time' => $req->start_time,
+                    'end_time' => $req->end_time,
+                    'note' => $req->note,
 
-                'drug' => $req->drug,
-                'dose_amount' => $req->dose_amount,
-                'dose_unit' => $req->dose_unit,
-                'route' => $req->route,
-                'period_type' => $req->period_type,
-                'period_amount' => $req->period_amount,
-                'period_unit' => $req->period_unit,
-                'total_doses' => $req->total_doses,
-                'indication' => $req->indication,
-            ]);
+                    'drug' => $req->drug,
+                    'dose_amount' => $req->dose_amount,
+                    'dose_unit' => $req->dose_unit,
+                    'route' => $req->route,
+                    'period_type' => $req->period_type,
+                    'total_doses' => 1,
+                    'indication' => $req->indication,
+                ]);
+            } else {
+                $validated = $req->validate([
+                    'method' => 'required',
+                    'priority' => 'required',
+                    'start_time' => 'required',
+                    'drug' => 'required',
+                    'dose_amount' => 'required',
+                    'dose_unit' => 'required',
+                    'route' => 'required',
+                    'period_type' => 'required',
+                    'period_amount' => 'required|integer',
+                    'period_unit' => 'required',
+                    'total_doses' => 'required|integer',
+                    'indication' => 'required',
+                ]);
+
+                $order = Order::create([
+                    'patient' => $req->id,
+                    'status' => ($req->pend_order != "on" ? "active" : "pending"),
+                    'ordered_by' => Auth::user()->id,
+                    'cosigned_by' => $req->cosign_by,
+                    'category' => $req->category,
+                    'method' => $req->method,
+                    'priority' => $req->priority,
+                    'start_time' => $req->start_time,
+                    'end_time' => $req->end_time,
+                    'note' => $req->note,
+
+                    'drug' => $req->drug,
+                    'dose_amount' => $req->dose_amount,
+                    'dose_unit' => $req->dose_unit,
+                    'route' => $req->route,
+                    'period_type' => $req->period_type,
+                    'period_amount' => $req->period_amount,
+                    'period_unit' => $req->period_unit,
+                    'total_doses' => $req->total_doses,
+                    'indication' => $req->indication,
+                ]);
+            }
 
             if ($order->status == 'active')
                 MARController::populateDoses($order);

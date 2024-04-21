@@ -15,8 +15,36 @@ class MARController extends Controller
 {
     public function index(Request $req) {
         $patient = Patient::find($req->id);
+        $orders = Order::where('patient', $patient->id)
+            ->where('status', '<>', 'pending')
+            ->orderBy('drug')->get()
+            ->sortBy(function (Order $item) {
+                switch ($item->period_type) {
+                    default:
+                        return 0;
+                    case "prn":
+                        return 1;
+                }
+            })
+            ->sortBy(function (Order $item) {
+                switch ($item->status) {
+                    default:
+                        return 0;
+                    case "completed":
+                        return 3;
+                    case "discontinued":
+                        return 4;
+                }
+            });
+        $doses = Dose::where('patient', $patient->id)->get();
 
-        return view('chart.mar.index')->with("patient", $patient);
+        if ($req->has("at_time"))
+            $at_time = $req->at_time;
+        else
+            $at_time = (new \DateTime("now", Auth::user()->getTimeZone()));
+
+        return view('chart.mar.index')->with("patient", $patient)
+            ->with("orders", $orders)->with("doses", $doses)->with("at_time", $at_time);
     }
     public static function populateDoses(Order $order) {
         $doses = Dose::where('order', $order->id)->get();

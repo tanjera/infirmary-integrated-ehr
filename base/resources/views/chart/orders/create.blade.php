@@ -214,7 +214,7 @@
                                     </select>
 
                                     <p class="prescription-period col-1 ms-2 text-center align-content-center">for</p>
-                                    <x-text-input id="total_doses" class="col ms-2 block mt-1 w-full text-sm"
+                                    <x-text-input id="total_doses" class="prescription-period col ms-2 block mt-1 w-full text-sm"
                                                   name="total_doses" placeholder="# of Doses" value="100"/>
                                     <p class="prescription-period col-1 ms-2 text-center align-content-center">doses</p>
 
