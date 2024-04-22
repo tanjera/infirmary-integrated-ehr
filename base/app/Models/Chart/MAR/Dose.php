@@ -25,4 +25,15 @@ class Dose extends Model
     ];
 
     public static array $status_index = ['due', 'not_given', 'given'];
+    public static array $status_text = [
+        'Due', 'Not Given', 'Given'
+    ];
+    public function textStatus() : string
+    {
+        $key = array_search($this->status, self::$status_index);
+        if ($key === false)
+            return 'Due';
+        else
+            return self::$status_text[$key];
+    }
 }
