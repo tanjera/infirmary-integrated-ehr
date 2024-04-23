@@ -16,6 +16,7 @@ class MARController extends Controller
     public function index(Request $req) {
         $patient = Patient::find($req->id);
         $orders = Order::where('patient', $patient->id)
+            ->where('category', 'medication')
             ->where('status', '<>', 'pending')
             ->orderBy('drug')->get()
             ->sortBy(function (Order $item) {
@@ -54,7 +55,9 @@ class MARController extends Controller
         foreach($doses->where('status', 'due') as $dose)
             $dose->delete();
 
-        if ($order->period_type == 'once') {
+        if ($order->period_type == 'prn') {
+            // Don't do anything- doses are only created on an "as-needed" basis (no pun intended!)
+        } else if ($order->period_type == 'once') {
             // One-time order
             Dose::create([
                 'patient' => $patient->id,
