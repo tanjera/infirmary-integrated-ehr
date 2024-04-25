@@ -115,14 +115,16 @@
                         $off_min = intval($at_time->format('i'));
                         $range_amount = 4;
                         $range_start = (clone $at_time)->sub(new \DateInterval('PT' . (($range_amount * 60) + $off_min) . 'M'));
-                        $range_end = (clone $at_time)->add(new \DateInterval('PT' . ((($range_amount + 1) * 60) - $off_min) . 'M'));
+                        $range_end = (clone $at_time)->add(new \DateInterval('PT' . ((($range_amount + 1) * 60) - $off_min - 1) . 'M59S'));
 
+                        $order_doses = $doses->where('order', $order->id);
                         $range_doses = $doses->where('order', $order->id)
                             ->whereBetween('due_at', [$range_start, $range_end]);
                     @endphp
 
                     @for($i = -$range_amount; $i <= $range_amount; $i++)
                         @php
+                            $temp_dose = false;
                             $col_start = clone $at_time;
 
                             if ($i <= 0)
@@ -130,15 +132,27 @@
                             else
                                 $col_start->add(new \DateInterval('PT' . (($i * 60) - $off_min) . 'M'));
 
-                            $col_end = (clone $col_start)->add(new \DateInterval('PT1H'));
+                            $col_end = (clone $col_start)->add(new \DateInterval('PT59M59S'));
 
                             if (count($range_doses) > 0)
                                 $col_doses = $range_doses->whereBetween('due_at', [$col_start, $col_end]);
-                            else
-                                $col_doses = null;
+                            else {
+                                $col_doses = [];
+
+                                if ($i == 0 && $order->status == 'active' && $order->period_type == 'prn'){
+                                    if (count($order_doses) == 0)
+                                        $temp_dose = true;
+                                    else {
+                                        $period_span = (clone $at_time)->sub(new DateInterval('PT' . $order->getPeriodMinutes() . 'M'));
+
+                                        if (count($order_doses->whereBetween('due_at', [$period_span, $at_time])) == 0)
+                                            $temp_dose = true;
+                                    }
+                                }
+                            }
                         @endphp
 
-                        @if(!is_null($col_doses) && count($col_doses) > 0)
+                        @if(count($col_doses) > 0 || $temp_dose == true)
                             @if($order->status != 'active')
                                 <td class="border-1 border-gray text-center align-middle p-2" style="background: #ffe6ea">
                             @elseif($order->period_type == 'prn')
@@ -161,6 +175,9 @@
                                         Auth::user()->adjustDateTime($col_doses->first()->due_at)->format("H:i") }}</p>
                             @elseif(count($col_doses) > 1)
                                 {{ count($col_doses) }} Doses
+                            @elseif($temp_dose == true)
+                                <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
+                                <p>Available</p>
                             @endif
 
                             </span>

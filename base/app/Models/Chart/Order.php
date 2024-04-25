@@ -98,4 +98,21 @@ class Order extends Model
     public static array $periodunits_text = [
         'Minutes', 'Hours', 'Days', 'Weeks'
     ];
+    public function getPeriodMinutes() : int
+    {
+        switch ($this->period_unit) {
+            default:
+            case 'minute':
+                return $this->period_amount;
+
+            case 'hour':
+                return $this->period_amount * 60;
+
+            case 'day':
+                return $this->period_amount * 60 * 24;
+
+            case 'week':
+                return $this->period_amount * 60 * 24 * 7;
+        }
+    }
 }
