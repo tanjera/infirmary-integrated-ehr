@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'timezone' => timezone_identifiers_list()[$request->input('timezone', 'UTC')],
+            'timezone' => str_replace(' ', '_', $request->input('timezone', 'UTC')),
             'role' => (User::count() == 0 ? 'administrator' : 'clinician'),
         ]);
 
