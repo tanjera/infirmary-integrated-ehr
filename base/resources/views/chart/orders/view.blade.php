@@ -48,7 +48,7 @@
                     <td class="text-sm align-content-start w-25">Order:</td>
                     <td class="text-sm align-content-start w-75">
                         @php
-                            $formatted = "$order->drug $order->dose $order->dose_amount "
+                            $formatted = "$order->drug $order->dose_amount "
                             . $order->textDoseunit() . " " . $order->textRoute() . " ";
                             if ($order->period_type == 'once')
                                 $formatted .= "once. ";

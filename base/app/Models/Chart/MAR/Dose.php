@@ -16,12 +16,14 @@ class Dose extends Model
         'order',
         'due_at',
         'status',
+        'status_at',
         'status_by',
         'note'
         ];
 
     protected $casts = [
-        'due_at' => 'datetime'
+        'due_at' => 'datetime',
+        'status_at' => 'datetime'
     ];
 
     public static array $status_index = ['due', 'not_given', 'given'];

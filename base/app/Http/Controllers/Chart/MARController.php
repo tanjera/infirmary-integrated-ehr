@@ -47,6 +47,57 @@ class MARController extends Controller
         return view('chart.mar.index')->with("patient", $patient)
             ->with("orders", $orders)->with("doses", $doses)->with("at_time", $at_time);
     }
+
+    public function dose(Request $req) {
+        $dose = Dose::find($req->id);
+        $patient = Patient::find($dose->patient);
+        $order = Order::find($dose->order);
+
+        if ($req->has("at_time"))
+            $at_time = $req->at_time;
+        else
+            $at_time = (new \DateTime("now", Auth::user()->getTimeZone()));
+
+        $author_ids = $order->pluck('ordered_by')->merge($order->pluck('cosigned_by'));
+        $authors = User::select('id', 'name')->whereIn('id', $author_ids)->get();
+
+        return view('chart.mar.dose')->with("patient", $patient)->with("authors", $authors)
+            ->with("order", $order)->with("dose", $dose)->with("at_time", $at_time);
+    }
+
+    public function status(Request $req) {
+        if (!Auth::user()->canChart())
+            abort(403);
+
+        $dose = Dose::find($req->id);
+        $patient = Patient::find($dose->patient);
+
+        if ($req->has("at_time"))
+            $at_time = $req->at_time;
+        else
+            $at_time = (new \DateTime("now", Auth::user()->getTimeZone()));
+
+        return view('chart.mar.status')->with("patient", $patient)
+            ->with("dose", $dose)->with("at_time", $at_time);
+    }
+
+    public function modify(Request $req){
+        if (!Auth::user()->canChart())
+            abort(403);
+
+        $dose = Dose::find($req->id);
+
+        $dose->update([
+            'status' => str_replace(' ', '_', strtolower($req->status)),
+            'status_at' => $req->status_at,
+            'status_by' => Auth::user()->id
+        ]);
+
+        $patient = Patient::find($dose->patient);
+
+        return redirect("chart/mar/$patient->id")->with('message', "Dose status modified successfully.");
+    }
+
     public static function populateDoses(Order $order) {
         $doses = Dose::where('order', $order->id)->get();
         $patient = Patient::find($order->patient);
@@ -63,7 +114,7 @@ class MARController extends Controller
                 'patient' => $patient->id,
                 'order' => $order->id,
                 'due_at' => $order->start_time,
-                'status' => 'due',
+                'status' => 'due'
             ]);
         } else {
             for ($i = 0; $i < $order->total_doses; $i++) {
@@ -89,7 +140,7 @@ class MARController extends Controller
                     'patient' => $patient->id,
                     'order' => $order->id,
                     'due_at' => $at_time,
-                    'status' => 'due',
+                    'status' => 'due'
                 ]);
             }
         }

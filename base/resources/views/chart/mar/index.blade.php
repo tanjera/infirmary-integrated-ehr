@@ -15,9 +15,13 @@
     @section("chart_content")
         <table class="table">
             <tr>
-                <td class="border-1 border-gray text-center p-2" style="width: 10%"> </td>
+                <td class="border-1 border-gray text-center p-2" style="width: 10%">{{-- Drug Column--}}</td>
 
-                @for($i = -4; $i <= 4; $i++)
+                @php
+                    $range_amount = 4;
+                @endphp
+
+                @for($i = -$range_amount; $i <= $range_amount; $i++)
                     @php
                         $col_time = clone $at_time;
                         $off_min = intval($at_time->format('i'));
@@ -45,11 +49,11 @@
                 <tr>
 
                     @if($order->status != 'active')
-                        <td class="border-1 border-gray text-center p-2" style="background: #ffe6ea">
+                        <td class="border-1 border-gray text-center p-2" style="background: #e3cdd1">
                     @elseif($order->period_type == 'prn')
-                        <td class="border-1 border-gray text-center p-2" style="background: #ffffe5">
+                        <td class="border-1 border-gray text-center p-2" style="background: #e3e3cf">
                     @else
-                        <td class="border-1 border-gray text-center p-2" style="background: #e5f9ff">
+                        <td class="border-1 border-gray text-center p-2" style="background: #ccdee3">
                     @endif
 
                         @php
@@ -80,40 +84,45 @@
 
                         @if($order->status == 'discontinued' || $order->status == 'completed')
                             <span style="text-decoration: line-through">
-                                <p>{{ $order->drug }}</p>
-                                <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
-                                <p>{{ $formatted_period }}</p>
-                                @if(trim($formatted_note) != '')
-                                    <p class="text-xs" style="text-decoration: line-through">
-                                        {{ $formatted_note }}
-                                    </p>
-                                @endif
+                                <a href="/chart/orders/view/{{ $order->id }}">
+                                    <p>{{ $order->drug }}</p>
+                                    <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
+                                    <p>{{ $formatted_period }}</p>
+                                    @if(trim($formatted_note) != '')
+                                        <p class="text-xs" style="text-decoration: line-through">
+                                            {{ $formatted_note }}
+                                        </p>
+                                    @endif
+                                </a>
                             </span>
                         @elseif($order->status == 'pending')
                             <span style="font-style: italic">
-                                <p>{{ $order->drug }}</p>
-                                <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
-                                <p>{{ $formatted_period }}</p>
-                                @if(trim($formatted_note) != '')
-                                    <p class="text-xs" style="font-style: italic">
-                                        {{ $formatted_note }}
-                                    </p>
-                                @endif
+                                <a href="/chart/orders/view/{{ $order->id }}">
+                                    <p>{{ $order->drug }}</p>
+                                    <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
+                                    <p>{{ $formatted_period }}</p>
+                                    @if(trim($formatted_note) != '')
+                                        <p class="text-xs" style="font-style: italic">
+                                            {{ $formatted_note }}
+                                        </p>
+                                    @endif
+                                </a>
                             </span>
                         @else
-                            <p>{{ $order->drug }}</p>
-                                <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
-                            <p>{{ $formatted_period }}</p>
-                            @if(trim($formatted_note) != '')
-                                <p class="text-xs">{{ $formatted_note }}</p>
-                            @endif
+                            <a href="/chart/orders/view/{{ $order->id }}">
+                                <p>{{ $order->drug }}</p>
+                                    <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
+                                <p>{{ $formatted_period }}</p>
+                                @if(trim($formatted_note) != '')
+                                    <p class="text-xs">{{ $formatted_note }}</p>
+                                @endif
+                            </a>
                         @endif
 
                     </td>
 
                     @php
                         $off_min = intval($at_time->format('i'));
-                        $range_amount = 4;
                         $range_start = (clone $at_time)->sub(new \DateInterval('PT' . (($range_amount * 60) + $off_min) . 'M'));
                         $range_end = (clone $at_time)->add(new \DateInterval('PT' . ((($range_amount + 1) * 60) - $off_min - 1) . 'M59S'));
 
@@ -169,12 +178,33 @@
                                 <span>
                             @endif
 
-                            @if(count($col_doses) == 1)
-                                <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
-                                <p>{{ $col_doses->first()->textStatus() . ": " .
-                                        Auth::user()->adjustDateTime($col_doses->first()->due_at)->format("H:i") }}</p>
-                            @elseif(count($col_doses) > 1)
-                                {{ count($col_doses) }} Doses
+                            @if(count($col_doses) > 0)
+                                    @if(count($col_doses) == 1)
+                                        <a href="/chart/mar/dose/{{ $col_doses->first()->id }}">
+                                            <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
+                                        </a>
+                                    @else
+                                        <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
+                                    @endif
+
+                                    @foreach($col_doses as $each_dose)
+                                        <a href="/chart/mar/dose/{{ $each_dose->id }}">
+                                            @if($each_dose->status == "due")
+                                                <p style="color: red">
+                                            @elseif($each_dose->status == "not_given")
+                                                <p style="color: black">
+                                            @elseif($each_dose->status == "given")
+                                                <p style="color: gray">
+                                            @endif
+
+                                            @if(is_null($each_dose->status_at))
+                                                {{ $each_dose->textStatus() . ": " . Auth::user()->adjustDateTime($each_dose->due_at)->format("H:i") }}</p>
+                                            @else
+                                                {{ $each_dose->textStatus() . ": " . Auth::user()->adjustDateTime($each_dose->status_at)->format("H:i") }}</p>
+                                            @endif
+
+                                        </a>
+                                    @endforeach
                             @elseif($temp_dose == true)
                                 <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
                                 <p>Available</p>

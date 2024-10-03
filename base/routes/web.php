@@ -61,6 +61,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/chart/flowsheet/{id}', [ChartController::class, 'flowsheet'])->name('chart.flowsheet');
 
     Route::get('/chart/mar/{id}', [MARController::class, 'index'])->name('chart.mar');
+    Route::get('/chart/mar/dose/{id}', [MARController::class, 'dose'])->name('chart.mar.dose');
+    Route::get('/chart/mar/status/{id}', [MARController::class, 'status'])->name('chart.mar.status');
+    Route::post('/chart/mar/status/{id}', [MARController::class, 'modify'])->name('chart.mar.modify');
 });
 
 Route::middleware(['auth', 'verified', 'role:manager,administrator'])->group(function() {
