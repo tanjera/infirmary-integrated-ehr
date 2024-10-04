@@ -40,7 +40,7 @@ class MARController extends Controller
         $doses = Dose::where('patient', $patient->id)->get();
 
         if ($req->has("at_time"))
-            $at_time = $req->at_time;
+            $at_time = (new \DateTime($req->at_time, Auth::user()->getTimeZone()));
         else
             $at_time = (new \DateTime("now", Auth::user()->getTimeZone()));
 

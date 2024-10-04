@@ -1,14 +1,30 @@
 <x-chart.chart :patient="$patient" :at_time="$at_time">
 
     @section("chart_title")
-        <div class="grid grid-cols-2">
-            <div class="flex items-center">Medication Administration Record (MAR)</div>
-            <div class="flex justify-end">
-                <x-text-input id="at_time" class="block mt-1 w-full text-sm shadow-sm"
-                              name="at_time" type="datetime-local"
-                              value="{{ $at_time->format('Y-m-d\TH:i') }}"
-                              required />
-            </div>
+        <div class="grid grid-cols-3">
+            @php
+                if (gettype($at_time) == "string")
+                    $at_time = new \DateTime($at_time, Auth::user()->getTimeZone());
+            @endphp
+
+            <form method="GET" action="/chart/mar/{{$patient->id}}">
+                @csrf
+                <div class="row">
+                    <div class="col flex items-center">Medication Administration Record (MAR)</div>
+                    <div class="col items-center">
+                        <x-text-input id="at_time" class="block w-full text-sm shadow-sm"
+                                      name="at_time" type="datetime-local"
+                                      value="{{ $at_time->format('Y-m-d\TH:i') }}" />
+                    </div>
+                    <div class="col flex items-center justify-content-end">
+                        <button type="submit" name="at_time" value="{{ (clone $at_time)->sub(new \DateInterval('PT8H'))->format('c') }}"
+                                class="btn btn-outline-success mx-1 px-3 py-1 text-sm">&#8592;</button>
+                        <button type="submit" class="btn btn-outline-success mx-1 px-3 py-1 text-sm">Set Time</button>
+                        <button type="submit" name="at_time" value="{{ (clone $at_time)->add(new \DateInterval('PT8H'))->format('c') }}"
+                                class="btn btn-outline-success mx-1 px-3 py-1 text-sm">&#8594;</button>
+                    </div>
+                </div>
+            </form>
         </div>
     @endsection
 
