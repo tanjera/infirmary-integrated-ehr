@@ -1,4 +1,6 @@
-/vendor/
+/release/
+
+/base/vendor/
 node_modules/
 npm-debug.log
 yarn-error.log
