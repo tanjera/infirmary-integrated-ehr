@@ -32,7 +32,7 @@
                 </tr>
                 <tr>
                     <td class="text-sm align-content-start w-25">Timestamp:</td>
-                    <td class="text-sm align-content-start w-75">{{ Auth::user()->adjustDateTime($report->created_at)->format("d M o H:i") }}</td>
+                    <td class="text-sm align-content-start w-75">{{ Auth::user()->dt_applyTimeZone($report->created_at)->format("d M o H:i") }}</td>
                 </tr>
                 <tr>
                     <td class="text-sm align-content-start w-25">Note:</td>

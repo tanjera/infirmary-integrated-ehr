@@ -49,15 +49,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function adjustTimestamp($timestamp): \DateTime
-    {
+    public function ts_applyTimeZone($timestamp): \DateTime {
         $date = new \DateTime($timestamp);
         $date->setTimezone(new \DateTimeZone($this->timezone));
         return $date;
     }
-    public function adjustDateTime($datetime): \DateTime
-    {
-        return (clone $datetime)->setTimezone(new \DateTimeZone($this->timezone));;
+    public function dt_applyTimeZone($datetime): \DateTime {
+        return (clone $datetime)->setTimezone(new \DateTimeZone($this->timezone));
+    }
+    public function dt_revertTimeZone($datetime): \DateTime {
+        $date = new \DateTime($datetime, new \DateTimeZone($this->timezone));
+        return $date->setTimezone(new \DateTimeZone('UTC'));
     }
     public function getTimeZone(): \DateTimeZone {
         return new \DateTimeZone($this->timezone);

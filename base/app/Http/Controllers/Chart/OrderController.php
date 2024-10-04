@@ -161,8 +161,8 @@ class OrderController extends Controller
                     'category' => $req->category,
                     'method' => $req->method,
                     'priority' => $req->priority,
-                    'start_time' => $req->start_time,
-                    'end_time' => $req->end_time,
+                    'start_time' => Auth::user()->dt_revertTimeZone($req->start_time),
+                    'end_time' => is_null($req->end_time) ? null : Auth::user()->dt_revertTimeZone($req->end_time),
                     'note' => $req->note,
 
                     'drug' => $req->drug,
@@ -197,8 +197,8 @@ class OrderController extends Controller
                     'category' => $req->category,
                     'method' => $req->method,
                     'priority' => $req->priority,
-                    'start_time' => $req->start_time,
-                    'end_time' => $req->end_time,
+                    'start_time' => Auth::user()->dt_revertTimeZone($req->start_time),
+                    'end_time' => is_null($req->end_time) ? null : Auth::user()->dt_revertTimeZone($req->end_time),
                     'note' => $req->note,
 
                     'drug' => $req->drug,
@@ -233,8 +233,8 @@ class OrderController extends Controller
                 'category' => $req->category,
                 'method' => $req->method,
                 'priority' => $req->priority,
-                'start_time' => $req->start_time,
-                'end_time' => $req->end_time,
+                'start_time' => Auth::user()->dt_revertTimeZone($req->start_time),
+                'end_time' => is_null($req->end_time) ? null : Auth::user()->dt_revertTimeZone($req->end_time),
                 'note' => $req->note,
             ]);
         }

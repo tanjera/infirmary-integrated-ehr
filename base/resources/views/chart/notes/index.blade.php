@@ -31,7 +31,7 @@
                     <tr>
                         <td class="align-content-center text-sm">
                             <a href="{{ route('chart.notes.view', ['id' => $note->id]) }}">
-                                {{ Auth::user()->adjustDateTime($note->created_at)->format("d M o H:i") }}
+                                {{ Auth::user()->dt_applyTimeZone($note->created_at)->format("d M o H:i") }}
                             </a>
                         </td>
                         <td class="align-content-center text-sm">

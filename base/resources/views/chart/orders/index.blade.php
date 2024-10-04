@@ -42,7 +42,7 @@
                                     <div class="col-3">
                                         <a href="/chart/orders/view/{{ $order->id }}">
                                             <span class="text-gray-400">Start: </span>
-                                            {{ Auth::user()->adjustDateTime($order->start_time)->format("d M o H:i") }}
+                                            {{ Auth::user()->dt_applyTimeZone($order->start_time)->format("d M o H:i") }}
                                         </a>
                                     </div>
                                     <div class="col-9">
@@ -62,7 +62,7 @@
                                         <a href="/chart/orders/view/{{ $order->id }}">
                                             @if(!is_null($order->end_time))
                                                 <span class="text-gray-400">End: </span>
-                                                {{ Auth::user()->adjustDateTime($order->end_time)->format("d M o H:i") }}
+                                                {{ Auth::user()->dt_applyTimeZone($order->end_time)->format("d M o H:i") }}
                                             @else
                                                 <span class="text-gray-400">No End Date</span>
                                             @endif
@@ -145,7 +145,7 @@
                                     <div class="col-3">
                                         <a href="/chart/orders/view/{{ $order->id }}">
                                             <span class="text-gray-400">Start: </span>
-                                            {{ Auth::user()->adjustDateTime($order->start_time)->format("d M o H:i") }}
+                                            {{ Auth::user()->dt_applyTimeZone($order->start_time)->format("d M o H:i") }}
                                         </a>
                                     </div>
                                     <div class="col-9">
@@ -193,7 +193,7 @@
                                         <a href="/chart/orders/view/{{ $order->id }}">
                                             @if(!is_null($order->end_time))
                                                 <span class="text-gray-400">End: </span>
-                                                {{ Auth::user()->adjustDateTime($order->end_time)->format("d M o H:i") }}
+                                                {{ Auth::user()->dt_applyTimeZone($order->end_time)->format("d M o H:i") }}
                                             @else
                                                 <span class="text-gray-400">No End Date</span>
                                             @endif

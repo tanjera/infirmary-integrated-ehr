@@ -5,7 +5,11 @@
             <div class="flex items-center">Dose Information</div>
             <div class="flex justify-end">
                 @if(Auth::user()->canChart())
-                    <a href="/chart/mar/status/{{$dose->id}}" class="btn btn-outline-danger px-3 py-1 ms-2 text-sm">Change Dose Status</a>
+                    <a href="/chart/mar/status/{{$dose->id}}" class="btn btn-outline-danger px-3 py-1 ms-2 text-sm">Edit Status</a>
+
+                    @if($dose->status != 'given')
+                        <a href="/chart/mar/given/{{$dose->id}}" class="btn btn-outline-success px-3 py-1 ms-2 text-sm">Mark Given</a>
+                    @endif
                 @endif
             </div>
         </div>
@@ -23,7 +27,7 @@
             <tr>
                 <td class="text-sm align-content-start w-25">Due:</td>
                 <td class="text-sm align-content-start w-75">
-                    {{ Auth::user()->adjustDateTime($dose->due_at)->format("d M o H:i") }}
+                    {{ Auth::user()->dt_applyTimeZone($dose->due_at)->format("d M o H:i") }}
                 </td>
             </tr>
 
@@ -44,7 +48,7 @@
                 <tr>
                     <td class="text-sm align-content-start w-25">Time:</td>
                     <td class="text-sm align-content-start w-75">
-                        {{ Auth::user()->adjustDateTime($dose->status_at)->format("d M o H:i") }}
+                        {{ Auth::user()->dt_applyTimeZone($dose->status_at)->format("d M o H:i") }}
                     </td>
                 </tr>
 

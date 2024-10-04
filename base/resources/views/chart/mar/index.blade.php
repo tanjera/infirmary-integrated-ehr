@@ -198,9 +198,9 @@
                                             @endif
 
                                             @if(is_null($each_dose->status_at))
-                                                {{ $each_dose->textStatus() . ": " . Auth::user()->adjustDateTime($each_dose->due_at)->format("H:i") }}</p>
+                                                {{ $each_dose->textStatus() . ": " . Auth::user()->dt_applyTimeZone($each_dose->due_at)->format("H:i") }}</p>
                                             @else
-                                                {{ $each_dose->textStatus() . ": " . Auth::user()->adjustDateTime($each_dose->status_at)->format("H:i") }}</p>
+                                                {{ $each_dose->textStatus() . ": " . Auth::user()->dt_applyTimeZone($each_dose->status_at)->format("H:i") }}</p>
                                             @endif
 
                                         </a>

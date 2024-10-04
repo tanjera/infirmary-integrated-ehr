@@ -31,7 +31,7 @@
                     <tr>
                         <td class="align-content-center text-sm">
                             <a href="{{ route('chart.diagnostics.view', ['id' => $report->id]) }}">
-                                {{ Auth::user()->adjustDateTime($report->created_at)->format("d M o H:i") }}
+                                {{ Auth::user()->dt_applyTimeZone($report->created_at)->format("d M o H:i") }}
                             </a>
                         </td>
                         <td class="align-content-center text-sm">

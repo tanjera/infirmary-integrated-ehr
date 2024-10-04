@@ -65,12 +65,18 @@ class MARController extends Controller
             ->with("order", $order)->with("dose", $dose)->with("at_time", $at_time);
     }
 
-    public function status(Request $req) {
+    public function given(Request $req) {
+        return $this->status($req, true);
+    }
+    public function status(Request $req, bool $given = false) {
         if (!Auth::user()->canChart())
             abort(403);
 
         $dose = Dose::find($req->id);
         $patient = Patient::find($dose->patient);
+
+        if ($given)
+            $dose->status = 'given';
 
         if ($req->has("at_time"))
             $at_time = $req->at_time;
@@ -89,7 +95,7 @@ class MARController extends Controller
 
         $dose->update([
             'status' => str_replace(' ', '_', strtolower($req->status)),
-            'status_at' => $req->status_at,
+            'status_at' => Auth::user()->dt_revertTimeZone($req->status_at),
             'status_by' => Auth::user()->id
         ]);
 

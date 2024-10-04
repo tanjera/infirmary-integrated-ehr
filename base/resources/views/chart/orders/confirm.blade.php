@@ -83,13 +83,13 @@
 
                         <tr>
                             <td class="text-sm align-content-start w-25">Start Time:</td>
-                            <td class="text-sm align-content-start w-75">{{ Auth::user()->adjustDateTime($order->start_time)->format("d M o H:i") }}</td>
+                            <td class="text-sm align-content-start w-75">{{ Auth::user()->dt_applyTimeZone($order->start_time)->format("d M o H:i") }}</td>
                         </tr>
                         <tr>
                             <td class="text-sm align-content-start w-25">End Time:</td>
                             <td class="text-sm align-content-start w-75">
                                 @if(!is_null($order->end_time))
-                                    {{ Auth::user()->adjustDateTime($order->start_time)->format("d M o H:i") }}
+                                    {{ Auth::user()->dt_applyTimeZone($order->start_time)->format("d M o H:i") }}
                                 @else
                                     No End Time
                                 @endif
@@ -151,7 +151,7 @@
                             <td class="text-sm align-content-start w-25">Status Updated By:</td>
                             <td class="text-sm align-content-start w-75">
                                 @if(!is_null($order->status_by))
-                                    {{ $authors->find($order->status_by)->name }} at {{ Auth::user()->adjustDateTime($order->updated_at)->format("d M o H:i") }}
+                                    {{ $authors->find($order->status_by)->name }} at {{ Auth::user()->dt_applyTimeZone($order->updated_at)->format("d M o H:i") }}
                                 @else
                                     Not Applicable
                                 @endif
