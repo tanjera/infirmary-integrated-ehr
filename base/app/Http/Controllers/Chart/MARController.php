@@ -52,6 +52,7 @@ class MARController extends Controller
         $dose = Dose::find($req->id);
         $patient = Patient::find($dose->patient);
         $order = Order::find($dose->order);
+        $doses = Dose::where('order', $order->id)->get();
 
         if ($req->has("at_time"))
             $at_time = $req->at_time;
@@ -62,9 +63,24 @@ class MARController extends Controller
         $authors = User::select('id', 'name')->whereIn('id', $author_ids)->get();
 
         return view('chart.mar.dose')->with("patient", $patient)->with("authors", $authors)
-            ->with("order", $order)->with("dose", $dose)->with("at_time", $at_time);
+            ->with("order", $order)->with("dose", $dose)->with("doses", $doses)->with("at_time", $at_time);
     }
+    public function prn_dose(Request $req) {
+        $order = Order::find($req->id);
+        $patient = Patient::find($order->patient);
+        $doses = Dose::where('order', $order->id)->get();
 
+        if ($req->has("at_time"))
+            $at_time = $req->at_time;
+        else
+            $at_time = (new \DateTime("now", Auth::user()->getTimeZone()));
+
+        $author_ids = $order->pluck('ordered_by')->merge($order->pluck('cosigned_by'));
+        $authors = User::select('id', 'name')->whereIn('id', $author_ids)->get();
+
+        return view('chart.mar.prn_dose')->with("patient", $patient)->with("authors", $authors)
+            ->with("order", $order)->with("doses", $doses)->with("at_time", $at_time);
+    }
     public function given(Request $req) {
         return $this->status($req, true);
     }

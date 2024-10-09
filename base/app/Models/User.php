@@ -58,7 +58,11 @@ class User extends Authenticatable
         return (clone $datetime)->setTimezone(new \DateTimeZone($this->timezone));
     }
     public function dt_revertTimeZone($datetime): \DateTime {
-        $date = new \DateTime($datetime, new \DateTimeZone($this->timezone));
+        if (gettype($datetime) == "string")
+            $date = new \DateTime($datetime, new \DateTimeZone($this->timezone));
+        else
+            $date = (clone $datetime);
+
         return $date->setTimezone(new \DateTimeZone('UTC'));
     }
     public function getTimeZone(): \DateTimeZone {

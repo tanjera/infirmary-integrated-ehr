@@ -149,7 +149,7 @@
 
                     @for($i = -$range_amount; $i <= $range_amount; $i++)
                         @php
-                            $temp_dose = false;
+                            $prn_dose_due = false;
                             $col_start = clone $at_time;
 
                             if ($i <= 0)
@@ -161,23 +161,21 @@
 
                             if (count($range_doses) > 0)
                                 $col_doses = $range_doses->whereBetween('due_at', [$col_start, $col_end]);
-                            else {
+                            else
                                 $col_doses = [];
 
-                                if ($i == 0 && $order->status == 'active' && $order->period_type == 'prn'){
-                                    if (count($order_doses) == 0)
-                                        $temp_dose = true;
-                                    else {
-                                        $period_span = (clone $at_time)->sub(new DateInterval('PT' . $order->getPeriodMinutes() . 'M'));
-
-                                        if (count($order_doses->whereBetween('due_at', [$period_span, $at_time])) == 0)
-                                            $temp_dose = true;
-                                    }
-                                }
+                            // If it is a PRN order, check if a dose has been given in the last available timespan
+                            if ($i == 0 && $order->status == 'active' && $order->period_type == 'prn'){
+                                $period_span = (clone $at_time)->sub(new DateInterval('PT' . $order->getPeriodMinutes() . 'M'));
+                                if (count($order_doses
+                                    ->where('status', 'given')
+                                    ->whereBetween('due_at', [$period_span, $at_time])) == 0)
+                                    $prn_dose_due = true;
                             }
+
                         @endphp
 
-                        @if(count($col_doses) > 0 || $temp_dose == true)
+                        @if(count($col_doses) > 0 || $prn_dose_due)
                             @if($order->status != 'active')
                                 <td class="border-1 border-gray text-center align-middle p-2" style="background: #ffe6ea">
                             @elseif($order->period_type == 'prn')
@@ -194,36 +192,40 @@
                                 <span>
                             @endif
 
+                            @if($prn_dose_due == true)
+                                <a href="/chart/mar/prn_dose/{{ $order->id }}">
+                                    <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
+                                    <p>Available</p>
+                                </a>
+                            @endif
+
                             @if(count($col_doses) > 0)
-                                    @if(count($col_doses) == 1)
-                                        <a href="/chart/mar/dose/{{ $col_doses->first()->id }}">
-                                            <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
-                                        </a>
-                                    @else
+                                @if(count($col_doses) == 1)
+                                    <a href="/chart/mar/dose/{{ $col_doses->first()->id }}">
                                         <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
-                                    @endif
+                                    </a>
+                                @else
+                                    <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
+                                @endif
 
-                                    @foreach($col_doses as $each_dose)
-                                        <a href="/chart/mar/dose/{{ $each_dose->id }}">
-                                            @if($each_dose->status == "due")
-                                                <p style="color: red">
-                                            @elseif($each_dose->status == "not_given")
-                                                <p style="color: black">
-                                            @elseif($each_dose->status == "given")
-                                                <p style="color: gray">
-                                            @endif
+                                @foreach($col_doses as $each_dose)
+                                    <a href="/chart/mar/dose/{{ $each_dose->id }}">
+                                        @if($each_dose->status == "due")
+                                            <p style="color: red">
+                                        @elseif($each_dose->status == "not_given")
+                                            <p style="color: black">
+                                        @elseif($each_dose->status == "given")
+                                            <p style="color: gray">
+                                        @endif
 
-                                            @if(is_null($each_dose->status_at))
-                                                {{ $each_dose->textStatus() . ": " . Auth::user()->dt_applyTimeZone($each_dose->due_at)->format("H:i") }}</p>
-                                            @else
-                                                {{ $each_dose->textStatus() . ": " . Auth::user()->dt_applyTimeZone($each_dose->status_at)->format("H:i") }}</p>
-                                            @endif
+                                        @if(is_null($each_dose->status_at))
+                                            {{ $each_dose->textStatus() . ": " . Auth::user()->dt_applyTimeZone($each_dose->due_at)->format("H:i") }}</p>
+                                        @else
+                                            {{ $each_dose->textStatus() . ": " . Auth::user()->dt_applyTimeZone($each_dose->status_at)->format("H:i") }}</p>
+                                        @endif
 
-                                        </a>
-                                    @endforeach
-                            @elseif($temp_dose == true)
-                                <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
-                                <p>Available</p>
+                                    </a>
+                                @endforeach
                             @endif
 
                             </span>
