@@ -162,6 +162,56 @@
                 </td>
             </tr>
 
+            @if($order->category == 'medication')
+                <tr>
+                    <th class="text-md align-content-start" colspan="2">
+                        Doses
+                    </th>
+                </tr>
+
+                @php
+                    $doses = \App\Models\Chart\MAR\Dose::where('order', $order->id)->get();
+                @endphp
+
+                @if($doses->count() == 0)
+                    <tr>
+                        <td class="text-sm align-content-start w-25"></td>
+                        <td class="text-sm align-content-start w-75">
+                            No Doses Administered
+                        </td>
+                    </tr>
+                @endif
+
+                @foreach($doses as $dose)
+                    <tr>
+                        <td class="text-sm align-content-start w-25"></td>
+                        <td class="text-sm align-content-start w-75">
+                            <a href="/chart/mar/q_dose/{{ $dose->id }}">
+                                @if($dose->status == "due")
+                                    <span style="color: red">
+                                @elseif($dose->status == "not_given")
+                                    <span style="color: black">
+                                @elseif($dose->status == "given")
+                                    <span style="color: gray">
+                                @endif
+                                    {{ $dose->textStatus() }}
+                                </span>
+
+                                at
+
+                                @if(!is_null($dose->status_at))
+                                    {{ Auth::user()->dt_applyTimeZone($dose->status_at)->format("d M o H:i") }}
+                                    (due {{ Auth::user()->dt_applyTimeZone($dose->due_at)->format("d M o H:i") }})
+                                @else
+                                    {{ Auth::user()->dt_applyTimeZone($dose->due_at)->format("d M o H:i") }}
+                                @endif
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+
+            @endif
+
             </tbody>
         </table>
     @endsection
