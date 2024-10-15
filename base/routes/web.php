@@ -61,12 +61,14 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/chart/flowsheet/{id}', [ChartController::class, 'flowsheet'])->name('chart.flowsheet');
 
     Route::get('/chart/mar/{id}', [MARController::class, 'index'])->name('chart.mar');
-    Route::get('/chart/mar/dose/{id}', [MARController::class, 'dose'])->name('chart.mar.dose');
+    Route::get('/chart/mar/q_dose/{id}', [MARController::class, 'q_dose'])->name('chart.mar.q_dose');
+    Route::get('/chart/mar/q_given/{id}', [MARController::class, 'q_given'])->name('chart.mar.q_given');
+    Route::get('/chart/mar/q_status/{id}', [MARController::class, 'q_status'])->name('chart.mar.q_status');
+    Route::post('/chart/mar/q_status/{id}', [MARController::class, 'q_modify'])->name('chart.mar.q_modify');
+
     Route::get('/chart/mar/prn_dose/{id}', [MARController::class, 'prn_dose'])->name('chart.mar.prn_dose');
-    Route::get('/chart/mar/given/{id}', [MARController::class, 'given'])->name('chart.mar.given');
     Route::get('/chart/mar/prn_given/{id}', [MARController::class, 'prn_given'])->name('chart.mar.prn_given');
-    Route::get('/chart/mar/status/{id}', [MARController::class, 'status'])->name('chart.mar.status');
-    Route::post('/chart/mar/status/{id}', [MARController::class, 'modify'])->name('chart.mar.modify');
+    Route::post('/chart/mar/prn_status/{id}', [MARController::class, 'prn_modify'])->name('chart.mar.prn_modify');
 });
 
 Route::middleware(['auth', 'verified', 'role:manager,administrator'])->group(function() {

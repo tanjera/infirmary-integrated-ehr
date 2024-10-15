@@ -48,7 +48,7 @@ class MARController extends Controller
             ->with("orders", $orders)->with("doses", $doses)->with("at_time", $at_time);
     }
 
-    public function dose(Request $req) {
+    public function q_dose(Request $req) {
         $dose = Dose::find($req->id);
         $patient = Patient::find($dose->patient);
         $order = Order::find($dose->order);
@@ -62,7 +62,7 @@ class MARController extends Controller
         $author_ids = $order->pluck('ordered_by')->merge($order->pluck('cosigned_by'));
         $authors = User::select('id', 'name')->whereIn('id', $author_ids)->get();
 
-        return view('chart.mar.dose')->with("patient", $patient)->with("authors", $authors)
+        return view('chart.mar.q_dose')->with("patient", $patient)->with("authors", $authors)
             ->with("order", $order)->with("dose", $dose)->with("doses", $doses)->with("at_time", $at_time);
     }
     public function prn_dose(Request $req) {
@@ -81,29 +81,54 @@ class MARController extends Controller
         return view('chart.mar.prn_dose')->with("patient", $patient)->with("authors", $authors)
             ->with("order", $order)->with("doses", $doses)->with("at_time", $at_time);
     }
-    public function given(Request $req) {
-        return $this->status($req, true);
-    }
-    public function status(Request $req, bool $given = false) {
+    public function q_given(Request $req) {
         if (!Auth::user()->canChart())
             abort(403);
 
         $dose = Dose::find($req->id);
         $patient = Patient::find($dose->patient);
 
-        if ($given)
-            $dose->status = 'given';
+        $dose->status = 'given';
 
         if ($req->has("at_time"))
             $at_time = $req->at_time;
         else
             $at_time = (new \DateTime("now", Auth::user()->getTimeZone()));
 
-        return view('chart.mar.status')->with("patient", $patient)
+        return view('chart.mar.q_status')->with("patient", $patient)
             ->with("dose", $dose)->with("at_time", $at_time);
     }
+    public function q_status(Request $req) {
+        if (!Auth::user()->canChart())
+            abort(403);
 
-    public function modify(Request $req){
+        $dose = Dose::find($req->id);
+        $patient = Patient::find($dose->patient);
+
+        if ($req->has("at_time"))
+            $at_time = $req->at_time;
+        else
+            $at_time = (new \DateTime("now", Auth::user()->getTimeZone()));
+
+        return view('chart.mar.q_status')->with("patient", $patient)
+            ->with("dose", $dose)->with("at_time", $at_time);
+    }
+    public function prn_given(Request $req) {
+        if (!Auth::user()->canChart())
+            abort(403);
+
+        $order = Order::find($req->id);
+        $patient = Patient::find($order->patient);
+
+        if ($req->has("at_time"))
+            $at_time = $req->at_time;
+        else
+            $at_time = (new \DateTime("now", Auth::user()->getTimeZone()));
+
+        return view('chart.mar.prn_status')->with("patient", $patient)
+            ->with("order", $order)->with("at_time", $at_time);
+    }
+    public function q_modify(Request $req){
         if (!Auth::user()->canChart())
             abort(403);
 
@@ -112,14 +137,33 @@ class MARController extends Controller
         $dose->update([
             'status' => str_replace(' ', '_', strtolower($req->status)),
             'status_at' => Auth::user()->dt_revertTimeZone($req->status_at),
-            'status_by' => Auth::user()->id
+            'status_by' => Auth::user()->id,
+            'note' => $req->note
         ]);
 
         $patient = Patient::find($dose->patient);
 
         return redirect("chart/mar/$patient->id")->with('message', "Dose status modified successfully.");
     }
+    public function prn_modify(Request $req){
+        if (!Auth::user()->canChart())
+            abort(403);
 
+        $order = Order::find($req->id);
+        $patient = Patient::find($order->patient);
+
+        Dose::create([
+            'patient' => $patient->id,
+            'order' => $order->id,
+            'due_at' => Auth::user()->dt_revertTimeZone($req->status_at),
+            'status' => str_replace(' ', '_', strtolower($req->status)),
+            'status_at' => Auth::user()->dt_revertTimeZone($req->status_at),
+            'status_by' => Auth::user()->id,
+            'note' => $req->note
+        ]);
+
+        return redirect("chart/mar/$patient->id")->with('message', "Dose status modified successfully.");
+    }
     public static function populateDoses(Order $order) {
         $doses = Dose::where('order', $order->id)->get();
         $patient = Patient::find($order->patient);

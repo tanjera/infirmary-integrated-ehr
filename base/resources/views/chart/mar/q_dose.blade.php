@@ -5,10 +5,10 @@
             <div class="flex items-center">Dose Information</div>
             <div class="flex justify-end">
                 @if(Auth::user()->canChart())
-                    <a href="/chart/mar/status/{{$dose->id}}" class="btn btn-outline-danger px-3 py-1 ms-2 text-sm">Edit Status</a>
+                    <a href="/chart/mar/q_status/{{$dose->id}}" class="btn btn-outline-danger px-3 py-1 ms-2 text-sm">Edit Status</a>
 
                     @if($dose->status != 'given')
-                        <a href="/chart/mar/given/{{$dose->id}}" class="btn btn-outline-success px-3 py-1 ms-2 text-sm">Mark Given</a>
+                        <a href="/chart/mar/q_given/{{$dose->id}}" class="btn btn-outline-success px-3 py-1 ms-2 text-sm">Mark Given</a>
                     @endif
                 @endif
             </div>
@@ -35,6 +35,13 @@
                 <td class="text-sm align-content-start w-25">Status:</td>
                 <td class="text-sm align-content-start w-75">
                     {{ $dose->textStatus() }}
+                </td>
+            </tr>
+
+            <tr>
+                <td class="text-sm align-content-start w-25">Note:</td>
+                <td class="text-sm align-content-start w-75">
+                    {{ is_null($dose->note) ? "Empty" : $dose->note }}
                 </td>
             </tr>
 

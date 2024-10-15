@@ -8,7 +8,7 @@
     @endsection
 
     @section("chart_content")
-        <form method="POST" action="/chart/mar/status/{{$dose->id}}">
+        <form method="POST" action="/chart/mar/prn_status/{{$order->id}}">
             @csrf
 
             <table class="table">
@@ -27,7 +27,7 @@
                         <select id="category" class="block mt-1 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                                 name="status" required>
                             @foreach(\App\Models\Chart\MAR\Dose::$status_text as $status)
-                                <option value="{{ $status }}" {{ $status == $dose->textStatus() ? "selected" : ""}}>
+                                <option value="{{ $status }}" {{ $status == "Given" ? "selected" : ""}}>
                                     {{ ucfirst($status) }}
                                 </option>
                             @endforeach
@@ -69,7 +69,7 @@
 
             <div class="relative grid grid-cols-2 flex w-auto gap-6 p-2 items-center">
                 <div class="flex justify-center">
-                    <a href="/chart/mar/dose/{{$dose->id}}" class="btn btn-outline-danger px-3 py-1 text-sm">Cancel</a>
+                    <a href="/chart/mar/prn_dose/{{$order->id}}" class="btn btn-outline-danger px-3 py-1 text-sm">Cancel</a>
                 </div>
                 <div class="flex justify-center">
                     @if(Auth::user()->canChart())

@@ -201,7 +201,7 @@
 
                             @if(count($col_doses) > 0)
                                 @if(count($col_doses) == 1)
-                                    <a href="/chart/mar/dose/{{ $col_doses->first()->id }}">
+                                    <a href="/chart/mar/q_dose/{{ $col_doses->first()->id }}">
                                         <p>{{ $order->dose_amount . " " . $order->textDoseunit() . " " . $order->textRoute() }}</p>
                                     </a>
                                 @else
@@ -209,7 +209,7 @@
                                 @endif
 
                                 @foreach($col_doses as $each_dose)
-                                    <a href="/chart/mar/dose/{{ $each_dose->id }}">
+                                    <a href="/chart/mar/q_dose/{{ $each_dose->id }}">
                                         @if($each_dose->status == "due")
                                             <p style="color: red">
                                         @elseif($each_dose->status == "not_given")
