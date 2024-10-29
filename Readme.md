@@ -35,7 +35,7 @@ Instructions are provided with commands for setting up Infirmary Integrated's EH
 
 <u>Preparing the installation as a web service:</u>
 
-14. The `storage` and `bootstrap/cache` directories need to be <u>writable</u> by the web server- this can be achieved with the command `sudo chown -R www-data:www-data storage/ bootstrap/cache/`
+14. The `storage`, `bootstrap/cache`, and `database` (if using `sqlite`) directories need to be <u>writable</u> by the web server- this can be achieved with the command `sudo chown -R www-data:www-data storage/ bootstrap/cache/ database/`
 
 **The project is now ready to be hosted!** For testing or evaluation purposes, running `npm run build` will host your project locally but will not persist across reboots. For a persistent web service, you will need to set up a web server. Instructions for setting up a persistent web server are below, but you will still need to configure the installation with the following instructions.
 
