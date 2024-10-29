@@ -35,16 +35,16 @@ Instructions are provided with commands for setting up Infirmary Integrated's EH
 
 <u>Preparing the installation as a web service:</u>
 
-14. The `storage`, `bootstrap/cache`, and `database` (if using `sqlite`) directories need to be <u>writable</u> by the web server- this can be achieved with the command `sudo chown -R www-data:www-data storage/ bootstrap/cache/ database/`
+15. The `storage`, `bootstrap/cache`, and `database` (if using `sqlite`) directories need to be <u>writable</u> by the web server- this can be achieved with the command `sudo chown -R www-data:www-data storage/ bootstrap/cache/ database/`
 
 **The project is now ready to be hosted!** For testing or evaluation purposes, running `npm run build` will host your project locally but will not persist across reboots. For a persistent web service, you will need to set up a web server. Instructions for setting up a persistent web server are below, but you will still need to configure the installation with the following instructions.
 
 <u>Configuring Infirmary Integrated: Electronic Health Record</u>
 
-15. The installation must be hosted by a temporary or persistent web server for configuration- you can use `npm run build` for this purpose.
-16. In a web browser, navigate to the installation's homepage. If on the installation machine, `http://localhost` or else you will need to navigate to the host's IP address.
-17. Register as a new user. <u>The first user registered to the site automatically receives `administrator` privileges as an intentional part of this setup process.</u> All following users who register will receive minimal privileges.
-18. Proceed into the Electronic Health Record and browse or customize as you'd like!
+16. The installation must be hosted by a temporary or persistent web server for configuration- you can use `npm run build` for this purpose.
+17. In a web browser, navigate to the installation's homepage. If on the installation machine, `http://localhost` or else you will need to navigate to the host's IP address.
+18. Register as a new user. <u>The first user registered to the site automatically receives `administrator` privileges as an intentional part of this setup process.</u> All following users who register will receive minimal privileges.
+19. Proceed into the Electronic Health Record and browse or customize as you'd like!
 
 <u>Optional: Setting up an nginx web server:</u>
 
